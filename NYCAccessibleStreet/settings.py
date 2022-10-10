@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainmap.apps.MainmapConfig',
+    'landing_map.apps.LandingMapConfig'
 ]
 
 MIDDLEWARE = [
