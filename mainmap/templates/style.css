@@ -1,0 +1,6 @@
+p.accessible {
+    color:green;
+}
+p.not_accessible{
+    color:red;
+}
