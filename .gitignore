@@ -110,7 +110,7 @@ ENV/
 env.bak/
 venv.bak/
 
-# DS store
+# DS Store
 .DS_Store
 
 # Spyder project settings
@@ -130,3 +130,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
