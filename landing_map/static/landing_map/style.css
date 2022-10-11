@@ -1,0 +1,12 @@
+nav.navbar{
+    background-color:#18435A;}
+p.accessible{
+    color:#4F7C5E;}
+p.not_accessible{
+    color:#BC4F00;}
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 98%;
+    height: 650px; }
