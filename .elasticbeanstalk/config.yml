@@ -1,5 +1,5 @@
 branch-defaults:
-  issue29_Claudia_Test-Init-with-pipeline:
+  develop:
     environment: NYCAccessibleStreets-env
     group_suffix: null
 global:
