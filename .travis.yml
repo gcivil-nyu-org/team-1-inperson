@@ -6,7 +6,12 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - python3 manage.py test
+  - python -m black . --check
+  - flake8 .
+  - coverage run --source=hello,polls manage.py test
+
+after_script:
+  - python -m coveralls
 
 deploy:
   - provider: elasticbeanstalk
@@ -17,4 +22,4 @@ deploy:
     env: 'NYCAccessibleStreets-env'
     bucket_name: 'elasticbeanstalk-us-east-1-978364673633'
     on:
-      all_branches: true
+      branch: develop
