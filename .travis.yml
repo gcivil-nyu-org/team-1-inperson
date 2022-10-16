@@ -8,7 +8,7 @@ install:
 script:
   - python -m black . --check
   - flake8 .
-  - coverage run --source=hello,polls manage.py test
+  - coverage run --source=NYCAccessibleStreet,landing_map manage.py test
 
 after_script:
   - python -m coveralls
