@@ -10,3 +10,50 @@ p.not_accessible{
     bottom: 0;
     width: 98%;
     height: 650px; }
+
+/* filter button styling */
+.filter{
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.filter p{
+    font-weight: bold;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.filter button{
+    margin-left: auto;
+    width: 100px;
+    background-color: #18435A;
+}
+
+/* dropdown menu */
+.dropdown-menu{
+    padding: 20px;
+    width: 300px;
+}
+
+.dropdown-menu button{
+    margin-top: 20px;
+    width: 125px;
+    background-color: #18435A;
+}
+
+.dropdown-menu #clear{
+    background-color: transparent;
+    color: #18435A;
+    font-weight: bold;
+}
+
+.dropdown-menu .form-check label{
+    font-weight: 400;
+}
+
+.dropdown-menu .form-check #fav{
+    font-weight: bold;
+    /* margin-right: 100px; */
+}
