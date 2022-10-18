@@ -19,20 +19,22 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 
+<!-- navigation bar -->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">NYC Accessible Streets</a>
+            <a class="nav-brand" href="/">NYC Accessible Streets</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Help</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a class = "nav-list" href="#">Help</a></li>
+            <li><a class = "nav-list" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a class = "nav-list" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
 </nav>
 <div class="container-fluid">
     <div class="row">
+        <!-- side panel with search, filter, pin cards -->
         <div class="col-md-4">
  
             <div class="filter">
@@ -95,9 +97,112 @@
                     </div>
                 </div>
             </div>
-        
+            <!-- pin card detail modals-->
+            <!-- details modal 1 -->
+            <div id="pin_1_details" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">street name & street name, XX corner</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p class="accessible">2 accessible ramps</p>
+                            <p class="not_accessible">0 accessible signals</p>
+                            <p class="not_accessible">User reported signals not working at this intersection</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- details modal 2 -->
+            <div id="pin_2_details" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">street name & street name, XX corner</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p class="accessible">2 accessible ramps</p>
+                            <p class="accessible">1 accessible signals</p>
+                            <p class="accessible">No issues reported at this location</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- details modal 3 -->
+            <div id="pin_3_details" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">street name & street name, XX corner</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p class="accessible">2 accessible ramps</p>
+                            <p class="not_accessible">0 accessible signals</p>
+                            <p class="not_accessible">User reported signals not working at this intersection</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- details modal 4 -->
+            <div id="pin_4_details" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">street name & street name, XX corner</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p class="accessible">2 accessible ramps</p>
+                            <p class="not_accessible">0 accessible signals</p>
+                            <p class="not_accessible">User reported signals not working at this intersection</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- details modal 5 -->
+            <div id="pin_5_details" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">street name & street name, XX corner</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p class="accessible">2 accessible ramps</p>
+                            <p class="not_accessible">0 accessible signals</p>
+                            <p class="not_accessible">User reported signals not working at this intersection</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pin cards -->
             <div class = 'cards'>
-                <div class="well well-lg">
+                <!-- pin card 1 -->
+                <div class="well well-lg" data-toggle="modal" data-target="#pin_1_details">
                     <h4>street name & street name, XX corner</h4>
                     <p class="accessible">2 accessible ramps</p>
                     <p class="not_accessible">0 accessible signals</p>
@@ -105,7 +210,8 @@
                         <span class="glyphicon glyphicon-star"></span> Star
                     </button>
                 </div>
-                <div class="well well-lg">
+                <!-- pin card 2 -->
+                <div class="well well-lg" data-toggle="modal" data-target="#pin_2_details">
                     <h4>street name & street name, XX corner</h4>
                     <p class="accessible">2 accessible ramps</p>
                     <p class="accessible">1 accessible signals</p>
@@ -113,7 +219,8 @@
                         <span class="glyphicon glyphicon-star-empty"></span> Star
                     </button>
                 </div>
-                <div class="well well-lg">
+                <!-- pin card 3 -->
+                <div class="well well-lg" data-toggle="modal" data-target="#pin_3_details">
                     <h4>street name & street name, XX corner</h4>
                     <p class="accessible">2 accessible ramps</p>
                     <p class="not_accessible">0 accessible signals</p>
@@ -121,7 +228,8 @@
                         <span class="glyphicon glyphicon-star-empty"></span> Star
                     </button>
                 </div>
-                <div class="well well-lg">
+                <!-- pin card 4 -->
+                <div class="well well-lg" data-toggle="modal" data-target="#pin_4_details">
                     <h4>street name & street name, XX corner</h4>
                     <p class="accessible">2 accessible ramps</p>
                     <p class="not_accessible">0 accessible signals</p>
@@ -129,7 +237,8 @@
                         <span class="glyphicon glyphicon-star-empty"></span> Star
                     </button>
                 </div>
-                <div class="well well-lg">
+                <!-- pin card 5 -->
+                <div class="well well-lg" data-toggle="modal" data-target="#pin_5_details">
                     <h4>street name & street name, XX corner</h4>
                     <p class="accessible">2 accessible ramps</p>
                     <p class="not_accessible">0 accessible signals</p>
@@ -142,6 +251,7 @@
             
 
         </div>
+        <!-- map -->
         <div class="col-md-8">
             <div id="map"></div>
         </div>
