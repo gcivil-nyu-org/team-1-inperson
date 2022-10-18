@@ -33,229 +33,225 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <div class="row">
-        <!-- side panel with search, filter, pin cards -->
-        <div class="col-md-4">
- 
-            <div class="filter">
-                <p>5 results</p>
-                
-                <div class="dropdown">
-                    <button type="button" class="btn btn-primary dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-filter"></span> 
-                        filter
-                    </button>
+    <!-- side panel with search, filter, pin cards -->
+    <div class="col-md-4">
+        <div class="filter">
+            <p>5 results</p>
 
-                    <div class="dropdown-menu">
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-filter"></span>
+                    filter
+                </button>
 
-                        <div class="form-check form-switch">
-                            <label class="form-check-label" id="fav" for="flexCheckDefault">
-                              Favorites only
-                            </label>
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                        </div>
-                        
+                <div class="dropdown-menu">
 
-                        <!-- infrastructure displayed -->
-                        <p class="dropdown-item">displayed info</p>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              accessible ramps
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              accessible pedestrian signals
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              raised sidewalks
-                            </label>
-                        </div>
-                        
-                        <!-- status of infrastructure -->
-                        <p class="dropdown-item">status</p>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              currently accessible
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              currently inaccessible
-                            </label>
-                        </div>
-
-                        <button class="dropdown-item btn btn-light shadow-none" id="clear" type="button">Clear</button>
-                        <button class="dropdown-item btn btn-primary shadow-none" type="button">Apply Filter</button>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" id="fav" for="flexCheckDefault">
+                            Favorites only
+                        </label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                     </div>
-                </div>
-            </div>
-            <!-- pin card detail modals-->
-            <!-- details modal 1 -->
-            <div id="pin_1_details" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">street name & street name, XX corner</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="accessible">2 accessible ramps</p>
-                            <p class="not_accessible">0 accessible signals</p>
-                            <p class="not_accessible">User reported signals not working at this intersection</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- details modal 2 -->
-            <div id="pin_2_details" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">street name & street name, XX corner</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="accessible">2 accessible ramps</p>
-                            <p class="accessible">1 accessible signals</p>
-                            <p class="accessible">No issues reported at this location</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- details modal 3 -->
-            <div id="pin_3_details" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">street name & street name, XX corner</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="accessible">2 accessible ramps</p>
-                            <p class="not_accessible">0 accessible signals</p>
-                            <p class="not_accessible">User reported signals not working at this intersection</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- details modal 4 -->
-            <div id="pin_4_details" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">street name & street name, XX corner</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="accessible">2 accessible ramps</p>
-                            <p class="not_accessible">0 accessible signals</p>
-                            <p class="not_accessible">User reported signals not working at this intersection</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- details modal 5 -->
-            <div id="pin_5_details" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">street name & street name, XX corner</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p class="accessible">2 accessible ramps</p>
-                            <p class="not_accessible">0 accessible signals</p>
-                            <p class="not_accessible">User reported signals not working at this intersection</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Pin cards -->
-            <div class = 'cards'>
-                <!-- pin card 1 -->
-                <div class="well well-lg" data-toggle="modal" data-target="#pin_1_details">
-                    <h4>street name & street name, XX corner</h4>
-                    <p class="accessible">2 accessible ramps</p>
-                    <p class="not_accessible">0 accessible signals</p>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-star"></span> Star
-                    </button>
-                </div>
-                <!-- pin card 2 -->
-                <div class="well well-lg" data-toggle="modal" data-target="#pin_2_details">
-                    <h4>street name & street name, XX corner</h4>
-                    <p class="accessible">2 accessible ramps</p>
-                    <p class="accessible">1 accessible signals</p>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-star-empty"></span> Star
-                    </button>
-                </div>
-                <!-- pin card 3 -->
-                <div class="well well-lg" data-toggle="modal" data-target="#pin_3_details">
-                    <h4>street name & street name, XX corner</h4>
-                    <p class="accessible">2 accessible ramps</p>
-                    <p class="not_accessible">0 accessible signals</p>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-star-empty"></span> Star
-                    </button>
-                </div>
-                <!-- pin card 4 -->
-                <div class="well well-lg" data-toggle="modal" data-target="#pin_4_details">
-                    <h4>street name & street name, XX corner</h4>
-                    <p class="accessible">2 accessible ramps</p>
-                    <p class="not_accessible">0 accessible signals</p>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-star-empty"></span> Star
-                    </button>
-                </div>
-                <!-- pin card 5 -->
-                <div class="well well-lg" data-toggle="modal" data-target="#pin_5_details">
-                    <h4>street name & street name, XX corner</h4>
-                    <p class="accessible">2 accessible ramps</p>
-                    <p class="not_accessible">0 accessible signals</p>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-star-empty"></span> Star
-                    </button>
+
+                    <!-- infrastructure displayed -->
+                    <p class="dropdown-item">displayed info</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            accessible ramps
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            accessible pedestrian signals
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            raised sidewalks
+                        </label>
+                    </div>
+
+                    <!-- status of infrastructure -->
+                    <p class="dropdown-item">status</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            currently accessible
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            currently inaccessible
+                        </label>
+                    </div>
+
+                    <button class="dropdown-item btn btn-light shadow-none" id="clear" type="button">Clear</button>
+                    <button class="dropdown-item btn btn-primary shadow-none" type="button">Apply Filter</button>
                 </div>
             </div>
-
-            
-
         </div>
-        <!-- map -->
-        <div class="col-md-8">
-            <div id="map"></div>
+        <!-- pin card detail modals-->
+        <!-- details modal 1 -->
+        <div id="pin_1_details" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">street name & street name, XX corner</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="accessible">2 accessible ramps</p>
+                        <p class="not_accessible">0 accessible signals</p>
+                        <p class="not_accessible">User reported signals not working at this intersection</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- details modal 2 -->
+        <div id="pin_2_details" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">street name & street name, XX corner</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="accessible">2 accessible ramps</p>
+                        <p class="accessible">1 accessible signals</p>
+                        <p class="accessible">No issues reported at this location</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- details modal 3 -->
+        <div id="pin_3_details" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">street name & street name, XX corner</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="accessible">2 accessible ramps</p>
+                        <p class="not_accessible">0 accessible signals</p>
+                        <p class="not_accessible">User reported signals not working at this intersection</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- details modal 4 -->
+        <div id="pin_4_details" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">street name & street name, XX corner</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="accessible">2 accessible ramps</p>
+                        <p class="not_accessible">0 accessible signals</p>
+                        <p class="not_accessible">User reported signals not working at this intersection</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- details modal 5 -->
+        <div id="pin_5_details" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">street name & street name, XX corner</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="accessible">2 accessible ramps</p>
+                        <p class="not_accessible">0 accessible signals</p>
+                        <p class="not_accessible">User reported signals not working at this intersection</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pin cards -->
+        <div class='cards'>
+            <!-- pin card 1 -->
+            <div class="well well-lg" data-toggle="modal" data-target="#pin_1_details">
+                <h4>street name & street name, XX corner</h4>
+                <p class="accessible">2 accessible ramps</p>
+                <p class="not_accessible">0 accessible signals</p>
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-star"></span> Star
+                </button>
+            </div>
+            <!-- pin card 2 -->
+            <div class="well well-lg" data-toggle="modal" data-target="#pin_2_details">
+                <h4>street name & street name, XX corner</h4>
+                <p class="accessible">2 accessible ramps</p>
+                <p class="accessible">1 accessible signals</p>
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-star-empty"></span> Star
+                </button>
+            </div>
+            <!-- pin card 3 -->
+            <div class="well well-lg" data-toggle="modal" data-target="#pin_3_details">
+                <h4>street name & street name, XX corner</h4>
+                <p class="accessible">2 accessible ramps</p>
+                <p class="not_accessible">0 accessible signals</p>
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-star-empty"></span> Star
+                </button>
+            </div>
+            <!-- pin card 4 -->
+            <div class="well well-lg" data-toggle="modal" data-target="#pin_4_details">
+                <h4>street name & street name, XX corner</h4>
+                <p class="accessible">2 accessible ramps</p>
+                <p class="not_accessible">0 accessible signals</p>
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-star-empty"></span> Star
+                </button>
+            </div>
+            <!-- pin card 5 -->
+            <div class="well well-lg" data-toggle="modal" data-target="#pin_5_details">
+                <h4>street name & street name, XX corner</h4>
+                <p class="accessible">2 accessible ramps</p>
+                <p class="not_accessible">0 accessible signals</p>
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-star-empty"></span> Star
+                </button>
+            </div>
         </div>
     </div>
+
+    <!-- map -->
+    <div class="col-md-8">
+        <div id="map"></div>
+    </div>
+</div>
 </div>
 
 <footer class="container-fluid text-center">
