@@ -1,5 +1,27 @@
+
+/* navbar styling */
 nav.navbar{
-    background-color:#18435A;}
+    background-color:#18435A;
+    }
+a.nav-brand {
+    color: #FFFFFF;
+    font-size:2em;
+}
+
+a.nav-list{
+    color: #FFFFFF !important;
+    font-size:1.2em;
+}
+/*
+body{
+    overflow: hidden;
+    }
+*/
+/* pin card styling */
+div.cards{
+    height:500px;
+    overflow-y: scroll
+}
 p.accessible{
     color:#4F7C5E;}
 p.not_accessible{
@@ -9,7 +31,7 @@ p.not_accessible{
     top: 0;
     bottom: 0;
     width: 98%;
-    height: 650px; }
+    height: 550px; }
 
 /* filter button styling */
 .filter{
