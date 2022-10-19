@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'landing_map.apps.LandingMapConfig',
     'report.apps.ReportConfig'
-]
+    'accounts',
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -132,3 +132,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
    BASE_DIR / "static",
 ]
+LOGIN_REDIRECT_URL='home'
+LOGOUT_REDIRECT_URL='home'
