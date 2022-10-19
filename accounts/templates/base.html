@@ -1,0 +1,25 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}App{% endblock %}</title>
+  <style>
+  .center{
+    text-align:center
+  }
+  </style>
+  <style>
+  .template{
+    background-color:#18435A;
+    color:white;
+  }
+  </style>
+</head>
+<body>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>
