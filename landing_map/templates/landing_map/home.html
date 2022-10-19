@@ -18,7 +18,7 @@
 <!-- Load the `mapbox-gl-geocoder` plugin. -->
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
-
+{% if user.is_authenticated %}
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -26,11 +26,24 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Help</a></li>
-            <li><a href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="accounts/logout"> Log Out</a></li>
         </ul>
     </div>
 </nav>
+{% else %}
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">NYC Accessible Streets</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Help</a></li>
+            <li><a href="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+</nav>
+{% endif%}
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
