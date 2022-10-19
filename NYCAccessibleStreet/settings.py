@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'landing_map.apps.LandingMapConfig',
     'report.apps.ReportConfig',
-    'accounts'
+    'accounts',
 ]
 
 MIDDLEWARE = [
