@@ -11,20 +11,32 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('landing_map', '0001_initial'),
+        ("landing_map", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Report',
+            name="Report",
             fields=[
-                ('reportID', models.AutoField(primary_key=True, serialize=False)),
-                ('updatedAt', models.DateTimeField(auto_now=True)),
-                ('createdAt', models.DateTimeField(auto_now_add=True)),
-                ('isResolved', models.BooleanField(default=False)),
-                ('dateTimeOfResolution', models.DateTimeField()),
-                ('infraID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='landing_map.Accessible_location')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ("reportID", models.AutoField(primary_key=True, serialize=False)),
+                ("updatedAt", models.DateTimeField(auto_now=True)),
+                ("createdAt", models.DateTimeField(auto_now_add=True)),
+                ("isResolved", models.BooleanField(default=False)),
+                ("dateTimeOfResolution", models.DateTimeField()),
+                (
+                    "infraID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="landing_map.Accessible_location",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

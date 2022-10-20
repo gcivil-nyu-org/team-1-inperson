@@ -8,5 +8,6 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy("login")
     template_name = "accounts/registration/signup.html"
 
+
 # class loginview(generic.CreateView):
 #     template_name="accounts/registration/login.html"
