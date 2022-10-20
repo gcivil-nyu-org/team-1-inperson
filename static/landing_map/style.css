@@ -27,11 +27,8 @@ p.accessible{
 p.not_accessible{
     color:#BC4F00;}
 #map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 98%;
-    height: 550px; }
+    height: 600px;
+}
 
 /* filter button styling */
 .filter{
@@ -78,4 +75,18 @@ p.not_accessible{
 .dropdown-menu .form-check #fav{
     font-weight: bold;
     /* margin-right: 100px; */
+}
+
+.results {
+    float: right !important;
+    padding-top: 15px !important;
+}
+.mapboxgl-ctrl-geocoder {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.copyright {
+    background-color: rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
 }

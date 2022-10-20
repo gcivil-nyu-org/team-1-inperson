@@ -7,13 +7,15 @@ const map = new mapboxgl.Map({
 });
 
 // Add the control to the map.
-map.addControl(
-    new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-    }),
-    'top-left'
-); 
+const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+});
 
+geocoder.on('result', (e) => {
+    console.log(JSON.stringify(e.result, null, 2))
+});
+
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 map.addControl(new mapboxgl.FullscreenControl());
 map.addControl(new mapboxgl.NavigationControl());
