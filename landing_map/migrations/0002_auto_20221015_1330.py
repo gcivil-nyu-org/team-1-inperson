@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('landing_map', '0001_initial'),
+        ("landing_map", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='infra_type',
-            name='typeName',
+            model_name="infra_type",
+            name="typeName",
             field=models.CharField(max_length=20),
         ),
     ]

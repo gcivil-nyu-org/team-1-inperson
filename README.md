@@ -1,4 +1,9 @@
 # NYC Accessible Street 
+
+![travis build status](https://app.travis-ci.com/gcivil-nyu-org/team-1-inperson.svg?branch=develop)
+
+[![Coverage Status](https://coveralls.io/repos/github/gcivil-nyu-org/team-1-inperson/badge.svg?branch=develop)](https://coveralls.io/github/gcivil-nyu-org/team-1-inperson?branch=develop)
+
 # Steps to run -
 
 ### Clone the repo
