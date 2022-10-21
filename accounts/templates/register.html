@@ -1,0 +1,66 @@
+<h6 class="login-subheading">Welcome!</h6>
+    <h3 class="login-heading mb-5">Create your account</h3>
+
+
+    <!-- Sign Up Form -->
+    <form method="POST" action = "">
+        {% csrf_token %}
+        <div class="row mb-2">
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                   {{form.username.label}}
+                   {{form.username}}
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                    {{form.first_name.label}}
+                    {{form.first_name}}
+                </div>
+            </div>
+        </div> 
+
+        <div class="form-group mb-2">
+            {{form.last_name.label}}
+            {{form.last_name}}
+        </div>
+
+        <div class="form-group">
+            {{form.email.label}}
+            {{form.email}}
+        </div>
+        <div class="form-group">
+            {{form.password1.label}}
+            {{form.password1}}
+        </div>
+        <div class="form-group">
+            {{form.password2.label}}
+            {{form.password2}}
+        </div>
+        
+        {% if form.errors %}
+            {% for field in form %} 
+                <p>{{field.errors}}</p>
+            {% endfor %} 
+        {% endif %}
+        <div class="gy-5">
+            <div class="d-grid">
+                <button class="btn btn-lg btn-login fw-bold mb-2" type="submit">Sign Up</button>
+            </div>
+            
+            <div class="text-secondary text-center small mt-3">
+                Already have an account? <a class="text-light-green" href="/accounts/login">Log In</a>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+
+
+

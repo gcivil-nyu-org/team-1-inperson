@@ -1,0 +1,34 @@
+
+{% block content %}
+<br>
+<h2>Log In</h2>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+</ul>
+{% endif %}
+<form method="POST" action="">
+  {% csrf_token %}
+  <div class="input-group mb-3">
+    <div class="input-group-append">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
+    </div>
+    <input type="text" name="username" placeholder="Username..." class="form-control">
+  </div>
+  <div class="input-group mb-2">
+    <div class="input-group-append">
+      <span class="input-group-text"><i class="fas fa-key"></i></span>
+    </div>
+      <input type="password" name="password" placeholder="Password..." class="form-control" >
+    </div>
+
+    <div class="d-flex justify-content-center mt-3 login_container">
+       <input class="btn login_btn" type="submit" value="Login">
+    </div>
+    <div class="text-secondary text-center small mt-3">
+      Need to create an Account? <a class="text-light-green" href="/accounts/signup">Sign up</a>
+    </div>
+</form>
+{% endblock %}
