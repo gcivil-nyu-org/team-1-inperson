@@ -21,7 +21,7 @@
                             <h3>Welcome!</h3>
                             <h6>Create your account</h6>
 
-
+                            {% load crispy_forms_tags %}
                             <!-- Sign Up Form -->
                             <form method="POST" action = "">
                                 {% csrf_token %}
@@ -29,35 +29,30 @@
                                 <div class="row mb-auto">
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
-                                            <p>First Name</p>
-                                            {{form.first_name}}
+                                            {{form.first_name|as_crispy_field}}
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
-                                            <p>Last Name</p>
-                                            {{form.last_name}}
+                                            {{form.last_name|as_crispy_field}}
                                         </div>
                                     </div>
                                 </div> 
 
                                 <div class="form-group">
-                                    <p>Username</p>
-                                    {{form.username}}
+                                    {{form.username|as_crispy_field}}
                                 </div>
 
                                 <div class="form-group">
-                                    <p>Email</p>
-                                    {{form.email}}
+                                    {{form.email|as_crispy_field}}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form.password1|as_crispy_field }}
                                 </div>
                                 <div class="form-group">
-                                    <p>Password</p>
-                                    {{ form.password1|add_class:'form-control' }}
-                                </div>
-                                <div class="form-group">
-                                    <p>Confirm Password:</p>
-                                    {{form.password2}}
+                                    {{form.password2|as_crispy_field}}
                                 </div>
                                 
                                 {% if form.errors %}
