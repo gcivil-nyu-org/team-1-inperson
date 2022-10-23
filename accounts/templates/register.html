@@ -1,60 +1,91 @@
-<h6 class="login-subheading">Welcome!</h6>
-    <h3 class="login-heading mb-5">Create your account</h3>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sign up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+
+<body class="container-fluid">
+    <div class="row">
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+        <div class="col-md-8 col-lg-6">
+            <div class="signup d-flex align-items-center px-md-3 px-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-10 mx-auto">
+                            <h3>Welcome!</h3>
+                            <h6>Create your account</h6>
 
 
-    <!-- Sign Up Form -->
-    <form method="POST" action = "">
-        {% csrf_token %}
-        <div class="row mb-2">
-            <div class="col-md-6 col-12">
-                <div class="form-group">
-                   {{form.username.label}}
-                   {{form.username}}
+                            <!-- Sign Up Form -->
+                            <form method="POST" action = "">
+                                {% csrf_token %}
+
+                                <div class="row mb-auto">
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <p>First Name</p>
+                                            {{form.first_name}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <p>Last Name</p>
+                                            {{form.last_name}}
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <div class="form-group">
+                                    <p>Username</p>
+                                    {{form.username}}
+                                </div>
+
+                                <div class="form-group">
+                                    <p>Email</p>
+                                    {{form.email}}
+                                </div>
+                                <div class="form-group">
+                                    <p>Password</p>
+                                    {{ form.password1|add_class:'form-control' }}
+                                </div>
+                                <div class="form-group">
+                                    <p>Confirm Password:</p>
+                                    {{form.password2}}
+                                </div>
+                                
+                                {% if form.errors %}
+                                    {% for field in form %} 
+                                        <p>{{field.errors}}</p>
+                                    {% endfor %} 
+                                {% endif %}
+
+                                <div class="gy-5">
+                                    <div class="d-grid">
+                                        <button class="btn btn-lg" type="submit">Sign Up</button>
+                                    </div>
+                                    
+                                    <div class="text-secondary text-center small mt-3">
+                                        Already have an account? <a class="text-light-green" href="/accounts/login">Log In</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 col-12">
-                <div class="form-group">
-                    {{form.first_name.label}}
-                    {{form.first_name}}
-                </div>
-            </div>
-        </div> 
 
-        <div class="form-group mb-2">
-            {{form.last_name.label}}
-            {{form.last_name}}
         </div>
+    </div>
 
-        <div class="form-group">
-            {{form.email.label}}
-            {{form.email}}
-        </div>
-        <div class="form-group">
-            {{form.password1.label}}
-            {{form.password1}}
-        </div>
-        <div class="form-group">
-            {{form.password2.label}}
-            {{form.password2}}
-        </div>
-        
-        {% if form.errors %}
-            {% for field in form %} 
-                <p>{{field.errors}}</p>
-            {% endfor %} 
-        {% endif %}
-        <div class="gy-5">
-            <div class="d-grid">
-                <button class="btn btn-lg btn-login fw-bold mb-2" type="submit">Sign Up</button>
-            </div>
-            
-            <div class="text-secondary text-center small mt-3">
-                Already have an account? <a class="text-light-green" href="/accounts/login">Log In</a>
-            </div>
-        </div>
-    </form>
-
-
+</body>
+</html>
 
 
 
