@@ -38,5 +38,5 @@ def login_page(request):
 
 def help_page(request):
     context = {}
-    context['helpform'] = InputForm()
+    context["helpform"] = InputForm()
     return render(request, "help.html", context)
