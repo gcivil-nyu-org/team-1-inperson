@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "landing_map.apps.LandingMapConfig",
     "report.apps.ReportConfig",
     "accounts",
-    'crispy_forms',
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # cripsy form
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
