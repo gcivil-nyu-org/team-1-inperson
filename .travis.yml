@@ -8,18 +8,18 @@ install:
 script:
   - python -m black . --check
   - flake8 .
-  - coverage run --source=NYCAccessibleStreet,landing_map manage.py test
+  - coverage run manage.py test
 
 after_script:
   - python -m coveralls
 
-#deploy:
-#  - provider: elasticbeanstalk
-#    access_key_id: $ACCESSKEYID
-#    secret_access_key: $SECRETACCESSKEY
-#    region: 'us-east-1'
-#    app: 'NYC-Accessible-Streets'
-#    env: 'NYCAccessibleStreets-env'
-#    bucket_name: 'elasticbeanstalk-us-east-1-978364673633'
-#    on:
-#      branch: develop
+deploy:
+ - provider: elasticbeanstalk
+   access_key_id: $ACCESSKEYID
+   secret_access_key: $SECRETACCESSKEY
+   region: 'us-east-1'
+   app: 'NYC-Accessible-Streets'
+   env: 'NYCAccessibleStreets-env'
+   bucket_name: 'elasticbeanstalk-us-east-1-978364673633'
+   on:
+     branch: develop

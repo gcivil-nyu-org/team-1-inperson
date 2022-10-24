@@ -58,8 +58,9 @@
 
 {% include 'common/copyright.html' %}
 
-<script>
+<script type="text/javascript">
     mapboxgl.accessToken = '{{mapboxAccessToken}}';
+    var accessible_locations = JSON.parse('{{ accessible_locations | safe }}');
 </script>
 
 <script src="{% static 'landing_map/maps.js' %} "></script>
