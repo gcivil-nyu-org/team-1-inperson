@@ -14,3 +14,9 @@ class CreateUserForm(UserCreationForm):
             "password1",
             "password2",
         ]
+
+
+class InputForm(forms.Form):
+    name = forms.CharField(max_length=200)
+    email = forms.CharField(max_length=200)
+    message = forms.CharField(max_length=1000)

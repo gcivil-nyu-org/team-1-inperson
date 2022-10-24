@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <h1>Help</h1>
+</head>
+<body>
+    <h2>About Us</h2>
+    <p>We are a small group of NYU graduate students looking attempting to provide street accessibility data to individuals who may be in need of it.</p>
+    <h2>FAQ</h2>
+    <h3>How do I report an inaccessible ramp/signal pole?</h3>
+    <h3>How do I save frequently visited locations?</h3>
+    <h3>Is information on this website moderated?</h3>
+    <h3>This website is not compatible with my screen reader, what can I do?</h3>
+    <h2>Contact Us</h2>
+</body>
+
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{helpform.as_p }}
+
+</form>
