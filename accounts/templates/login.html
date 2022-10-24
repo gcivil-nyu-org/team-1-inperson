@@ -1,34 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Log in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
 
-{% block content %}
-<br>
-<h2>Log In</h2>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-    {% endfor %}
-</ul>
-{% endif %}
-<form method="POST" action="">
-  {% csrf_token %}
-  <div class="input-group mb-3">
-    <div class="input-group-append">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
+<body class="container-fluid">
+  <div class="row">
+    <div class="d-sm-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-self-center px-md-3 px-2">
+        <div class="container">
+          <div class="row">
+              <div class="col-md-9 col-lg-11 mx-auto">
+
+                <h3>Hello again!</h3>
+                <h6>Log into your account</h6>
+
+                {% block content %}
+
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <form method="POST" action="">
+                  {% csrf_token %}
+
+                  <p class="login-label">Username</p>
+                  <div class="input-group mb-3">
+                    <!-- <div class="input-group-append">
+                      <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div> -->
+                    <input type="text" name="username" placeholder="Username..." class="form-control">
+                  </div>
+
+                  <p class="login-label">Password</p>
+                  <div class="input-group mb-2">
+                    <!-- <div class="input-group-append">
+                      <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div> -->
+                      <input type="password" name="password" placeholder="Password..." class="form-control" >
+                  </div>
+
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                      <input class="btn login_btn" type="submit" value="Login">
+                    </div>
+
+                    <div class="text-secondary text-center small mt-3">
+                      Need to create an Account? <a class="text-light-green" href="/accounts/signup">Sign up</a>
+                    </div>
+
+                </form>
+                {% endblock %}
+            </div>
+          </div>
+      </div>
+      </div>
     </div>
-    <input type="text" name="username" placeholder="Username..." class="form-control">
   </div>
-  <div class="input-group mb-2">
-    <div class="input-group-append">
-      <span class="input-group-text"><i class="fas fa-key"></i></span>
-    </div>
-      <input type="password" name="password" placeholder="Password..." class="form-control" >
-    </div>
 
-    <div class="d-flex justify-content-center mt-3 login_container">
-       <input class="btn login_btn" type="submit" value="Login">
-    </div>
-    <div class="text-secondary text-center small mt-3">
-      Need to create an Account? <a class="text-light-green" href="/accounts/signup">Sign up</a>
-    </div>
-</form>
-{% endblock %}
+</body>
+</html>
