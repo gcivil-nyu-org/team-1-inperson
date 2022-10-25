@@ -1,6 +1,36 @@
 
 {% block content %}
+<head>
+    <title>Log In</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        nav.navbar{
+            background-color:#18435A;
+        }
+        a.nav-brand {
+            color: #FFFFFF;
+            font-size:2em;
+        }
+        a.nav-list{
+            color: #FFFFFF !important;
+            font-size:1.2em;
+        }
+    </style>
+</head>
+<nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="nav-brand" href="/">NYC Accessible Streets</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                <li><a class = "nav-list" href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
 <br>
+<center>
 <h2>Log In</h2>
 {% if messages %}
 <ul class="messages">
@@ -31,4 +61,5 @@
       Need to create an Account? <a class="text-light-green" href="/accounts/signup">Sign up</a>
     </div>
 </form>
+</center>
 {% endblock %}

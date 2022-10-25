@@ -1,16 +1,77 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <h1>Help</h1>
+    <title>Help</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        nav.navbar{
+            background-color:#18435A;
+        }
+        a.nav-brand {
+            color: #FFFFFF;
+            font-size:2em;
+        }
+        a.nav-list {
+            color: #FFFFFF !important;
+            font-size: 1.2em;
+        }
+        .padding{
+            padding-left: 30px;
+            padding-right: 25%;
+        }
+        .container {
+            position: relative;
+            text-align: center;
+            color: black;
+        }
+        .centered {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="nav-brand" href="/">NYC Accessible Streets</a>
+            </div>
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                <li><a class = "nav-list" href="/accounts/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+            </ul>
+            {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                <li><a class = "nav-list" href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a class = "nav-list" href="/accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+            {% endif%}
+        </div>
+    </nav>
+    <div class="container">
+        <img src="https://cdn-fmimd.nitrocdn.com/cYqpMdzMLFhGFOflpctbOfkzziuKFYjc/assets/static/optimized/rev-d74fda3/wp-content/uploads/2020/07/Heidari-Law-Group-Pedestrian-Accident-Attorneys-5.jpg" width="100%" height="300">
+        <div class="centered"><h1 style=font-size:400%>Help</h1></div>
+    </div>
+    <div class="padding">
     <h2>About Us</h2>
     <p>We are a small group of NYU graduate students looking attempting to provide street accessibility data to individuals who may be in need of it.</p>
     <h2>FAQ</h2>
     <h3>How do I report an inaccessible ramp/signal pole?</h3>
+        <p>On the left-hand side of the main page click "report issue" on the card whose location you want to report.
+        Then fill out the issue and description options and click "submit report" to notify us.</p>
     <h3>How do I save frequently visited locations?</h3>
+        <p>For each location card on the left hand side of the main page you can click the star in the top right corner
+        of the card to add the location to your favorites. Once the star turns yellow it means it has been added to your
+        favorites.</p>
     <h3>Is information on this website moderated?</h3>
+        <p>[answer to question]</p>
     <h3>This website is not compatible with my screen reader, what can I do?</h3>
+        <p>[answer to question]</p>
     <h2>Contact Us</h2>
 </body>
 
@@ -19,3 +80,4 @@
     {{helpform.as_p }}
 
 </form>
+</div>

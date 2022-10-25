@@ -1,4 +1,35 @@
-<h6 class="login-subheading">Welcome!</h6>
+
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        nav.navbar{
+            background-color:#18435A;
+        }
+        a.nav-brand {
+            color: #FFFFFF;
+            font-size:2em;
+        }
+        a.nav-list{
+            color: #FFFFFF !important;
+            font-size:1.2em;
+        }
+    </style>
+</head>
+<nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="nav-brand" href="/">NYC Accessible Streets</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                <li><a class = "nav-list" href="/accounts/login"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
+            </ul>
+        </div>
+    </nav>
+<center>
+<h5 class="login-subheading">Welcome!</h5>
     <h3 class="login-heading mb-5">Create your account</h3>
 
 
@@ -6,19 +37,17 @@
     <form method="POST" action = "">
         {% csrf_token %}
         <div class="row mb-2">
-            <div class="col-md-6 col-12">
                 <div class="form-group">
                    {{form.username.label}}
                    {{form.username}}
                 </div>
-            </div>
-            <div class="col-md-6 col-12">
+        </div>
+        <div class="row mb-2">
                 <div class="form-group">
                     {{form.first_name.label}}
                     {{form.first_name}}
                 </div>
-            </div>
-        </div> 
+        </div>
 
         <div class="form-group mb-2">
             {{form.last_name.label}}
@@ -53,6 +82,7 @@
             </div>
         </div>
     </form>
+</center>
 
 
 
