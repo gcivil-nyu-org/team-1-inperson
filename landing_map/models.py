@@ -17,17 +17,27 @@ class Favorite(models.Model):
         unique_together = (("userID"), ("locationX"), ("locationY"))
 
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    locationX = models.CharField(max_length = 22)
-    locationY = models.CharField(max_length = 22)
+    locationX = models.CharField(max_length=22)
+    locationY = models.CharField(max_length=22)
     typeID = models.ForeignKey(Infra_type, on_delete=models.PROTECT)
 
 
 class Accessible_location(models.Model):
     infraID = models.IntegerField(primary_key=True)
-    locationX = models.CharField(max_length = 22)
-    locationY = models.CharField(max_length = 22)
+    locationX = models.CharField(max_length=22)
+    locationY = models.CharField(max_length=22)
     typeID = models.ForeignKey(Infra_type, on_delete=models.PROTECT)
     isAccessible = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.infraID) + " " + str(self.locationX) + " " + str(self.locationY) + " " + str(self.typeID) + " " + str(self.isAccessible)
+        return (
+            str(self.infraID)
+            + " "
+            + str(self.locationX)
+            + " "
+            + str(self.locationY)
+            + " "
+            + str(self.typeID)
+            + " "
+            + str(self.isAccessible)
+        )

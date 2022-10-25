@@ -1,51 +1,48 @@
         <!-- pin card detail modals-->
         <!-- details modal 1 -->
-        {% for card in cardList %}
-        <div id="pin_{{card.card_id}}_details" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">{{card.text}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        {% if card.ramp_count != 0 %}
-                            <p class="accessible">{{card.ramp_count}} accessible ramps</p>
-                        {% else %}
-                            <p class="not_accessible">0 accessible ramps</p>
-                        {% endif %}
-                        {% if card.signal_count != 0 %}
-                            <p class="accessible">{{card.signal_count}} accessible signals</p>
-                        {% else %}
-                            <p class="not_accessible">0 accessible signals</p>
-                        {% endif %}
-                        {% if card.isRampAccess == False and card.ramp_count != 0 %}
-                            <p class="not_accessible">User reported ramps not working at this intersection</p>
-                        {% else %}
+        <div class='cards'>
+            {% for card in cardList %}
+            <div id="pin_{{card.card_id}}_details" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{card.text}}</h4>
+                        </div>
+                        <div class="modal-body">
                             {% if card.ramp_count != 0 %}
-                                <p class="accessible">All ramps are working at this intersection</p>
+                                <p class="accessible">{{card.ramp_count}} accessible ramps</p>
+                            {% else %}
+                                <p class="not_accessible">0 accessible ramps</p>
                             {% endif %}
-                        {% endif %}
-                        {% if card.isSignalAccess == False and card.signal_count != 0 %}
-                            <p class="not_accessible">User reported signals not working at this intersection</p>
-                        {% else %}
                             {% if card.signal_count != 0 %}
-                                <p class="accessible">All signals are working at this intersection</p>
+                                <p class="accessible">{{card.signal_count}} accessible signals</p>
+                            {% else %}
+                                <p class="not_accessible">0 accessible signals</p>
                             {% endif %}
-                        {% endif %}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            {% if card.isRampAccess == False and card.ramp_count != 0 %}
+                                <p class="not_accessible">User reported ramps not working at this intersection</p>
+                            {% else %}
+                                {% if card.ramp_count != 0 %}
+                                    <p class="accessible">All ramps are working at this intersection</p>
+                                {% endif %}
+                            {% endif %}
+                            {% if card.isSignalAccess == False and card.signal_count != 0 %}
+                                <p class="not_accessible">User reported signals not working at this intersection</p>
+                            {% else %}
+                                {% if card.signal_count != 0 %}
+                                    <p class="accessible">All signals are working at this intersection</p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Pin cards -->
-        
-        <div class='cards'>
-            
-            <!-- pin card 1 -->
+            <!-- Pin cards -->
             <div class="well well-lg" data-toggle="modal" data-target="#pin_{{card.card_id}}_details">
                 <h4>{{card.text}}</h4>
                 {% if card.ramp_count != 0 %}
@@ -62,6 +59,5 @@
                     <span class="glyphicon glyphicon-star"></span> Star
                 </button>
             </div>
+            {% endfor %}
         </div>
-
-        {% endfor %}
