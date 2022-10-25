@@ -1,17 +1,39 @@
         <!-- pin card detail modals-->
         <!-- details modal 1 -->
-        <div id="pin_1_details" class="modal fade" role="dialog">
+        {% for card in cardList %}
+        <div id="pin_{{card.card_id}}_details" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">street name & street name, XX corner</h4>
+                        <h4 class="modal-title">{{card.text}}</h4>
                     </div>
                     <div class="modal-body">
-                        <p class="accessible">2 accessible ramps</p>
-                        <p class="not_accessible">0 accessible signals</p>
-                        <p class="not_accessible">User reported signals not working at this intersection</p>
+                        {% if card.ramp_count != 0 %}
+                            <p class="accessible">{{card.ramp_count}} accessible ramps</p>
+                        {% else %}
+                            <p class="not_accessible">0 accessible ramps</p>
+                        {% endif %}
+                        {% if card.signal_count != 0 %}
+                            <p class="accessible">{{card.signal_count}} accessible signals</p>
+                        {% else %}
+                            <p class="not_accessible">0 accessible signals</p>
+                        {% endif %}
+                        {% if card.isRampAccess == False and card.ramp_count != 0 %}
+                            <p class="not_accessible">User reported ramps not working at this intersection</p>
+                        {% else %}
+                            {% if card.ramp_count != 0 %}
+                                <p class="accessible">All ramps are working at this intersection</p>
+                            {% endif %}
+                        {% endif %}
+                        {% if card.isSignalAccess == False and card.signal_count != 0 %}
+                            <p class="not_accessible">User reported signals not working at this intersection</p>
+                        {% else %}
+                            {% if card.signal_count != 0 %}
+                                <p class="accessible">All signals are working at this intersection</p>
+                            {% endif %}
+                        {% endif %}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -19,132 +41,27 @@
                 </div>
             </div>
         </div>
-        <!-- details modal 2 -->
-        <div id="pin_2_details" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">street name & street name, XX corner</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p class="accessible">2 accessible ramps</p>
-                        <p class="accessible">1 accessible signals</p>
-                        <p class="accessible">No issues reported at this location</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- details modal 3 -->
-        <div id="pin_3_details" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">street name & street name, XX corner</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p class="accessible">2 accessible ramps</p>
-                        <p class="not_accessible">0 accessible signals</p>
-                        <p class="not_accessible">User reported signals not working at this intersection</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- details modal 4 -->
-        <div id="pin_4_details" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">street name & street name, XX corner</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p class="accessible">2 accessible ramps</p>
-                        <p class="not_accessible">0 accessible signals</p>
-                        <p class="not_accessible">User reported signals not working at this intersection</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- details modal 5 -->
-        <div id="pin_5_details" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">street name & street name, XX corner</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p class="accessible">2 accessible ramps</p>
-                        <p class="not_accessible">0 accessible signals</p>
-                        <p class="not_accessible">User reported signals not working at this intersection</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Pin cards -->
+        
         <div class='cards'>
+            
             <!-- pin card 1 -->
-            <div class="well well-lg" data-toggle="modal" data-target="#pin_1_details">
-                <h4>street name & street name, XX corner</h4>
-                <p class="accessible">2 accessible ramps</p>
-                <p class="not_accessible">0 accessible signals</p>
+            <div class="well well-lg" data-toggle="modal" data-target="#pin_{{card.card_id}}_details">
+                <h4>{{card.text}}</h4>
+                {% if card.ramp_count != 0 %}
+                    <p class="accessible">{{card.ramp_count}} accessible ramps</p>
+                {% else %}
+                    <p class="not_accessible">0 accessible ramps</p>
+                {% endif %}
+                {% if card.signal_count != 0 %}
+                    <p class="accessible">{{card.signal_count}} accessible signals</p>
+                {% else %}
+                    <p class="not_accessible">0 accessible signals</p>
+                {% endif %}
                 <button type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-star"></span> Star
                 </button>
             </div>
-            <!-- pin card 2 -->
-            <div class="well well-lg" data-toggle="modal" data-target="#pin_2_details">
-                <h4>street name & street name, XX corner</h4>
-                <p class="accessible">2 accessible ramps</p>
-                <p class="accessible">1 accessible signals</p>
-                <button type="button" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-star-empty"></span> Star
-                </button>
-            </div>
-            <!-- pin card 3 -->
-            <div class="well well-lg" data-toggle="modal" data-target="#pin_3_details">
-                <h4>street name & street name, XX corner</h4>
-                <p class="accessible">2 accessible ramps</p>
-                <p class="not_accessible">0 accessible signals</p>
-                <button type="button" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-star-empty"></span> Star
-                </button>
-            </div>
-            <!-- pin card 4 -->
-            <div class="well well-lg" data-toggle="modal" data-target="#pin_4_details">
-                <h4>street name & street name, XX corner</h4>
-                <p class="accessible">2 accessible ramps</p>
-                <p class="not_accessible">0 accessible signals</p>
-                <button type="button" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-star-empty"></span> Star
-                </button>
-            </div>
-            <!-- pin card 5 -->
-            <div class="well well-lg" data-toggle="modal" data-target="#pin_5_details">
-                <h4>street name & street name, XX corner</h4>
-                <p class="accessible">2 accessible ramps</p>
-                <p class="not_accessible">0 accessible signals</p>
-                <button type="button" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-star-empty"></span> Star
-                </button>
-            </div>
         </div>
+
+        {% endfor %}
