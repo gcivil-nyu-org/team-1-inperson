@@ -8,15 +8,13 @@ import requests
 def populate_cards():
     cardList = []
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
-    loc_x = "-73.985630"
-    loc_y = "40.694460"
     qset = Accessible_location.objects.filter(typeID=2)[:15]
     card_id = 1
     address_list = []
 
     for q in qset:
         res = {}
-        params = {"access_token": MAPBOX_API_KEY, "types": "address"}
+        params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
         url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
         response = requests.get(url=url, params=params).json()
         print(q)
@@ -26,16 +24,12 @@ def populate_cards():
         card_info[address] = {}
         if str(q).split(" ")[-2] == "Ramp":
             if str(q).split(" ")[-1] == "True":
-                # ramp_count += 1
-                # try:
                 card_info[address]["ramp_count"] = card_info[address].get("ramp_count", 0) + 1
             else:
                 card_info[address]["isRampAccess"] = False
-            # except:
-            # card_info[address]["ramp_count"] = 0
+
         elif str(q).split(" ")[-2] == "Signal":
             if str(q).split(" ")[-1] == "True":
-                # try:
                 card_info[address]["signal_count"] = card_info[address].get("signal_count", 0) + 1
             else:
                 card_info[address]["isSignalAccess"] = False
@@ -89,7 +83,6 @@ def populate_cards():
         res["isSignalAccess"] = card_info[address]["isSignalAccess"]
         cardList.append(res)
 
-    # print(cards_context)
     return cardList, address_list
 
 def index(request):
