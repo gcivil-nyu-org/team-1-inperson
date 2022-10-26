@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import CreateUserForm
+from .forms import InputForm
 
 
 def register_page(request):
@@ -33,3 +34,8 @@ def login_page(request):
 
     context = {}
     return render(request, "login.html", context)
+
+def help_page(request):
+    form=InputForm()
+    context={'helpform':form}
+    return render(request,'help.html',context)
