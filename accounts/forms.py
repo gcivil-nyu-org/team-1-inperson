@@ -17,7 +17,8 @@ class CreateUserForm(UserCreationForm):
             "password2",
         ]
 
+
 class InputForm(ModelForm):
     class Meta:
-        model=Contact
-        fields='__all__'
+        model = Contact
+        fields = "__all__"
