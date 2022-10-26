@@ -3,8 +3,10 @@
 <html lang="en">
 <head>
     <title>Help</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         nav.navbar{
             background-color:#18435A;
@@ -18,13 +20,15 @@
             font-size: 1.2em;
         }
         .padding{
+            text-align: left;
             padding-left: 30px;
             padding-right: 25%;
         }
         .container {
+            width: 100%;
             position: relative;
             text-align: center;
-            color: black;
+            color: white;
         }
         .centered {
             position: absolute;
@@ -32,24 +36,20 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        .formstyle{
-             width: 100%;
-             padding: 12px 20px;
-             margin: 8px 0;
-             display: inline-block;
-        }
     </style>
 </head>
-<body>
 {% include 'common/navbar.html' %}
+<body class="container-fluid">
     <div class="container">
-        <img src="https://cdn-fmimd.nitrocdn.com/cYqpMdzMLFhGFOflpctbOfkzziuKFYjc/assets/static/optimized/rev-d74fda3/wp-content/uploads/2020/07/Heidari-Law-Group-Pedestrian-Accident-Attorneys-5.jpg" width="100%" height="300">
-        <div class="centered"><h1 style=font-size:400%>Help</h1></div>
+        <img src="/static/img/crosswalk.png" width="100%">
+        <div class="centered"><h1 style=font-size:300%>Help</h1></div>
     </div>
     <div class="padding">
+        <br><br>
     <h2>About Us</h2>
     <p>We are a small group of NYU graduate students looking attempting to provide street accessibility data to individuals who may be in need of it.</p>
-    <h2>FAQ</h2>
+    <br>
+        <h2>FAQ</h2>
     <h3>How do I report an inaccessible ramp/signal pole?</h3>
         <p>On the left-hand side of the main page click "report issue" on the card whose location you want to report.
         Then fill out the issue and description options and click "submit report" to notify us.</p>
@@ -61,12 +61,12 @@
         <p>[answer to question]</p>
     <h3>This website is not compatible with my screen reader, what can I do?</h3>
         <p>[answer to question]</p>
-    <h2>Contact Us</h2>
+<br><br>
     </div>
-</body>
 
 {% load crispy_forms_tags %}
-<div class="formstyle">
+    <div class="padding">
+        <h2>Contact Us</h2>
 <form method="POST" action="">
     {% csrf_token %}
     <div class="col-md-6 col-12">
@@ -84,8 +84,7 @@
             {{helpform.message|as_crispy_field}}
         </div>
     </div>
-
-
 </form>
     </div>
+</body>
 </html>
