@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Help</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        nav.navbar{
+            background-color:#18435A;
+        }
+        a.nav-brand {
+            color: #FFFFFF;
+            font-size:2em;
+        }
+        a.nav-list {
+            color: #FFFFFF !important;
+            font-size: 1.2em;
+        }
+        .padding{
+            text-align: left;
+            padding-left: 30px;
+            padding-right: 25%;
+        }
+        .container {
+            width: 100%;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+        .centered {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+{% include 'common/navbar.html' %}
+<body class="container-fluid">
+    <div class="container">
+        <img src="/static/img/crosswalk.png" width="100%">
+        <div class="centered"><h1 style=font-size:300%>Help</h1></div>
+    </div>
+    <div class="padding">
+        <br><br>
+    <h2>About Us</h2>
+    <p>We are a small group of NYU graduate students looking attempting to provide street accessibility data to individuals who may be in need of it.</p>
+    <br>
+        <h2>FAQ</h2>
+    <h3>How do I report an inaccessible ramp/signal pole?</h3>
+        <p>On the left-hand side of the main page click "report issue" on the card whose location you want to report.
+        Then fill out the issue and description options and click "submit report" to notify us.</p>
+    <h3>How do I save frequently visited locations?</h3>
+        <p>For each location card on the left hand side of the main page you can click the star in the top right corner
+        of the card to add the location to your favorites. Once the star turns yellow it means it has been added to your
+        favorites.</p>
+    <h3>Is information on this website moderated?</h3>
+        <p>[answer to question]</p>
+    <h3>This website is not compatible with my screen reader, what can I do?</h3>
+        <p>[answer to question]</p>
+<br><br>
+    </div>
+
+{% load crispy_forms_tags %}
+    <div class="padding">
+        <h2>Contact Us</h2>
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="col-md-6 col-12">
+        <div class="form-group">
+            {{helpform.email|as_crispy_field}}
+        </div>
+    </div>
+    <div class="col-md-6 col-12">
+        <div class="form-group">
+            {{helpform.subject|as_crispy_field}}
+        </div>
+    </div>
+    <div class="col-md-6 col-12">
+        <div class="form-group">
+            {{helpform.message|as_crispy_field}}
+        </div>
+    </div>
+    <button class="btn btn-lg" type="submit">Submit</button>
+</form>
+    </div>
+</body>
+</html>
