@@ -2,6 +2,20 @@ $(document).on('click', '.filter .dropdown-menu', function (e) {
   e.stopPropagation();
 });
 
+const filterParams =  Object.fromEntries(new URLSearchParams(document.URL.split('?')[1]));
+document.getElementById("rangeval").innerText = document.getElementById("radiusRangeFilter").value;
+
+if(filterParams['favCheck']){
+    document.getElementById("rangeval").innerText = JSON.parse(filterParams['radiusRange']);
+    document.getElementById("favCheck").checked = JSON.parse(filterParams['favCheck']);
+    document.getElementById("rampsCheck").checked = JSON.parse(filterParams['rampsCheck']);
+    document.getElementById("poleCheck").checked = JSON.parse(filterParams['poleCheck']);
+    document.getElementById("sidewalkCheck").checked = JSON.parse(filterParams['sidewalkCheck']);
+    document.getElementById("currentlyInaccessibleCheck").checked = JSON.parse(filterParams['currentlyInaccessibleCheck']);
+    document.getElementById("currentlyAccessibleCheck").checked = JSON.parse(filterParams['currentlyAccessible']);
+    document.getElementById("radiusRangeFilter").value = JSON.parse(filterParams['radiusRange']);
+}
+
 function redirect_to_url(){
     radiusRange = document.getElementById("radiusRangeFilter").value;
     currentlyAccessible = document.getElementById("currentlyAccessibleCheck").checked;
@@ -14,7 +28,7 @@ function redirect_to_url(){
     if (currentlyAccessible == false && currentlyInaccessibleCheck == false){
         alert("Please check atleast 1 status")
     }
-    if (rampsCheck == false && poleCheck == false && sidewalkCheck == false){
+    else if (rampsCheck == false && poleCheck == false && sidewalkCheck == false){
         alert("Please check atleast 1 infrastructure to display")
     }
 
