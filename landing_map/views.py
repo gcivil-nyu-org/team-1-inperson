@@ -8,7 +8,7 @@ import requests
 def populate_cards():
     cardList = []
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
-    qset = Accessible_location.objects.filter()[:30]
+    qset = Accessible_location.objects.filter()[:1]
     card_id = 1
     address_list = []
 
@@ -95,10 +95,35 @@ def populate_cards():
 
 
 def index(request):
+
+    filterParams = request.GET
+
+    if filterParams.get("currentlyAccessible"):
+        print(filterParams.get("currentlyAccessible"))
+
+        currentlyAccessible = []
+        if filterParams.get("currentlyAccessible") == "true":
+            currentlyAccessible.append(True)
+        if filterParams.get("currentlyInaccessibleCheck") == "true":
+            currentlyAccessible.append(False)
+        else:
+            currentlyAccessible.append(True)
+
+        infraTypes = []
+        if filterParams.get("rampsCheck") == "true":
+            infraTypes.append("1")
+        if filterParams.get("poleCheck") == "true":
+            infraTypes.append("2")
+        if filterParams.get("sidewalkCheck") == "true":
+            infraTypes.append("3")
+
+        filteredLocations = Accessible_location.objects.filter(
+            isAccessible__in=currentlyAccessible, typeID__in=infraTypes
+        )
+    else:
+        filteredLocations = Accessible_location.objects.all()
     cardList, address_list = populate_cards()
-    accessible_locations = serializers.serialize(
-        "json", Accessible_location.objects.all()
-    )
+    accessible_locations = serializers.serialize("json", filteredLocations)
 
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),

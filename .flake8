@@ -1,6 +1,6 @@
 [flake8]
 #default 88 but some lines in our files exceed that
-max-line-length = 120
+max-line-length = 150
 
 #ignoring the 'XXX imported but not used' error
 per-file-ignores =
