@@ -83,10 +83,7 @@ class LoginTest(TestCase):
         user = authenticate(
             request, username="realuser", password="something_very_s3cur3"
         )
-        messy_fix = user
-        messy_fix = "used"
-        messy_fix += "_now"  # flake8 doesn't recognize that eval uses user
-        self.assertTrue(eval("user != None"))
+        self.assertNotEqual(user, None)
 
     def test_valid_username_invalid_password(self):
         post = {
