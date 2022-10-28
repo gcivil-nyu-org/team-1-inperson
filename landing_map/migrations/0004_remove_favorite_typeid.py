@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('landing_map', '0003_auto_20221025_2348'),
+        ("landing_map", "0003_auto_20221025_2348"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='favorite',
-            name='typeID',
+            model_name="favorite",
+            name="typeID",
         ),
     ]

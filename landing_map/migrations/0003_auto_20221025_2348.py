@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('landing_map', '0002_auto_20221015_1330'),
+        ("landing_map", "0002_auto_20221015_1330"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='accessible_location',
-            name='borough',
+            model_name="accessible_location",
+            name="borough",
             field=models.CharField(default=None, max_length=15),
         ),
         migrations.AddField(
-            model_name='accessible_location',
-            name='street1',
+            model_name="accessible_location",
+            name="street1",
             field=models.CharField(default=None, max_length=20),
         ),
         migrations.AddField(
-            model_name='accessible_location',
-            name='street2',
+            model_name="accessible_location",
+            name="street2",
             field=models.CharField(default=None, max_length=20),
         ),
     ]
