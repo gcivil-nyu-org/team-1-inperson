@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpRequest
 client = Client()
 # response = HttpResponse
 request = HttpRequest
+
+
 # Create your tests here.
 class LandingURLsTests(TestCase):
     def test_home_page(self):
@@ -23,7 +25,6 @@ class ViewsTests(TestCase):
     # def test_views_index(self):
     #     self.assertEqual(request.resolver_match.func, index)
 
-
     def test_populate_cards_return_type(self):
         card_list, address_list = populate_cards()
         self.assertEqual(type(card_list), list)
@@ -32,4 +33,3 @@ class ViewsTests(TestCase):
     # TODO: resolve AtributeError: type object 'HttpResponse' has no attribute 'resolver_match'
     # def test_populate_cards(self):
     #     self.assertEqual(response.resolver_match.func, populate_cards)
-
