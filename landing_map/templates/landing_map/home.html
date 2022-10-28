@@ -29,18 +29,27 @@
         <div class="row">
           <div class="col-md-12">
             <div id="geocoder" class="geocoder"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          {% include 'landing_map/filterButton.html' %}
+        </div>
+
+        <div class="col-md-4">
+          <div class="add">
+            <button type="button" class="btn btn-primary">
+              <span class="glyphicon glyphicon-star" style="top: 2px;"></span> 
+              add to favorite 
+            </button>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-8">
-            {% include 'landing_map/filterButton.html' %}
-          </div>
-
-          <div class="col-md-4">
-            <p class="results">{{cardList|length}} results</p>
-          </div>
+        <div class="col-md-4">
+          <p class="results">{{cardList|length}} results</p>
         </div>
+      </div>
 
         <div class="row">
           <div class="col-md-12">
