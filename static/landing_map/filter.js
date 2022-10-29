@@ -2,12 +2,10 @@ $(document).on('click', '.filter .dropdown-menu', function (e) {
   e.stopPropagation();
 });
 
-const filterParams =  Object.fromEntries(new URLSearchParams(document.URL.split('?')[1]));
 document.getElementById("rangeval").innerText = document.getElementById("radiusRangeFilter").value;
 
-if(filterParams['favCheck']){
+if(filterParams['rampsCheck']){
     document.getElementById("rangeval").innerText = JSON.parse(filterParams['radiusRange']);
-    document.getElementById("favCheck").checked = JSON.parse(filterParams['favCheck']);
     document.getElementById("rampsCheck").checked = JSON.parse(filterParams['rampsCheck']);
     document.getElementById("poleCheck").checked = JSON.parse(filterParams['poleCheck']);
     document.getElementById("sidewalkCheck").checked = JSON.parse(filterParams['sidewalkCheck']);
@@ -17,10 +15,11 @@ if(filterParams['favCheck']){
 }
 
 function redirect_to_url(){
+
+    selectedLocation = Object.keys(searchedLocation).length != 0? searchedLocation : currentLocation;
     radiusRange = document.getElementById("radiusRangeFilter").value;
     currentlyAccessible = document.getElementById("currentlyAccessibleCheck").checked;
     currentlyInaccessibleCheck = document.getElementById("currentlyInaccessibleCheck").checked;
-    favCheck =  document.getElementById("favCheck").checked;
     rampsCheck = document.getElementById("rampsCheck").checked;
     poleCheck = document.getElementById("poleCheck").checked;
     sidewalkCheck = document.getElementById("sidewalkCheck").checked;
@@ -37,10 +36,11 @@ function redirect_to_url(){
             "radiusRange": radiusRange,
             "currentlyAccessible": currentlyAccessible,
             "currentlyInaccessibleCheck": currentlyInaccessibleCheck,
-            "favCheck": favCheck ,
             "rampsCheck": rampsCheck,
             "poleCheck": poleCheck,
-            "sidewalkCheck": sidewalkCheck
+            "sidewalkCheck": sidewalkCheck,
+            "x-co": selectedLocation['longitude'],
+            "y-co": selectedLocation['latitude']
         }
     var paramString = jQuery.param(params)
     var pageUrl = document.URL.split('?')[0]+'?'+ paramString;
@@ -50,19 +50,18 @@ function redirect_to_url(){
 }
 
 function clear_filters(){
-    document.getElementById("favCheck").checked = false;
     document.getElementById("rampsCheck").checked = false;
     document.getElementById("poleCheck").checked = false;
     document.getElementById("sidewalkCheck").checked = false;
     document.getElementById("currentlyInaccessibleCheck").checked = false;
 }
 
-function sendQueryData(url, query){
+function sendQueryData(url, params){
         $.ajax({
           type: "GET",
           url: "/",
           data: {
-              'query' : query,
+              'query' : params,
               'url' : url
           },
           success: function(result){
