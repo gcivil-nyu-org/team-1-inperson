@@ -20,7 +20,6 @@
                         <div class="col-md-9 col-lg-10 mx-auto">
                             <h3>Welcome!</h3>
                             <h6>Create your account</h6>
-
                             {% load crispy_forms_tags %}
                             <!-- Sign Up Form -->
                             <form method="POST" action = "">
@@ -47,7 +46,13 @@
                                 <div class="form-group">
                                     {{form.email|as_crispy_field}}
                                 </div>
-                                
+                                {% if messages %}
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
                                 <div class="form-group">
                                     {{ form.password1|as_crispy_field }}
                                 </div>
