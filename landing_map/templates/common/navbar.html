@@ -1,5 +1,4 @@
-
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navba">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="nav-brand" href="/">NYC Accessible Streets</a>
@@ -8,13 +7,13 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a class = "nav-list" href="#"> Hi {{user.first_name}}!</a></li>
             <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
-            <li><a class = "nav-list" href="/accounts/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+            <li><a class = "nav-list" href="/accounts/logout"><span class="glyphicon glyphicon-arrow-left"></span> Log Out</a></li>
         </ul>
         {% else %}
         <ul class="nav navbar-nav navbar-right">
             <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
             <li><a class = "nav-list" href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a class = "nav-list" href="/accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a class = "nav-list" href="/accounts/login"><span class="glyphicon glyphicon-arrow-right"></span> Login</a></li>
         </ul>
         {% endif %}
     </div>
