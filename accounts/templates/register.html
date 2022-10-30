@@ -20,7 +20,6 @@
                         <div class="col-md-9 col-lg-10 mx-auto">
                             <h3>Welcome!</h3>
                             <h6>Create your account</h6>
-
                             {% load crispy_forms_tags %}
                             <!-- Sign Up Form -->
                             <form method="POST" action = "">
@@ -38,7 +37,7 @@
                                             {{form.last_name|as_crispy_field}}
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
 
                                 <div class="form-group">
                                     {{form.username|as_crispy_field}}
@@ -47,25 +46,31 @@
                                 <div class="form-group">
                                     {{form.email|as_crispy_field}}
                                 </div>
-
+                                {% if messages %}
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
                                 <div class="form-group">
                                     {{ form.password1|as_crispy_field }}
                                 </div>
                                 <div class="form-group">
                                     {{form.password2|as_crispy_field}}
                                 </div>
-
+                                
                                 {% if form.errors %}
-                                    {% for field in form %}
+                                    {% for field in form %} 
                                         <p>{{field.errors}}</p>
-                                    {% endfor %}
+                                    {% endfor %} 
                                 {% endif %}
 
                                 <div class="gy-5">
                                     <div class="d-grid">
                                         <button class="btn btn-lg" type="submit">Sign Up</button>
                                     </div>
-
+                                    
                                     <div class="text-secondary text-center small mt-3">
                                         Already have an account? <a class="text-light-green" href="/accounts/login">Log In</a>
                                     </div>
