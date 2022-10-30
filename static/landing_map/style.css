@@ -109,3 +109,17 @@ p.not_accessible{
     background-color: rgba(0, 0, 0, 0.05);
     margin-top: 20px;
 }
+
+/* reports */
+.view-report p{
+    margin-bottom: 15px;
+}
+
+.view-report h5{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.modal-footer .thumbs{
+    float: left;
+}
