@@ -6,11 +6,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('landing_map', '0004_auto_20221030_1710'),
+        ("landing_map", "0004_auto_20221030_1710"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='Favorite',
+            name="Favorite",
         ),
     ]

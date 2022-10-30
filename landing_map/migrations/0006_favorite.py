@@ -9,20 +9,34 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('landing_map', '0005_delete_favorite'),
+        ("landing_map", "0005_delete_favorite"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Favorite',
+            name="Favorite",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('locationX', models.DecimalField(decimal_places=16, max_digits=22)),
-                ('locationY', models.DecimalField(decimal_places=16, max_digits=22)),
-                ('userID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("locationX", models.DecimalField(decimal_places=16, max_digits=22)),
+                ("locationY", models.DecimalField(decimal_places=16, max_digits=22)),
+                (
+                    "userID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('userID', 'locationX', 'locationY')},
+                "unique_together": {("userID", "locationX", "locationY")},
             },
         ),
     ]

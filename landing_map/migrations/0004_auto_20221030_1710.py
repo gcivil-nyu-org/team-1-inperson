@@ -6,47 +6,47 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('landing_map', '0003_auto_20221024_1733'),
+        ("landing_map", "0003_auto_20221024_1733"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='favorite',
-            name='typeID',
+            model_name="favorite",
+            name="typeID",
         ),
         migrations.AddField(
-            model_name='accessible_location',
-            name='borough',
+            model_name="accessible_location",
+            name="borough",
             field=models.CharField(default=None, max_length=15),
         ),
         migrations.AddField(
-            model_name='accessible_location',
-            name='street1',
+            model_name="accessible_location",
+            name="street1",
             field=models.CharField(default=None, max_length=20),
         ),
         migrations.AddField(
-            model_name='accessible_location',
-            name='street2',
+            model_name="accessible_location",
+            name="street2",
             field=models.CharField(default=None, max_length=20),
         ),
         migrations.AlterField(
-            model_name='accessible_location',
-            name='locationX',
+            model_name="accessible_location",
+            name="locationX",
             field=models.DecimalField(decimal_places=16, max_digits=22),
         ),
         migrations.AlterField(
-            model_name='accessible_location',
-            name='locationY',
+            model_name="accessible_location",
+            name="locationY",
             field=models.DecimalField(decimal_places=16, max_digits=22),
         ),
         migrations.AlterField(
-            model_name='favorite',
-            name='locationX',
+            model_name="favorite",
+            name="locationX",
             field=models.DecimalField(decimal_places=16, max_digits=22),
         ),
         migrations.AlterField(
-            model_name='favorite',
-            name='locationY',
+            model_name="favorite",
+            name="locationY",
             field=models.DecimalField(decimal_places=16, max_digits=22),
         ),
     ]
