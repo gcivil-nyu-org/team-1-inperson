@@ -15,7 +15,6 @@ if(filterParams['rampsCheck']){
 }
 
 function redirect_to_url(){
-
     selectedLocation = Object.keys(searchedLocation).length != 0? searchedLocation : currentLocation;
     radiusRange = document.getElementById("radiusRangeFilter").value;
     currentlyAccessible = document.getElementById("currentlyAccessibleCheck").checked;

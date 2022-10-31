@@ -1,6 +1,6 @@
 currentLocation = {};
 searchedLocation = {};
-var mapLocation =  [-74, 40.67];
+var mapLocation =  [-73.98, 40.694];
 const mapboxHost = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
 const mapboxParams = {"access_token": mapboxgl.accessToken, "types": "address"}
 
@@ -28,9 +28,11 @@ async function fetchAsync(url) {
 
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    navigator.geolocation.getCurrentPosition(showPosition, positionError);
+
   } else {
-    alert("Geolocation is not supported by this browser.")
+    console.log("Geolocation is not supported by this device")
+
   }
 }
 
@@ -39,7 +41,14 @@ function showPosition(position) {
     currentLocation['latitude'] = position.coords.latitude;
     console.log("currentLocation", currentLocation)
     mapLocation = [position.coords.longitude, position.coords.latitude]
-    plotMap();
+    redirect_to_url();
+}
+
+function positionError() {
+    alert('Geolocation is not enabled. Please enable to use this feature')
+    currentLocation['longitude'] = mapLocation[0];
+    currentLocation['latitude'] = mapLocation[1];
+    redirect_to_url();
 }
 
 function plotMap(){
