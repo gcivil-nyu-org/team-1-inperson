@@ -115,16 +115,26 @@ def index(request):
         if filterParams.get("sidewalkCheck") == "true":
             infraTypes.append("3")
 
-        radiusQuery = "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) " \
-                      "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location HAVING distance < " \
-                      "{radius} ORDER BY distance".format(y = filterParams.get("y-co"), x= filterParams.get("x-co"), radius = filterParams.get("radiusRange") )
+        radiusQuery = (
+            "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
+            "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location HAVING distance < "
+            "{radius} ORDER BY distance".format(
+                y=filterParams.get("y-co"),
+                x=filterParams.get("x-co"),
+                radius=filterParams.get("radiusRange"),
+            )
+        )
 
         infraIds = []
         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
         for loc in nearbyLocations:
             infraIds.append(loc.infraID)
 
-        filteredLocations = Accessible_location.objects.filter(infraID__in=infraIds,isAccessible__in=currentlyAccessible, typeID__in=infraTypes)
+        filteredLocations = Accessible_location.objects.filter(
+            infraID__in=infraIds,
+            isAccessible__in=currentlyAccessible,
+            typeID__in=infraTypes,
+        )
     else:
         filteredLocations = Accessible_location.objects.all()
     cardList, address_list = populate_cards()
