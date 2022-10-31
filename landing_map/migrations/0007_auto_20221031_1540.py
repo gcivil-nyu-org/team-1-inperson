@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('landing_map', '0006_favorite'),
+        ("landing_map", "0006_favorite"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='accessible_location',
-            name='locationX',
+            model_name="accessible_location",
+            name="locationX",
             field=models.CharField(max_length=22),
         ),
         migrations.AlterField(
-            model_name='accessible_location',
-            name='locationY',
+            model_name="accessible_location",
+            name="locationY",
             field=models.CharField(max_length=22),
         ),
         migrations.AlterField(
-            model_name='favorite',
-            name='locationX',
+            model_name="favorite",
+            name="locationX",
             field=models.CharField(max_length=22),
         ),
         migrations.AlterField(
-            model_name='favorite',
-            name='locationY',
+            model_name="favorite",
+            name="locationY",
             field=models.CharField(max_length=22),
         ),
     ]
