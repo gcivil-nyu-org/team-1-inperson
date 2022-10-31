@@ -17,14 +17,14 @@ class Favorite(models.Model):
         unique_together = (("userID"), ("locationX"), ("locationY"))
 
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    locationX = models.DecimalField(max_digits=22, decimal_places=16)
-    locationY = models.DecimalField(max_digits=22, decimal_places=16)
+    locationX = models.CharField(max_length=22)
+    locationY = models.CharField(max_length=22)
 
 
 class Accessible_location(models.Model):
     infraID = models.IntegerField(primary_key=True)
-    locationX = models.DecimalField(max_digits=22, decimal_places=16)
-    locationY = models.DecimalField(max_digits=22, decimal_places=16)
+    locationX = models.CharField(max_length=22)
+    locationY = models.CharField(max_length=22)
     typeID = models.ForeignKey(Infra_type, on_delete=models.PROTECT)
     isAccessible = models.BooleanField(default=True)
     street1 = models.CharField(max_length=20, default=None)
