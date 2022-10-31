@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test import Client
-from .views import populate_cards
+from .views import populate_cards, index
 from .models import Infra_type, Accessible_location, Favorite
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.models import User
@@ -24,9 +24,9 @@ class LandingURLsTests(TestCase):
 
 
 class ViewsTests(TestCase):
-    # todo: resolve attribute error (see test_pop..
-    # def test_views_index(self):
-    #     self.assertEqual(request.resolver_match.func, index)
+    def test_views_index(self):
+        response = client.get("/")
+        self.assertEqual(response.resolver_match.func, index)
 
     def test_populate_cards_return_type(self):
         card_list, address_list = populate_cards()
@@ -74,7 +74,7 @@ class ModelsTests(TestCase):
         self.assertEqual(one_entry, accessible_location)
 
     def test_Accessible_str(self):
-        infra_2 = Infra_type.objects.create(typeID=102)
+        infra_2 = Infra_type.objects.create(typeID=102, typeName="infrastructure_type2")
         accessible_location = Accessible_location.objects.create(
             infraID=1111,
             locationX="st_1",
@@ -82,8 +82,11 @@ class ModelsTests(TestCase):
             typeID=infra_2,
             isAccessible=True,
         )
-        self.assertEqual(accessible_location.__str__(), "1111 st_1 st_2  True")
-        # TODO: Ask Ames and Atul -- output string for typeID is empty str
+        self.assertEqual(
+            accessible_location.__str__(), "1111 st_1 st_2 infrastructure_type2 True"
+        )
+        # TODO: update with following assert after Atul's next merge
+        # self.assertEqual(accessible_location.__str__(), "1111 st_1 st_2 infrastructure_type2 True")
 
     def test_Favorite(self):
         user = User.objects.create(username="Testuser")
