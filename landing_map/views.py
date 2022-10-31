@@ -60,4 +60,5 @@ def index(request):
         "accessible_locations": accessible_locations,
         "cardList": cardList,
     }
+    print(context["accessible_locations"])
     return render(request, "landing_map/home.html", context)
