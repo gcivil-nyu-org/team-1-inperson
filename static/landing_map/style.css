@@ -12,11 +12,7 @@ a.nav-list{
     color: #FFFFFF !important;
     font-size:1.2em;
 }
-/*
-body{
-    overflow: hidden;
-    }
-*/
+
 /* pin card styling */
 div.cards{
     height:500px;
@@ -29,6 +25,22 @@ p.not_accessible{
 #map {
     height: 600px;
 }
+
+
+/* add to favorite */
+.add{
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.add button{
+    width: 200px;
+    background-color: #FFFFFF;
+    color: #18435A;
+}
+
 
 /* filter button styling */
 .filter{
@@ -77,16 +89,37 @@ p.not_accessible{
     /* margin-right: 100px; */
 }
 
+
+/* results */
 .results {
     float: right !important;
     padding-top: 15px !important;
 }
+
+
+/* geo coder */
 .mapboxgl-ctrl-geocoder {
     width: 100% !important;
     max-width: 100% !important;
 }
 
+
+/* copyright */
 .copyright {
     background-color: rgba(0, 0, 0, 0.05);
     margin-top: 20px;
+}
+
+/* reports */
+.view-report p{
+    margin-bottom: 15px;
+}
+
+.view-report h5{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.modal-footer .thumbs{
+    float: left;
 }

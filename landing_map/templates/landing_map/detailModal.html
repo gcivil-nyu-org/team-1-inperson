@@ -1,0 +1,44 @@
+<div id="pin_{{card.card_id}}_details" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{card.text}}</h4>
+            </div>
+
+            <div class="modal-body row">
+                <div class="col-md-6">
+                    <img src="/static/img/map_dummy.png" alt="dummy image for map" width="280" height="280">
+                </div>
+                
+                <div class="col-md-6 ml-auto view-report">
+
+                    <h5>issue: </h5>
+                    <p class="not_accessible">inaccessible ramp</p>
+
+                    <h5>description: </h5>
+                    <p>street corner under construction until October 23rd, ramps are blocked</p>
+
+                    <h5>time reported: </h5>
+                    <p>7:20AM, October 20th 2022</p>
+
+                </div>  
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default thumbs"> 
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                    7
+                </button>
+                <button type="button" class="btn btn-default thumbs"> 
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                    1
+                </button>
+
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color:#4F7C5E; color:white; width: 25%">
+                    Mark as restored</button>
+            </div>
+        </div>
+    </div>
+</div>
