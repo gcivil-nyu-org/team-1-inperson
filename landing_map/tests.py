@@ -41,6 +41,9 @@ class ViewsTests(TestCase):
             locationY="st_2",
             typeID=infra_2,
             isAccessible=True,
+            street1="street_1",
+            street2="street_2",
+            borough="Somewhere",
         )
         cards, addresses = populate_cards()
         # print(cards)
@@ -69,6 +72,9 @@ class ModelsTests(TestCase):
             locationY="st_2",
             typeID=infra_2,
             isAccessible=True,
+            street1="street_1",
+            street2="street_2",
+            borough="Somewhere",
         )
         one_entry = Accessible_location.objects.get(infraID=1111)
         self.assertEqual(one_entry, accessible_location)
@@ -81,6 +87,9 @@ class ModelsTests(TestCase):
             locationY="st_2",
             typeID=infra_2,
             isAccessible=True,
+            street1="street_1",
+            street2="street_2",
+            borough="Somewhere",
         )
         self.assertEqual(
             accessible_location.__str__(), "1111 st_1 st_2 infrastructure_type2 True"
@@ -90,9 +99,10 @@ class ModelsTests(TestCase):
 
     def test_Favorite(self):
         user = User.objects.create(username="Testuser")
-        infra_2 = Infra_type.objects.create(typeID=102)
         favorite = Favorite.objects.create(
-            userID=user, locationX="st_1", locationY="st_2", typeID=infra_2
+            userID=user,
+            locationX="st_1",
+            locationY="st_2",
         )
         one_entry = Favorite.objects.get(
             userID=user,
