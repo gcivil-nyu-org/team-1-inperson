@@ -8,7 +8,11 @@
     <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
-
+    <style>
+        button{
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,7 +41,8 @@
     <div class="ctain">
         <img src="/static/img/crosswalk.png" width="100%">
         <div class="centered"><h1 style=font-size:200%>Find your next accessible destination.</h1>
-        <input type="text" class="mapboxgl-ctrl-geocoder--input" placeholder="Search" aria-label="Search">
+        <input type="text" class="mapboxgl-ctrl-geocoder--input" placeholder="type location..." aria-label="Search">
+            <button onclick="location.href = '/home';" type="submit">Search</button>
         </div>
     </div>
 <div class="imgpadding">
