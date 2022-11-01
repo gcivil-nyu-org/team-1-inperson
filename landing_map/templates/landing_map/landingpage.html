@@ -2,19 +2,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Landing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <title>NYC Accessible Streets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+
 </head>
 
 <body>
 
 <!-- navigation bar -->
-<nav class="navbar navbar-inverse navba">
+<nav class="navbar navbar-inverse navbar">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="nav-brand" href="/home">NYC Accessible Streets</a>
@@ -34,6 +34,19 @@
         {% endif %}
     </div>
 </nav>
-
+    <div class="ctain">
+        <img src="/static/img/crosswalk.png" width="100%">
+        <div class="centered"><h1 style=font-size:200%>Find your next accessible destination.</h1>
+        <input type="text" class="mapboxgl-ctrl-geocoder--input" placeholder="Search" aria-label="Search">
+        </div>
+    </div>
+<div class="imgpadding">
+    <h3>&nbsp;&nbsp;recent reports</h3>
+    <img src="/static/img/samplereport1.png" class=boxshadow width="30%">
+    <img src="/static/img/samplereport2.png" class=boxshadow width="30%">
+    <img src="/static/img/samplereport3.png" class=boxshadow width="30%">
+    <img src="/static/img/samplereport4.png" class=boxshadow width="30%">
+    <img src="/static/img/samplereport5.png" class=boxshadow width="30%">
+</div>
 </body>
 </html>
