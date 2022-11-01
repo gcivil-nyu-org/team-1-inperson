@@ -2,8 +2,12 @@ from decouple import config
 from landing_map.models import Accessible_location, Infra_type
 import requests
 
+
 def test_dict():
-    loc_list = [(40.68852572417966, -73.98657073016483), (40.68893870107474, -73.9863174112231)]
+    loc_list = [
+        (40.68852572417966, -73.98657073016483),
+        (40.68893870107474, -73.9863174112231),
+    ]
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
     params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
 
@@ -11,11 +15,13 @@ def test_dict():
         url = mapbox_host + str(loc[1]) + "," + str(loc[0]) + ".json"
         response = requests.get(url=url, params=params).json()
         address = response["features"][0]["place_name"]
-        address = ' '.join(address.split(" ")[1:])
+        address = " ".join(address.split(" ")[1:])
         print("TEST DICT: ", address)
+
 
 def get_locations():
     return Accessible_location.objects.all()
+
 
 def populate_cards_individual(locList):
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
@@ -23,15 +29,19 @@ def populate_cards_individual(locList):
     # for loc in loc_list:
     # qset = Accessible_location.objects.filter()[:30]
     # print(qset)
-    # q1 = Accessible_location(locationX = loc_list[0][1], locationY = loc_list[0][0], infraID = 1, isAccessible = True, typeID = Infra_type.objects.get(typeName = "Ramp"))
-    # q2 = Accessible_location(locationX = loc_list[1][1], locationY = loc_list[1][0], infraID = 2, isAccessible = True, typeID = Infra_type.objects.get(typeName = "Ramp"))
+    # q1 = Accessible_location(locationX = loc_list[0][1], \
+    # locationY = loc_list[0][0], infraID = 1, isAccessible = True, \
+    # typeID = Infra_type.objects.get(typeName = "Ramp"))
+    # q2 = Accessible_location(locationX = loc_list[1][1], \
+    # locationY = loc_list[1][0], infraID = 2, isAccessible = True, \
+    # typeID = Infra_type.objects.get(typeName = "Ramp"))
     # qset = [q1,q2]
     # print(qset[0])
     # print(qset[1])
-    card_info = {}
     # res = {}
     final = []
-    for q in (locList):
+    for q in locList:
+        card_info = {}
         # print(q)
         params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
         url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
@@ -50,23 +60,28 @@ def populate_cards_individual(locList):
         else:
             card_info["isAccessible"] = False
         # print(card_info)
-    # print(cardList)
-    final.append(card_info)
+        # print(cardList)
+        final.append(card_info)
     # address_list = []
     # for card in cardList:
     #     address_list.append(card)
     # address_list = card.keys()
     return final
 
+
 def populate_cards_by_address():
     cardList = []
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
-    loc_list = [(40.68852572417966, -73.98657073016483), (40.68893870107474, -73.9863174112231)]
+    # loc_list = [(40.68852572417966, -73.98657073016483), (40.68893870107474, -73.9863174112231)]
     # for loc in loc_list:
     qset = Accessible_location.objects.filter()[:30]
     # print(qset)
-    # q1 = Accessible_location(locationX = loc_list[0][1], locationY = loc_list[0][0], infraID = 1, isAccessible = True, typeID = Infra_type.objects.get(typeName = "Ramp"))
-    # q2 = Accessible_location(locationX = loc_list[1][1], locationY = loc_list[1][0], infraID = 2, isAccessible = True, typeID = Infra_type.objects.get(typeName = "Ramp"))
+    # q1 = Accessible_location(locationX = loc_list[0][1], \
+    # locationY = loc_list[0][0], infraID = 1, isAccessible = True, \
+    # typeID = Infra_type.objects.get(typeName = "Ramp"))
+    # q2 = Accessible_location(locationX = loc_list[1][1], \
+    # locationY = loc_list[1][0], infraID = 2, isAccessible = True, \
+    # typeID = Infra_type.objects.get(typeName = "Ramp"))
     # qset = [q1,q2]
     # print(qset[0])
     # print(qset[1])
@@ -76,13 +91,13 @@ def populate_cards_by_address():
     final = []
     address_set = set()
 
-    for q in (qset):
+    for q in qset:
         # print(q)
         params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
         url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
         response = requests.get(url=url, params=params).json()
         address = response["features"][0]["place_name"]
-        address = ' '.join(address.split(" ")[1:])
+        address = " ".join(address.split(" ")[1:])
         if card_info.get(address) is None:
             card_info[address] = {}
         if str(q.typeID) == "Ramp":
@@ -103,10 +118,7 @@ def populate_cards_by_address():
             else:
                 card_info[address]["isSignalAccess"] = False
 
-        elif (
-            str(q.typeID) == "Raised_Crosswalk"
-            and str(q.isAccessible)
-        ):
+        elif str(q.typeID) == "Raised_Crosswalk" and str(q.isAccessible):
             try:
                 card_info[address]["rcross_count"] = (
                     card_info[address].get("rcross_count", 0) + 1
@@ -156,7 +168,7 @@ def populate_cards_by_address():
     # for card in cardList:
     #     address_list.append(card)
     # address_list = card.keys()
-    for card,address in zip(cardList, address_set):
+    for card, address in zip(cardList, address_set):
         res = {}
         print(address)
         res["text"] = address

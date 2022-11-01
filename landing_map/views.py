@@ -2,7 +2,11 @@ from django.shortcuts import render
 from decouple import config
 from .models import Infra_type, Favorite, Accessible_location
 from django.core import serializers
-from NYCAccessibleStreet.utils import get_locations, populate_cards_by_address, populate_cards_individual
+from NYCAccessibleStreet.utils import (
+    get_locations,
+    populate_cards_by_address,
+    populate_cards_individual,
+)
 
 
 def index(request):
