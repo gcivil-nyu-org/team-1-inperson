@@ -3,6 +3,12 @@ searchedLocation = {};
 var mapLocation =  [-73.98, 40.694];
 const mapboxHost = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
 const mapboxParams = {"access_token": mapboxgl.accessToken, "types": "address"}
+const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: mapLocation,
+    zoom: 11
+});
 
 filterParams =  Object.fromEntries(new URLSearchParams(document.URL.split('?')[1]));
 // Sample lat = 40. long = -74
@@ -24,6 +30,50 @@ async function fetchAsync(url) {
   let response = await fetch(url);
   let data = await response.json();
   return data;
+}
+
+function highlight_card(infraID) {
+    $(".well").css("color", "black");
+    console.log("INFRA ID: ", infraID);
+    accessible_locations.forEach(function (accessible_location) {
+        if (accessible_location.pk == infraID) {
+            fly_to([accessible_location.fields.locationX, accessible_location.fields.locationY], 14)
+        }
+    });
+    const el = document.getElementById(infraID);
+    // const highlight = {
+    //     color: red,
+    //     background: "black",
+    // }
+    // Object.assign(el.style, highlight)
+    $('#' + infraID).css("color", "red");
+    el.scrollIntoView(true);
+}
+
+function fly_to(location, zoom_val = 20) {
+    map.flyTo({
+        center: location,
+        essential: true,
+        zoom: zoom_val
+     });
+}
+
+function zoom_map(infraID) {
+    console.log("ZOOM_MAP: ", infraID);
+    $(".well").css("color", "black");
+    // document.getElementById(infraID).color = 'red';
+    accessible_locations.forEach(function (accessible_location) {
+
+        if (accessible_location.pk == infraID) {
+            fly_to([accessible_location.fields.locationX, accessible_location.fields.locationY])
+        }
+    });
+    // mapLocation = [position.coords.longitude, position.coords.latitude]
+    // map.flyTo({
+    //     center: mapLocation,
+    //     essential: true,
+    //     zoom: 14
+    //  });
 }
 
 function getLocation() {
@@ -52,12 +102,12 @@ function positionError() {
 }
 
 function plotMap(){
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: mapLocation,
-        zoom: 11
-    });
+    // const map = new mapboxgl.Map({
+    //     container: 'map',
+    //     style: 'mapbox://styles/mapbox/streets-v11',
+    //     center: mapLocation,
+    //     zoom: 11
+    // });
 
     map.on('load', function () {
         map.flyTo({
@@ -98,6 +148,7 @@ function plotMap(){
     accessible_locations.forEach(function (accessible_location) {
 
         const isAccessible = accessible_location.fields.isAccessible
+        const infraID = accessible_location.pk
         const locX = accessible_location.fields.locationX
         const locY = accessible_location.fields.locationY
         const infraType = accessible_location.fields.typeID
@@ -118,6 +169,10 @@ function plotMap(){
             .setLngLat([locX, locY])
             .setPopup(new mapboxgl.Popup().setHTML(popupMessage))
             .addTo(map);
+
+        marker.getElement().addEventListener('click', (event) =>{
+            highlight_card(infraID);
+        });
     });
 
     const geocoder = new MapboxGeocoder({

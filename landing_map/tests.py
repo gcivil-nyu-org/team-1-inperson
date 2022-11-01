@@ -29,9 +29,8 @@ class ViewsTests(TestCase):
         self.assertEqual(response.resolver_match.func, index)
 
     def test_populate_cards_return_type(self):
-        card_list, address_list = populate_cards()
+        card_list = populate_cards([])
         self.assertEqual(type(card_list), list)
-        self.assertEqual(type(address_list), list)
 
     def test_populate_cards(self):
         infra_2 = Infra_type.objects.create(typeID=102)
@@ -45,12 +44,13 @@ class ViewsTests(TestCase):
             street2="street_2",
             borough="Somewhere",
         )
-        cards, addresses = populate_cards()
+        filteredLocations = Accessible_location.objects.all()
+
+        cards = populate_cards(filteredLocations)
         # print(cards)
         # TODO: figure out why loaded cards dont seem to fit the location i created
         # Note: without infra_2 and accessible_location cards/addresses are empty strs
         self.assertNotEqual(cards, [])
-        self.assertNotEqual(addresses, [])
 
 
 class ModelsTests(TestCase):
