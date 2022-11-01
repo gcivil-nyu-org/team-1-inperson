@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from decouple import config
-from .models import Infra_type, Favorite, Accessible_location
+from .models import Infra_type, Accessible_location
+from .models import Favorite
 from django.core import serializers
 import requests
 

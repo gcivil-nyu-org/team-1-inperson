@@ -19,7 +19,6 @@ class Favorite(models.Model):
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
     locationX = models.CharField(max_length=22)
     locationY = models.CharField(max_length=22)
-    typeID = models.ForeignKey(Infra_type, on_delete=models.PROTECT)
 
 
 class Accessible_location(models.Model):
@@ -28,6 +27,9 @@ class Accessible_location(models.Model):
     locationY = models.CharField(max_length=22)
     typeID = models.ForeignKey(Infra_type, on_delete=models.PROTECT)
     isAccessible = models.BooleanField(default=True)
+    street1 = models.CharField(max_length=20, default=None)
+    street2 = models.CharField(max_length=20, default=None)
+    borough = models.CharField(max_length=15, default=None)
 
     def __str__(self):
         return (
