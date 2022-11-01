@@ -1,3 +1,8 @@
+<style>
+    .nofade{
+        opacity: 1
+    }
+</style>
 <nav class="navbar navbar-inverse navbar">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -5,7 +10,7 @@
         </div>
         {% if user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
-            <li><a class = "nav-list" href="#"> Hi {{user.first_name}}!</a></li>
+            <li><a class = "nav-list nofade" href="#"> Hi {{user.first_name}}!</a></li>
             <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
             <li><a class = "nav-list" href="/accounts/logout"><span class="glyphicon glyphicon-arrow-left"></span> Log Out</a></li>
         </ul>

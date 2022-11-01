@@ -33,34 +33,38 @@ a.nav-list:hover{
 }
 
 .padding{
-            text-align: left;
-            padding-left: 30px;
-            padding-right: 25%;
-        }
-        .ctain {
-            width: 100%;
-            position: relative;
-            text-align: center;
-            color: white;
-        }
-        .centered {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .boxshadow{
-            box-shadow: 0px 0px 10px 1px gray;
-            padding-left: 5px;
-            padding-right: 5px;
-            margin: 1% 1% 1% 1%;
-            border-radius: 3%;
-        }
-        .imgpadding{
-            text-align: left;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 25%;
+}
+
+.ctain {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.boxshadow{
+    box-shadow: 0px 0px 10px 1px gray;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 1% 1% 1% 1%;
+    border-radius: 3%;
+}
+
+.imgpadding{
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 30px;
+}
 /*
 body{
     overflow: hidden;
