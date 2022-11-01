@@ -8,7 +8,7 @@ import requests
 def populate_cards():
     cardList = []
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
-    qset = Accessible_location.objects.filter()[:30]
+    qset = Accessible_location.objects.filter()[:1]
     card_id = 1
     address_list = []
 
@@ -106,3 +106,6 @@ def index(request):
         "cardList": cardList,
     }
     return render(request, "landing_map/home.html", context)
+
+def landingpage(request):
+    return render(request, "landing_map/landingpage.html", {})
