@@ -6,7 +6,7 @@
     {% include 'landing_map/reportModal.html' %}
 
     <!-- Pin cards -->
-    <div class="well well-lg" id = {{card.card_id}}>
+    <div class="well well-lg" id = {{card.card_id}} onclick = "zoom_map({{card.card_id}})">
         <h4>{{card.text}}</h4>
         {% if card.ramp_count != 0 %}
             <p class="accessible">{{card.ramp_count}} accessible ramps</p>
