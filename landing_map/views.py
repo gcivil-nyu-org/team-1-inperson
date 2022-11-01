@@ -8,11 +8,6 @@ from NYCAccessibleStreet.utils import (
 
 
 def index(request):
-    cardList = populate_cards()
-    accessible_locations = serializers.serialize(
-        "json", Accessible_location.objects.all()
-    )
-
     filterParams = request.GET
     if filterParams.get("currentlyAccessible"):
         currentlyAccessible = []
@@ -67,13 +62,11 @@ def index(request):
         for loc in nearbyLocations:
             infraIds.append(loc.infraID)
         filteredLocations = Accessible_location.objects.filter(
-            infraID__in = infraIds,
-            isAccessible__in = [True, False],
-            typeID__in=["1","2","3"]
+            infraID__in=infraIds,
+            isAccessible__in=[True, False],
+            typeID__in=["1", "2", "3"],
         )
     cardList = populate_cards(filteredLocations)
-    # cardList= []
-    # print(cardList)
     accessible_locations = serializers.serialize("json", filteredLocations)
 
     context = {

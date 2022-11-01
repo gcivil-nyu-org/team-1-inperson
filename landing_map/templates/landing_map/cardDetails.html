@@ -8,20 +8,27 @@
     <!-- Pin cards -->
     <div class="well well-lg" id = {{card.card_id}} onclick = "zoom_map({{card.card_id}})">
         <h4>{{card.text}}</h4>
-        {% if card.ramp_count != 0 %}
-            <p class="accessible">{{card.ramp_count}} accessible ramps</p>
-        {% else %}
-            <p class="not_accessible">0 accessible ramps</p>
+        {% if card.type == "Ramp" %}
+            {% if card.isAccessible %}
+                <p class="accessible">Accessible ramp</p>
+            {% else %}
+                <p class="not_accessible">Inaccessible ramp</p>
+            {% endif %}
+        {% elif card.type == "Signal" %}
+            {% if card.isAccessible %}
+                <p class="accessible">Accessible Signal</p>
+            {% else %}
+                <p class="not_accessible">Inaccessible Signal</p>
+            {% endif %}
+        {% elif card.type == "Raised_Crosswalk" %}
+            {% if card.isAccessible %}
+                <p class="accessible">Accessible Raised Crosswalk</p>
+            {% else %}
+                <p class="not_accessible">Inaccessible Raised Crosswalk</p>
+            {% endif %}
         {% endif %}
-        {% if card.signal_count != 0 %}
-            <p class="accessible">{{card.signal_count}} accessible signals</p>
-        {% else %}
-            <p class="not_accessible">0 accessible signals</p>
-        {% endif %}
-
-
         <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#pin_{{card.card_id}}_details"
-                style=" background-color:#884515; color:white">
+        style=" background-color:#884515; color:white">
             view issue
         </button>
 
@@ -29,7 +36,6 @@
                 style=" background-color:#18435A; color:white">
             report issue
         </button>
-
 
     </div>
     {% endfor %}
