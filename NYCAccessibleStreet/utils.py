@@ -23,7 +23,7 @@ def get_locations():
     return Accessible_location.objects.all()
 
 
-def populate_cards_individual(locList):
+def populate_cards(locList):
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
     # loc_list = [(40.68852572417966, -73.98657073016483), (40.68893870107474, -73.9863174112231)]
     # for loc in loc_list:
