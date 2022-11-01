@@ -2,7 +2,7 @@ from django.shortcuts import render
 from decouple import config
 from .models import Infra_type, Favorite, Accessible_location
 from django.core import serializers
-from NYCAccessibleStreet.utils import populate_cards
+from NYCAccessibleStreet.utils import get_locations, populate_cards_by_address, populate_cards_individual
 
 
 def index(request):
@@ -52,7 +52,8 @@ def index(request):
         )
     else:
         filteredLocations = Accessible_location.objects.all()
-    cardList = populate_cards()
+    cardList = populate_cards_individual(filteredLocations)
+    # print(cardList)
     accessible_locations = serializers.serialize("json", filteredLocations)
 
     context = {
@@ -60,5 +61,4 @@ def index(request):
         "accessible_locations": accessible_locations,
         "cardList": cardList,
     }
-    print(context["accessible_locations"])
     return render(request, "landing_map/home.html", context)

@@ -123,3 +123,7 @@ p.not_accessible{
 .modal-footer .thumbs{
     float: left;
 }
+
+.well{
+    scroll-behavior: smooth;
+}

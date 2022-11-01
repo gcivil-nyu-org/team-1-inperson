@@ -26,6 +26,19 @@ async function fetchAsync(url) {
   return data;
 }
 
+function highlight_card(infraID) {
+    $(".well").css("color", "black");
+    console.log("INFRA ID: ", infraID);
+    const el = document.getElementById(infraID);
+    // const highlight = {
+    //     color: red,
+    //     background: "black",
+    // }
+    // Object.assign(el.style, highlight)
+    $('#' + infraID).css("color", "red");
+    el.scrollIntoView(true);
+}
+
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, positionError);
@@ -98,6 +111,7 @@ function plotMap(){
     accessible_locations.forEach(function (accessible_location) {
 
         const isAccessible = accessible_location.fields.isAccessible
+        const infraID = accessible_location.pk
         const locX = accessible_location.fields.locationX
         const locY = accessible_location.fields.locationY
         const infraType = accessible_location.fields.typeID
@@ -118,6 +132,9 @@ function plotMap(){
             .setLngLat([locX, locY])
             .setPopup(new mapboxgl.Popup().setHTML(popupMessage))
             .addTo(map);
+        marker.getElement().addEventListener('click', (event) =>{
+            highlight_card(infraID);
+        });
     });
 
     const geocoder = new MapboxGeocoder({
