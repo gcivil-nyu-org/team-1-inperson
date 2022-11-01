@@ -75,3 +75,6 @@ def index(request):
         "cardList": cardList,
     }
     return render(request, "landing_map/home.html", context)
+
+def landingpage(request):
+    return render(request, "landing_map/landingpage.html", {})
