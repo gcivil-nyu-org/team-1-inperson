@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test import Client
-from .views import populate_cards, index
+from .views import populate_cards, index, landingpage
 from .models import Infra_type, Accessible_location, Favorite
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.models import User
@@ -26,7 +26,7 @@ class LandingURLsTests(TestCase):
 class ViewsTests(TestCase):
     def test_views_index(self):
         response = client.get("/")
-        self.assertEqual(response.resolver_match.func, index)
+        self.assertEqual(response.resolver_match.func, landingpage)
 
     def test_populate_cards_return_type(self):
         card_list = populate_cards([])
