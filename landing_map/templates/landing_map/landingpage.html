@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>NYC Accessible Streets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <style>
+        button{
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- navigation bar -->
+<nav class="navbar navbar-inverse navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="nav-brand" href="/home">NYC Accessible Streets</a>
+        </div>
+        {% if user.is_authenticated %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a class = "nav-list" href="#"> Hi {{user.first_name}}!</a></li>
+            <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+            <li><a class = "nav-list" href="/accounts/logout"><span class="glyphicon glyphicon-arrow-left"></span> Log Out</a></li>
+        </ul>
+        {% else %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+            <li><a class = "nav-list" href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a class = "nav-list" href="/accounts/login"><span class="glyphicon glyphicon-arrow-right"></span> Login</a></li>
+        </ul>
+        {% endif %}
+    </div>
+</nav>
+    <div class="ctain">
+        <img src="/static/img/crosswalk.png" width="100%">
+        <div class="centered"><h1 style=font-size:200%>Find your next accessible destination.</h1>
+            <button onclick="location.href = '/home';" class="btn btn-lg" type="submit">Search</button>
+        </div>
+    </div>
+<div class="imgpadding">
+    <h3>&nbsp;&nbsp;recent reports</h3>
+    <img src="/static/img/samplereport1.png" class=boxshadow width="30%">
+    <img src="/static/img/samplereport2.png" class=boxshadow width="30%">
+    <img src="/static/img/samplereport3.png" class=boxshadow width="30%">
+    <img src="/static/img/samplereport4.png" class=boxshadow width="30%">
+    <img src="/static/img/samplereport5.png" class=boxshadow width="30%">
+</div>
+</body>
+</html>

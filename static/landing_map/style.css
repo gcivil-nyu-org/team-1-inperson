@@ -2,17 +2,74 @@
 /* navbar styling */
 nav.navbar{
     background-color:#18435A;
-    }
+    padding-left: 0;
+    padding-right: 0;
+}
+
 a.nav-brand {
     color: #FFFFFF;
-    font-size:2em;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none !important;
+    height: 75px;
+    line-height: 75px;
 }
 
 a.nav-list{
     color: #FFFFFF !important;
-    font-size:1.2em;
+    font-size:1em;
+    text-decoration: none;
+    height: 75px !important;
+    line-height: 40px !important;
+    padding-left:30px !important;
 }
 
+a.nav-brand:hover{
+    opacity: 0.5;
+}
+
+a.nav-list:hover{
+    opacity: 0.5;
+}
+
+.padding{
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 25%;
+}
+
+.ctain {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.centered {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.boxshadow{
+    box-shadow: 0px 0px 10px 1px gray;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 1% 1% 1% 1%;
+    border-radius: 3%;
+}
+
+.imgpadding{
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+/*
+body{
+    overflow: hidden;
+    }
+*/
 /* pin card styling */
 div.cards{
     height:500px;

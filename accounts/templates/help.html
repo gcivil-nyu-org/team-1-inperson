@@ -5,42 +5,16 @@
     <title>Help</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+    <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
-        nav.navbar{
-            background-color:#18435A;
-        }
-        a.nav-brand {
-            color: #FFFFFF;
-            font-size:2em;
-        }
-        a.nav-list {
-            color: #FFFFFF !important;
-            font-size: 1.2em;
-        }
-        .padding{
-            text-align: left;
-            padding-left: 30px;
-            padding-right: 25%;
-        }
-        .container {
-            width: 100%;
-            position: relative;
-            text-align: center;
-            color: white;
-        }
-        .centered {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+
     </style>
 </head>
-{% include 'common/navbar.html' %}
+
 <body class="container-fluid">
-    <div class="container">
+{% include 'common/navbar.html' %}
+    <div class="ctain">
         <img src="/static/img/crosswalk.png" width="100%">
         <div class="centered"><h1 style=font-size:300%>Help</h1></div>
     </div>
