@@ -8,14 +8,37 @@
     <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
+        .container-fluid{
+            padding-left: 0;
+            padding-right: 0;
+            margin-bottom: -10px;
+        }
+        a.nav-brand {
+            color: #FFFFFF !important;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-decoration: none !important;
+            height: 75px;
+            line-height: 75px;
+            padding-left: 15px;
+        }
 
+        a.nav-list{
+            color: #FFFFFF !important;
+            font-size:1em;
+            text-decoration: none;
+            height: 75px !important;
+            line-height: 40px !important;
+            padding-left: 15px !important;
+            padding-right: 30px !important;
+        }
     </style>
 </head>
 
 <body class="container-fluid">
 {% include 'common/navbar.html' %}
     <div class="ctain">
-        <img src="/static/img/crosswalk.png" width="100%">
+        <img src="/static/img/crosswalk.png" style="margin-top: -20px;" width="100%">
         <div class="centered"><h1 style=font-size:300%>Help</h1></div>
     </div>
     <div class="padding">

@@ -7,7 +7,7 @@ nav.navbar{
 }
 
 a.nav-brand {
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     font-size: 1.5em;
     font-weight: bold;
     text-decoration: none !important;
@@ -21,7 +21,7 @@ a.nav-list{
     text-decoration: none;
     height: 75px !important;
     line-height: 40px !important;
-    padding-left:30px !important;
+    padding-left: 30px !important;
 }
 
 a.nav-brand:hover{
@@ -65,6 +65,10 @@ a.nav-list:hover{
     padding-left: 30px;
     padding-right: 30px;
 }
+
+.noborder{
+        border-color: transparent !important;
+    }
 /*
 body{
     overflow: hidden;

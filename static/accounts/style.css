@@ -44,7 +44,7 @@ h6{
 
 nav.navbar{
     background-color:#18435A;
-    height: 75px;
+    height: 77px !important;
 }
 
 a.nav-brand {
@@ -52,7 +52,7 @@ a.nav-brand {
     font-size:1.34em;
     font-weight: bold;
     text-decoration: none;
-    height: 75px;
+    height: 75px !important;
     line-height: 75px;
 }
 
@@ -71,6 +71,10 @@ a.nav-brand:hover{
 
 a.nav-list:hover{
     opacity: 0.5;
+}
+
+.navrounding{
+    border-radius: 5px;
 }
 
 div.cards{
