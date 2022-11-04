@@ -51,28 +51,10 @@ a.nav-list:hover{
     transform: translate(-50%, -50%);
 }
 
-.boxshadow{
-    box-shadow: 0px 0px 10px 1px gray;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 1% 1% 1% 1%;
-    border-radius: 3%;
-}
-
-.imgpadding{
-    text-align: left;
-    padding-left: 30px;
-    padding-right: 30px;
-}
-
 .noborder{
         border-color: transparent !important;
     }
-/*
-body{
-    overflow: hidden;
-    }
-*/
+
 /* pin card styling */
 div.cards{
     height:500px;
