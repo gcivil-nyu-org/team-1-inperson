@@ -86,23 +86,25 @@ def landingpage(request):
 def myFav(request):
     return render(request, "landing_map/myFav.html", {})
 
+
 def report(request):
-    if request.method == 'POST':
-        infra = request.POST.get('infraID')
+    if request.method == "POST":
+        infra = request.POST.get("infraID")
         obj = Accessible_location.objects.get(pk=infra)
         obj.isAccessible = False
         obj.save()
-        inComment = request.POST.get('comment')
-        newReport = Report(user = request.user, infraID = obj, comment = inComment)
+        inComment = request.POST.get("comment")
+        newReport = Report(user=request.user, infraID=obj, comment=inComment)
         newReport.save()
 
     return redirect("home")
 
+
 def resolve_report(request):
-    infra = request.POST.get('infraID')
+    infra = request.POST.get("infraID")
     locObj = Accessible_location.objects.get(pk=infra)
     locObj.isAccessible = True
     locObj.save()
-    Report.objects.get(infraID = infra).delete()
+    Report.objects.get(infraID=infra).delete()
 
     return redirect("home")

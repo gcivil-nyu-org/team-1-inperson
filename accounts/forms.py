@@ -8,6 +8,7 @@ from .models import Contact
 class CreateUserForm(UserCreationForm):
     first_name = forms.CharField(max_length=25)
     last_name = forms.CharField(max_length=25)
+
     class Meta:
         model = User
         fields = [
@@ -18,7 +19,6 @@ class CreateUserForm(UserCreationForm):
             "password1",
             "password2",
         ]
-        
 
 
 class InputForm(ModelForm):

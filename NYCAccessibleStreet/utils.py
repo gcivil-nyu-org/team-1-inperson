@@ -53,9 +53,9 @@ def populate_cards(locList):
         # if card_info.get(address) is None:
         #     card_info[address] = {}
 
-        #get report for each q
+        # get report for each q
         try:
-            report = Report.objects.get(infraID = q.infraID)
+            report = Report.objects.get(infraID=q.infraID)
             comment = report.comment
             created = report.createdAt
             updated = report.updatedAt
