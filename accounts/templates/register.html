@@ -14,6 +14,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
   <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+  <style>
+    .errorlist {
+        list-style: none;
+    }
+    </style>
 </head>
 
 <body class="container-fluid">
@@ -38,6 +43,13 @@
                         <div class="col-md-9 col-lg-10 mx-auto">
                             <h3>Welcome!</h3>
                             <h6>Create your account</h6>
+                            {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                             {% load crispy_forms_tags %}
                             <!-- Sign Up Form -->
                             <form method="POST" action = "">
@@ -64,13 +76,6 @@
                                 <div class="form-group">
                                     {{form.email|as_crispy_field}}
                                 </div>
-                                {% if messages %}
-                                    <ul class="messages">
-                                        {% for message in messages %}
-                                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
                                 <div class="form-group">
                                     {{ form.password1|as_crispy_field }}
                                 </div>

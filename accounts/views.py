@@ -22,7 +22,7 @@ def register_page(request):
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data.get("email")).exists():
                 messages.add_message(
-                    request, messages.ERROR, "*Email taken, please choose another"
+                    request, messages.ERROR, "Email taken, please choose another"
                 )
                 return render(request, "register.html", context)
             user = form.save(commit=False)
@@ -51,6 +51,9 @@ def register_page(request):
             )
             # messages.success(request, "Account Succesfully Created!")
             # return redirect("/accounts/login")
+        else:
+            messages.error(request, form.errors)
+
     return render(request, "register.html", context)
 
 
