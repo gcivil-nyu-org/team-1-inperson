@@ -1,4 +1,5 @@
 from django.test import TestCase
+<<<<<<< HEAD
 from django.test import Client
 from .views import populate_cards, index, landingpage
 from .models import Infra_type, Accessible_location, Favorite
@@ -110,3 +111,7 @@ class ModelsTests(TestCase):
             locationY="st_2",
         )
         self.assertEqual(favorite, one_entry)
+=======
+
+# Create your tests here.
+>>>>>>> parent of 4024689... Issue85 landing map tests (#97)
