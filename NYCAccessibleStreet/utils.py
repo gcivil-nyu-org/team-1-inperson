@@ -59,7 +59,7 @@ def populate_cards(locList):
             comment = report.comment
             created = report.createdAt
             updated = report.updatedAt
-        except:
+        except Report.DoesNotExist:
             comment = ""
             created = ""
             updated = ""
