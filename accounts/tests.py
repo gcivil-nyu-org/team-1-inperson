@@ -18,6 +18,18 @@ class URLTests(TestCase):
         response = client.get("/accounts/login/")
         self.assertEqual(response.status_code, 200)
 
+    def test_help_page(self):
+        response = client.get("/accounts/help/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_password_reset(self):
+        response = client.get("/accounts/password_reset/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_password_reset_done(self):
+        response = client.get("/accounts/password_reset/done/")
+        self.assertEqual(response.status_code, 200)
+
 
 class RegisterTest(TestCase):
     def test_user_added_to_database(self):
