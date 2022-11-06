@@ -14,13 +14,12 @@ request = HttpRequest
 # Create your tests here.
 class LandingURLsTests(TestCase):
     def test_home_page(self):
-        response = client.get("")
+        response = client.get("/home/")
         self.assertEqual(response.status_code, 200)
 
-    # TODO: update landing url if necessary
-    # def test_landing_page(self):
-    #     response = client.get("landing")
-    #     self.assertEqual(response.status_code, 200)
+    def test_landing_page(self):
+        response = client.get("/")
+        self.assertEqual(response.status_code, 200)
 
 
 class ViewsTests(TestCase):
