@@ -79,3 +79,6 @@ def index(request):
 
 def landingpage(request):
     return render(request, "landing_map/landingpage.html", {})
+
+def myFav(request):
+    return render(request, "landing_map/myFav.html", {})
