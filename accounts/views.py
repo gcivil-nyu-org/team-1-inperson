@@ -64,12 +64,16 @@ def login_page(request):
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
+            # TODO: DELETE
+            print("user is not None")
             login(request, user)
             return redirect("home")
         else:
             messages.info(request, "Incorrect username or password")
 
     context = {}
+    # TODO: DELTE
+    print("user is None")
     return render(request, "login.html", context)
 
 
