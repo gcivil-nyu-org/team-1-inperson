@@ -79,7 +79,7 @@ class RegisterTest(TestCase):
             return
         raise Exception("system accepted insecure password")
 
-    def test_messages(self):
+    def test_response_check_email(self):
         c = Client()
         post = {
             "username": "realuser",
@@ -94,6 +94,33 @@ class RegisterTest(TestCase):
         # note: response.status_code returns 200
         response_text = b"Please check your email address to complete registration"
         self.assertEqual(response.content, response_text)
+
+    def test_email_already_exists(self):
+        c = Client()
+        post1 = {
+            "username": "realuser",
+            "email": "snb331@nyu.edu",
+            "first_name": "Test",
+            "last_name": "User",
+            "password1": "something_very_s3cur3",
+            "password2": "something_very_s3cur3",
+        }
+        response = c.post("/accounts/signup/", post1, follow=True)
+        post2 = {
+            "username": "anotheruser",
+            "email": "snb331@nyu.edu",
+            "first_name": "Test2",
+            "last_name": "User2",
+            "password1": "something_very_s3cur3",
+            "password2": "something_very_s3cur3",
+        }
+        response = c.post("/accounts/signup/", post1)
+        response = c.post("/accounts/signup/", post2)
+        messages = []
+        for message in response.context["messages"]:
+            check = str(message)
+            messages.append(check)
+        self.assertTrue("*Email taken, please choose another" in messages)
 
 
 class LoginTest(TestCase):
