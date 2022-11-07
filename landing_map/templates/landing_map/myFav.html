@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Favorites</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+
+    <style>
+        h3{
+            padding-top: 10px; 
+            padding-bottom: 10px;
+        }
+
+        button{
+            float: right; 
+            background-color:#18435A !important; 
+            color:white !important; 
+            margin-top: 15px;
+            padding-left:15px; 
+            padding-right:15px;
+        }
+
+        img{
+            padding-bottom:15px; 
+            width:100%; 
+            height:auto;
+        }
+
+        form{
+            margin-bottom: 20px;
+            width: 80% !important;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- navigation bar -->
+{% include 'common/navbar.html' %}
+
+<div class="reports container-fluid">
+    <h3>&nbsp;&nbsp;My Favorites</h3>
+
+    <!-- search bar -->
+    <form class="col-md-12" method="GET" action="" >
+        <input class="form-control" type="search" name="search" 
+        placeholder="Search by address..."> 
+    </form>
+    
+    <div class="row" style="margin: 3px;">
+        <!-- one card -->
+        <div class="col-md-4">
+            <div class="well well-lg">
+                <img src="/static/img/dummy_report.png" alt="dummy report image of map">
+
+                <h4>5 Metrotech Center, Brooklyn, NY 11201</h4>
+                
+                <div class="row">
+                    <div class='col-md-6' style="float: left; text-align: left; margin-top: 8px;">
+                        <p class="accessible" style="margin-bottom: 2px;"> 2 accessible signals</p>
+                        <p class="accessible"> 1 accessible ramp</p>
+                    </div>
+
+                    <div class='col-md-6'>
+                        <button type="button" class="btn btn-default" onclick='' type="submit"> 
+                            View Location </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+</div>
+
+{% include 'common/copyright.html' %}
+
+</body>
+</html>

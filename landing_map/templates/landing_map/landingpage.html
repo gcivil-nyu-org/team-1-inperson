@@ -7,50 +7,63 @@
     <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
-    <style>
-        button{
-            color: black;
-        }
-    </style>
 </head>
 
 <body>
 
 <!-- navigation bar -->
-<nav class="navbar navbar-inverse navbar noborder">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="nav-brand" href="/home">NYC Accessible Streets</a>
-        </div>
-        {% if user.is_authenticated %}
-        <ul class="nav navbar-nav navbar-right">
-            <li><a class = "nav-list" href="#"> Hi {{user.first_name}}!</a></li>
-            <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
-            <li><a class = "nav-list" href="/accounts/logout"><span class="glyphicon glyphicon-arrow-left"></span> Log Out</a></li>
-        </ul>
-        {% else %}
-        <ul class="nav navbar-nav navbar-right">
-            <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
-            <li><a class = "nav-list" href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a class = "nav-list" href="/accounts/login"><span class="glyphicon glyphicon-arrow-right"></span> Login</a></li>
-        </ul>
-        {% endif %}
-    </div>
-</nav>
+{% include 'common/navbar.html' %}
+
     <div class="ctain">
         <img src="/static/img/crosswalk.png" style="margin-top: -20px;"  width="100%">
-        <div class="centered"><h1 style=font-size:200%>Find your next accessible destination.</h1>
-            <button onclick="location.href = '/home';" class="btn btn-lg" type="submit">Search</button>
+
+        <div class="centered"><h1 style='font-size:200%; text-shadow: 2px 2px 4px #222222;'>
+            Find your next accessible destination.</h1>
+
+        <button onclick="location.href = '/home';" class="btn btn-lg" type="submit" 
+            style="color: #222222; width: 450px; text-align: left;">
+            Search</button>
         </div>
     </div>
-<div class="imgpadding">
-    <h3>&nbsp;&nbsp;recent reports</h3>
-    <img src="/static/img/samplereport1.png" class=boxshadow width="30%">
-    <img src="/static/img/samplereport2.png" class=boxshadow width="30%">
-    <img src="/static/img/samplereport3.png" class=boxshadow width="30%">
-    <img src="/static/img/samplereport4.png" class=boxshadow width="30%">
-    <img src="/static/img/samplereport5.png" class=boxshadow width="30%">
-</div>
+
+    <div class="reports container-fluid">
+        <h3 style="padding-top: 10px; padding-bottom: 10px;" >&nbsp;&nbsp;recent reports</h3>
+        
+        <div class="row" style="margin: 3px;">
+            <!-- one card -->
+            <div class="col-md-4">
+                <div class="well well-lg">
+                    <img src="/static/img/dummy_report.png" alt="dummy report image of map" 
+                        style="padding-bottom:15px; width:100%; height:auto;">
+
+                    <h4>5 Metrotech Center, Brooklyn, NY 11201</h4>
+                    
+                    <div class="row">
+                        <div class='col-md-4'>
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#pin_{{card.card_id}}_details"
+                            style=" background-color:#884515; color:white; padding-left:15px; padding-right:15px;">
+                                Inaccessible Ramp
+                            </button>
+
+                            {% include 'landing_map/detailModal.html' %}
+                        </div>
+            
+                        <div class='col-md-6' style="float: right; text-align: right; margin-top: 8px;">
+                            <p><span class="glyphicon glyphicon-calendar"></span> 7:20AM Oct 20th</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+    </div>
+
+    {% include 'common/copyright.html' %}
+
 </body>
 </html>
