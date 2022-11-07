@@ -75,6 +75,21 @@ class ViewsTests(TestCase):
         # Note: without infra_2 and accessible_location cards/addresses are empty strs
         self.assertNotEqual(cards, [])
 
+    def test_infra_landing_map(self):
+        temp = Infra_type.objects.create(typeID=102)
+        accessible_location = Accessible_location.objects.create(
+            infraID=1111,
+            locationX="st_1",
+            locationY="st_2",
+            typeID=temp,
+            isAccessible=True,
+            street1="street_1",
+            street2="street_2",
+            borough="Somewhere",
+        )
+        entry = Accessible_location.objects.get(infraID=1111)
+        self.assertEqual(entry, accessible_location)
+
 
 class ModelsTests(TestCase):
     def test_Infra_type(self):
