@@ -32,7 +32,7 @@ def populate_cards(locList):
         # response = requests.get(url=url, params=params).json()
         # address = response["features"][0]["place_name"]
 
-        address = Accessible_location.objects.filter(infraID = q.infraID)[0].address
+        address = Accessible_location.objects.filter(infraID=q.infraID)[0].address
         # print(len(address))
         # address = ' '.join(address.split(" ")[1:])
 
@@ -83,7 +83,7 @@ def populate_cards_by_address():
         # params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
         # url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
         # response = requests.get(url=url, params=params).json()
-        address = Accessible_location.objects.filter(infraID = q.infraID)[0].address
+        address = Accessible_location.objects.filter(infraID=q.infraID)[0].address
         address = " ".join(address.split(" ")[1:])
         if card_info.get(address) is None:
             card_info[address] = {}
