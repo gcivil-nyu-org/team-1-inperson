@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from .forms import CreateUserForm
 from .views import activate
+from .models import Contact
 from django.contrib.messages import get_messages
 import re
 
@@ -235,7 +236,7 @@ class TestActivate(TestCase):
         c = Client()
         post = {
             "username": "realuser",
-            "email": "snb331@nyu.edu",
+            "email": "someoneelse@domain.com",
             "first_name": "Test",
             "last_name": "User",
             "password1": "something_very_s3cur3",
@@ -251,3 +252,13 @@ class TestActivate(TestCase):
         target_redirect = [("/accounts/login/", 302)]
         actual_redirect = response_2.redirect_chain
         self.assertEqual(actual_redirect, target_redirect)
+
+
+class Models_Tests(TestCase):
+    def test_model_string(self):
+        target_email = "someoneelse@domain.com"
+        contact = Contact.objects.create(
+            email=target_email, subject="the subject", message="the message"
+        )
+        actual_email = contact.__str__()
+        self.assertEqual(actual_email, target_email)
