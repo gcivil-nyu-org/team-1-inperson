@@ -1,9 +1,11 @@
 from django.test import TestCase
 from django.test import Client
+from decouple import config
 from .views import populate_cards, index, landingpage
 from .models import Infra_type, Accessible_location, Favorite
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.models import User
+import requests
 
 
 client = Client()
@@ -12,15 +14,35 @@ request = HttpRequest
 
 
 # Create your tests here.
+class UtilsTests(TestCase):
+    # def test_get_location(self):
+    #     print(type(Accessible_location.objects.all()))
+    #     self.assertEqual(Accessible_location.objects.all(),(True or False))
+    def test_test_dict(self):
+        loc_list = [
+            (40.68852572417966, -73.98657073016483),
+            (40.68893870107474, -73.9863174112231),
+        ]
+        mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
+        params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
+        allstr = True
+        for loc in loc_list:
+            url = mapbox_host + str(loc[1]) + "," + str(loc[0]) + ".json"
+            response = requests.get(url=url, params=params).json()
+            address = response["features"][0]["place_name"]
+            address = " ".join(address.split(" ")[1:])
+            allstr = allstr and (type(address) == str)
+        self.assertEqual(allstr, True)
+
+
 class LandingURLsTests(TestCase):
     def test_home_page(self):
-        response = client.get("")
+        response = client.get("/home/")
         self.assertEqual(response.status_code, 200)
 
-    # TODO: update landing url if necessary
-    # def test_landing_page(self):
-    #     response = client.get("landing")
-    #     self.assertEqual(response.status_code, 200)
+    def test_landing_page(self):
+        response = client.get("/")
+        self.assertEqual(response.status_code, 200)
 
 
 class ViewsTests(TestCase):
@@ -52,6 +74,12 @@ class ViewsTests(TestCase):
         # TODO: figure out why loaded cards dont seem to fit the location i created
         # Note: without infra_2 and accessible_location cards/addresses are empty strs
         self.assertNotEqual(cards, [])
+
+    def test_index_request(self):
+        client.get(
+            "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&pol"
+            "eCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015"
+        )
 
 
 class ModelsTests(TestCase):
