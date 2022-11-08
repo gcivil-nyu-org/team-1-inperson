@@ -52,6 +52,17 @@ class ViewsTests(TestCase):
         # Note: without infra_2 and accessible_location cards/addresses are empty strs
         self.assertNotEqual(cards, [])
 
+        def test_index_request(self):
+            client.get(
+                "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&pol"
+                "eCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015"
+            )
+
+
+class NYCAccessibleStreetsTests(TestCase):
+    def populate_cards_test(self):
+        populate_cards_by_address()
+
 
 class ModelsTests(TestCase):
     def test_Infra_type(self):
