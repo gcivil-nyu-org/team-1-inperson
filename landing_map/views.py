@@ -160,6 +160,7 @@ def myFav(request):
 
 def report(request):
     if request.method == "POST":
+        print("post")
         infra = request.POST.get("infraID")
         obj = Accessible_location.objects.get(pk=infra)
         obj.isAccessible = False
