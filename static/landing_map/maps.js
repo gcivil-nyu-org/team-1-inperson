@@ -33,7 +33,7 @@ async function fetchAsync(url) {
 }
 
 function highlight_card(infraID) {
-    $(".well").css("color", "black");
+    $(".well").removeClass("highlight-card")
     console.log("INFRA ID: ", infraID);
     accessible_locations.forEach(function (accessible_location) {
         if (accessible_location.pk == infraID) {
@@ -41,12 +41,7 @@ function highlight_card(infraID) {
         }
     });
     const el = document.getElementById(infraID);
-    // const highlight = {
-    //     color: red,
-    //     background: "black",
-    // }
-    // Object.assign(el.style, highlight)
-    $('#' + infraID).css("color", "red");
+    $('#' + infraID).addClass("highlight-card")
     el.scrollIntoView(true);
 }
 
@@ -60,20 +55,13 @@ function fly_to(location, zoom_val = 20) {
 
 function zoom_map(infraID) {
     console.log("ZOOM_MAP: ", infraID);
-    $(".well").css("color", "black");
-    // document.getElementById(infraID).color = 'red';
+    $(".well").removeClass("highlight-card")
     accessible_locations.forEach(function (accessible_location) {
 
         if (accessible_location.pk == infraID) {
             fly_to([accessible_location.fields.locationX, accessible_location.fields.locationY])
         }
     });
-    // mapLocation = [position.coords.longitude, position.coords.latitude]
-    // map.flyTo({
-    //     center: mapLocation,
-    //     essential: true,
-    //     zoom: 14
-    //  });
 }
 
 function getLocation() {
@@ -102,13 +90,6 @@ function positionError() {
 }
 
 function plotMap(){
-    // const map = new mapboxgl.Map({
-    //     container: 'map',
-    //     style: 'mapbox://styles/mapbox/streets-v11',
-    //     center: mapLocation,
-    //     zoom: 11
-    // });
-
     map.on('load', function () {
         map.flyTo({
            center: mapLocation,

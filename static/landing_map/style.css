@@ -169,3 +169,20 @@ p.not_accessible{
 .well{
     scroll-behavior: smooth;
 }
+
+.table-header{
+    position: sticky;
+    top: 0 !important;
+    color: white;
+    background-color: #18435A;
+}
+
+div.table-lowvision{
+    height:550px;
+    overflow-y: scroll
+}
+
+.highlight-card{
+    border: 3px solid red !important;
+    border-radius: 7px !important;
+}

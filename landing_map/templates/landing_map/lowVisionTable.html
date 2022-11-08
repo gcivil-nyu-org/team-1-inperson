@@ -1,0 +1,25 @@
+<table class="table table-hover">
+  <thead class="thead-light table-header">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Location</th>
+      <th scope="col">Infrastructure</th>
+      <th scope="col">IsAccessible?</th>
+    </tr>
+  </thead>
+  <tbody>
+
+   {% for card in cardList %}
+    <tr onclick="highlight_card({{card.card_id}})">
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{card.text}}</td>
+      <td>{{card.type}}</td>
+      {% if card.isAccessible %}
+        <td>Yes</td>
+      {% else %}
+        <td>No</td>
+      {% endif %}
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>

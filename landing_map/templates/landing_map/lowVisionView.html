@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NYC Accessible Streets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+  <!-- Mapbox CDN-->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+</head>
+
+<body>
+
+<!-- Load the `mapbox-gl-geocoder` plugin. -->
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+<link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
+
+<!-- navigation bar -->
+{% include 'common/navbar.html' %}
+
+<div class="container-fluid">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="geocoder-low-vision" class="geocoder"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          {% include 'landing_map/filterButton.html' %}
+        </div>
+
+        <div class="col-md-4">
+          <div class="add">
+            <button type="button" class="btn btn-primary">
+              <span class="glyphicon glyphicon-star" style="top: 2px;"></span>
+              add to favorite
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <p class="results">{{cardList|length}} results</p>
+        </div>
+      </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            {% include 'landing_map/cardDetails.html' %}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- alternate view -->
+      <div class="col-md-8">
+         <div class="row">
+           <p>Showing results near:<br> <span style="font-weight: bold"> {{locationAddress}} </span> </p>
+        </div>
+        <div class="row table-lowvision">
+          {% include 'landing_map/lowVisionTable.html' %}
+        </div>
+      </div>
+</div>
+
+{% include 'common/copyright.html' %}
+
+<script type="text/javascript">
+    mapboxgl.accessToken = '{{mapboxAccessToken}}';
+</script>
+
+<script src="{% static 'landing_map/mapsLowVision.js' %} "></script>
+<script src="{% static 'landing_map/filterLowVision.js' %} "></script>
+</body>
+</html>
