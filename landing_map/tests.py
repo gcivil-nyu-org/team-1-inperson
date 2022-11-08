@@ -86,6 +86,10 @@ class ViewsTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
+    def test_lowVisionView_no_params(self):
+        response = client.get("/lowvision/")
+        self.assertEqual(response.status_code, 200)
+
     def test_index_request(self):
         response = client.get(
             "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&pol"
