@@ -145,21 +145,32 @@ class LoginTest(TestCase):
         )
         self.assertNotEqual(user, None)
 
-    # def test_user_logs_in(self):
-    #     post = {
-    #         "username": "realuser",
-    #         "email": "someone@domain.com",
-    #         "first_name": "Test",
-    #         "last_name": "User",
-    #         "password1": "something_very_s3cur3",
-    #         "password2": "something_very_s3cur3",
-    #     }
-    #     form = CreateUserForm(post)
-    #     form.save()
-    #     login_post = {"username": "realuser", "password": "something_very_s3cur3"}
-    #     # TODO: not successfully logging in user, see print statement in views
-    #     request = client.post("accounts/login/", login_post, follow=True)
-    #     # print(request.redirect_chain)
+    def test_user_logs_in(self):
+        c = Client()
+        # create user
+        post = {
+            "username": "realuser",
+            "email": "someone@domain.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password1": "something_very_s3cur3",
+            "password2": "something_very_s3cur3",
+        }
+        c.post("/accounts/signup/", post, follow=True)
+        # get activation email text
+        email = mail.outbox[0].body
+        # get confirmation link from email
+        find_confirmation_link = re.findall(r"http://testserver(.+\)/)", email)
+        confirmation_link = find_confirmation_link[0]
+        # authenticate user
+        c.get(confirmation_link, follow=True)
+        # log in
+        login_post = {"username": "realuser", "password": "something_very_s3cur3"}
+        # TODO: not successfully logging in user, see print statement in views
+        request = c.post("/accounts/login/", login_post, follow=True)
+        target_redirect = [("/home/home/", 302)]
+        actual_redirect = request.redirect_chain
+        self.assertEqual(actual_redirect, target_redirect)
 
     def test_valid_username_invalid_password(self):
         post = {
