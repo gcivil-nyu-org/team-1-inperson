@@ -59,11 +59,6 @@ class ViewsTests(TestCase):
             )
 
 
-class NYCAccessibleStreetsTests(TestCase):
-    def populate_cards_test(self):
-        populate_cards_by_address()
-
-
 class ModelsTests(TestCase):
     def test_Infra_type(self):
         infra = Infra_type.objects.create(typeID=101)
