@@ -81,10 +81,6 @@ class ViewsTests(TestCase):
             "eCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015"
         )
 
-class NYCAccessibleStreetsTest(TestCase):
-    def populate_cards_test(self):
-        populate_cards_by_address()
-
 class ModelsTests(TestCase):
     def test_Infra_type(self):
         infra = Infra_type.objects.create(typeID=101)
