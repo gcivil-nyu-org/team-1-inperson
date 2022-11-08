@@ -186,3 +186,12 @@ def populate_cards_by_address():
         print(final)
 
     return final
+
+
+def getAddressFromMapbox(long, lat):
+    mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
+    params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
+    url = mapbox_host + str(long) + "," + str(lat) + ".json"
+    response = requests.get(url=url, params=params).json()
+    address = response["features"][0]["place_name"]
+    return address

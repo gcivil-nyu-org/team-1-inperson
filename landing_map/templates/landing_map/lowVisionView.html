@@ -60,8 +60,13 @@
       </div>
 
       <!-- alternate view -->
-      <div class="col-md-8 cards">
+      <div class="col-md-8">
+         <div class="row">
+           <p>Showing results near:<br> <span style="font-weight: bold"> {{locationAddress}} </span> </p>
+        </div>
+        <div class="row table-lowvision">
           {% include 'landing_map/lowVisionTable.html' %}
+        </div>
       </div>
 </div>
 

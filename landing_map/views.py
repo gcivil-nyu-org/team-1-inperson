@@ -4,9 +4,7 @@ from .models import Infra_type, Favorite, Accessible_location
 from report.models import Report
 from .forms import ReportForm
 from django.core import serializers
-from NYCAccessibleStreet.utils import (
-    populate_cards,
-)
+from NYCAccessibleStreet.utils import populate_cards, getAddressFromMapbox
 
 
 def index(request):
@@ -78,6 +76,7 @@ def index(request):
     }
     return render(request, "landing_map/home.html", context)
 
+
 def lowVisionView(request):
     filterParams = request.GET
     if filterParams.get("currentlyAccessible"):
@@ -106,7 +105,9 @@ def lowVisionView(request):
                 radius=filterParams.get("radiusRange"),
             )
         )
-
+        locationAddress = getAddressFromMapbox(
+            filterParams.get("x-co"), filterParams.get("y-co")
+        )
         infraIds = []
         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
         for loc in nearbyLocations:
@@ -124,9 +125,10 @@ def lowVisionView(request):
             "{radius} ORDER BY distance".format(
                 y=40.68852572417966,
                 x=-73.98657073016483,
-                radius=1.0,
+                radius=2.75,
             )
         )
+        locationAddress = getAddressFromMapbox(-73.98657073016483, 40.68852572417966)
 
         infraIds = []
         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
@@ -138,14 +140,15 @@ def lowVisionView(request):
             typeID__in=["1", "2", "3"],
         )
     cardList = populate_cards(filteredLocations)
-    #accessible_locations = serializers.serialize("json", filteredLocations)
 
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
         "accessible_locations": filteredLocations,
         "cardList": cardList,
+        "locationAddress": locationAddress,
     }
     return render(request, "landing_map/lowVisionView.html", context)
+
 
 def landingpage(request):
     return render(request, "landing_map/landingpage.html", {})
