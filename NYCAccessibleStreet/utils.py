@@ -1,5 +1,6 @@
 from decouple import config
 from landing_map.models import Accessible_location, Infra_type
+from report.models import Report
 import requests
 
 
@@ -51,9 +52,24 @@ def populate_cards(locList):
 
         # if card_info.get(address) is None:
         #     card_info[address] = {}
+
+        # get report for each q
+        try:
+            report = Report.objects.get(infraID=q.infraID)
+            comment = report.comment
+            created = report.createdAt
+            updated = report.updatedAt
+        except Report.DoesNotExist:
+            comment = ""
+            created = ""
+            updated = ""
+
         card_info["text"] = address
         card_info["type"] = str(q.typeID)
         card_info["card_id"] = q.infraID
+        card_info["comment"] = comment
+        card_info["time_reported"] = created
+        card_info["last_update"] = updated
         # if str(q.typeID) == "Ramp":
         if q.isAccessible:
             card_info["isAccessible"] = True

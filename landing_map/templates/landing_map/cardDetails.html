@@ -1,5 +1,6 @@
 <!-- pin card detail modals-->
 <!-- details modal 1 -->
+{% load static %}
 <div class='cards'>
     {% for card in cardList %}
     {% include 'landing_map/detailModal.html' %}
@@ -21,22 +22,22 @@
                 <p class="not_accessible">Inaccessible Signal</p>
             {% endif %}
         {% elif card.type == "Raised_Crosswalk" %}
+            <p class="not_accessible">Inaccessible Raised Crosswalk</p>
+        {% endif %}
+        {% if card.type != "Raised_Crosswalk" %}
+            {% if not card.isAccessible%}
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#pin_{{card.card_id}}_details"
+                style=" background-color:#884515; color:white">
+                    view issue
+                </button>
+            {% endif %}
             {% if card.isAccessible %}
-                <p class="accessible">Accessible Raised Crosswalk</p>
-            {% else %}
-                <p class="not_accessible">Inaccessible Raised Crosswalk</p>
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#report_issue_form"
+                        style=" background-color:#18435A; color:white">
+                    report issue
+                </button>
             {% endif %}
         {% endif %}
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#pin_{{card.card_id}}_details"
-        style=" background-color:#884515; color:white">
-            view issue
-        </button>
-
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#report_issue_form"
-                style=" background-color:#18435A; color:white">
-            report issue
-        </button>
-
     </div>
     {% endfor %}
 </div>
