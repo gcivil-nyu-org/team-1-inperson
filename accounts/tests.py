@@ -125,7 +125,7 @@ class RegisterTest(TestCase):
         for message in response.context["messages"]:
             check = str(message)
             messages.append(check)
-        self.assertTrue("*Email taken, please choose another" in messages)
+        self.assertTrue("Email taken, please choose another" in messages)
 
 
 class LoginTest(TestCase):
