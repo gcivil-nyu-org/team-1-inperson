@@ -4,28 +4,12 @@ from report.models import Report
 import requests
 
 
-def test_dict():
-    loc_list = [
-        (40.68852572417966, -73.98657073016483),
-        (40.68893870107474, -73.9863174112231),
-    ]
-    mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
-    params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
-
-    for loc in loc_list:
-        url = mapbox_host + str(loc[1]) + "," + str(loc[0]) + ".json"
-        response = requests.get(url=url, params=params).json()
-        address = response["features"][0]["place_name"]
-        address = " ".join(address.split(" ")[1:])
-        print("TEST DICT: ", address)
-
-
 def get_locations():
     return Accessible_location.objects.all()
 
 
 def populate_cards(locList):
-    mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
+    # mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
     # loc_list = [(40.68852572417966, -73.98657073016483), (40.68893870107474, -73.9863174112231)]
     # for loc in loc_list:
     # qset = Accessible_location.objects.filter()[:30]
@@ -44,10 +28,13 @@ def populate_cards(locList):
     for q in locList:
         card_info = {}
         # print(q)
-        params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
-        url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
-        response = requests.get(url=url, params=params).json()
-        address = response["features"][0]["place_name"]
+        # params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
+        # url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
+        # response = requests.get(url=url, params=params).json()
+        # address = response["features"][0]["place_name"]
+
+        address = Accessible_location.objects.filter(infraID=q.infraID)[0].address
+        # print(len(address))
         # address = ' '.join(address.split(" ")[1:])
 
         # if card_info.get(address) is None:
@@ -87,7 +74,7 @@ def populate_cards(locList):
 
 def populate_cards_by_address():
     cardList = []
-    mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
+    # mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
     # loc_list = [(40.68852572417966, -73.98657073016483), (40.68893870107474, -73.9863174112231)]
     # for loc in loc_list:
     qset = Accessible_location.objects.filter()[:30]
@@ -109,10 +96,10 @@ def populate_cards_by_address():
 
     for q in qset:
         # print(q)
-        params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
-        url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
-        response = requests.get(url=url, params=params).json()
-        address = response["features"][0]["place_name"]
+        # params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
+        # url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
+        # response = requests.get(url=url, params=params).json()
+        address = Accessible_location.objects.filter(infraID=q.infraID)[0].address
         address = " ".join(address.split(" ")[1:])
         if card_info.get(address) is None:
             card_info[address] = {}

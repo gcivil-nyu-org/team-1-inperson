@@ -30,6 +30,7 @@ class Accessible_location(models.Model):
     street1 = models.CharField(max_length=20, default=None)
     street2 = models.CharField(max_length=20, default=None)
     borough = models.CharField(max_length=15, default=None)
+    address = models.CharField(max_length=200, default=None)
 
     def __str__(self):
         return (

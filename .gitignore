@@ -138,3 +138,9 @@ dmypy.json
 
 # Pycharm ignore .idea
 .idea/
+
+#Update DB script
+update_db_address.py
+
+# AWS creds and config
+.aws/

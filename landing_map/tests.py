@@ -43,6 +43,7 @@ class ViewsTests(TestCase):
             street1="street_1",
             street2="street_2",
             borough="Somewhere",
+            address="someaddress",
         )
         filteredLocations = Accessible_location.objects.all()
 
@@ -75,6 +76,7 @@ class ModelsTests(TestCase):
             street1="street_1",
             street2="street_2",
             borough="Somewhere",
+            address="someaddress",
         )
         one_entry = Accessible_location.objects.get(infraID=1111)
         self.assertEqual(one_entry, accessible_location)
@@ -90,6 +92,7 @@ class ModelsTests(TestCase):
             street1="street_1",
             street2="street_2",
             borough="Somewhere",
+            address="someaddress",
         )
         self.assertEqual(
             accessible_location.__str__(), "1111 st_1 st_2 infrastructure_type2 True"
