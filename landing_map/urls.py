@@ -7,4 +7,5 @@ urlpatterns = [
     path("report", views.report, name="report"),
     path("resolve_report", views.resolve_report, name="resolve_report"),
     path("myFav/", views.myFav, name="myFav"),
+    path("lowvision/", views.lowVisionView, name="lowVision"),
 ]
