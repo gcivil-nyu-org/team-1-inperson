@@ -90,6 +90,66 @@ class ViewsTests(TestCase):
         entry = Accessible_location.objects.get(infraID=1111)
         self.assertEqual(entry, accessible_location)
 
+    def test_index_request(self):
+        r=client.get('/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015')
+
+
+
+# def test_length_index(self):
+    #     r=client.get('/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015')
+    #     filterParams = r.GET
+    #     print("filterparams", filterParams)
+    #     print("request", request)
+    #     print("request type", type(r))
+    #     if filterParams.get("currentlyAccessible"):
+    #         currentlyAccessible = []
+    #         if filterParams.get("currentlyAccessible") == "true":
+    #             currentlyAccessible.append(True)
+    #         if filterParams.get("currentlyInaccessibleCheck") == "true":
+    #             currentlyAccessible.append(False)
+    #         else:
+    #             currentlyAccessible.append(True)
+    #
+    #         infraTypes = []
+    #         if filterParams.get("rampsCheck") == "true":
+    #             infraTypes.append("1")
+    #         if filterParams.get("poleCheck") == "true":
+    #             infraTypes.append("2")
+    #         if filterParams.get("sidewalkCheck") == "true":
+    #             infraTypes.append("3")
+    #
+    #         radiusQuery = (
+    #             "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
+    #             "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location HAVING distance < "
+    #             "{radius} ORDER BY distance".format(
+    #                 y=filterParams.get("y-co"),
+    #                 x=filterParams.get("x-co"),
+    #                 radius=filterParams.get("radiusRange"),
+    #             )
+    #         )
+    #
+    #         infraIds = []
+    #         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
+    #         for loc in nearbyLocations:
+    #             infraIds.append(loc.infraID)
+    #     else:
+    #         radiusQuery = (
+    #             "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
+    #             "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location HAVING distance < "
+    #             "{radius} ORDER BY distance".format(
+    #                 y=40.68852572417966,
+    #                 x=-73.98657073016483,
+    #                 radius=1.0,
+    #             )
+    #         )
+    #
+    #         infraIds = []
+    #         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
+    #         for loc in nearbyLocations:
+    #             infraIds.append(loc.infraID)
+    #     self.assertEqual(len(infraIds),len(nearbyLocations))
+
+
 
 class ModelsTests(TestCase):
     def test_Infra_type(self):
