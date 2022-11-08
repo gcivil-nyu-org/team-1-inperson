@@ -44,6 +44,10 @@ class LandingURLsTests(TestCase):
         response = client.get("/")
         self.assertEqual(response.status_code, 200)
 
+    def test_myFave_page(self):
+        response = client.get("/myFav/")
+        self.assertEqual(response.status_code, 200)
+
 
 class ViewsTests(TestCase):
     def test_views_index(self):
@@ -75,11 +79,53 @@ class ViewsTests(TestCase):
         # Note: without infra_2 and accessible_location cards/addresses are empty strs
         self.assertNotEqual(cards, [])
 
+    def test_lowVisionView(self):
+        response = client.get(
+            "/lowvision/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&pol"
+            "eCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015"
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_lowVisionView_no_params(self):
+        response = client.get("/lowvision/")
+        self.assertEqual(response.status_code, 200)
+
     def test_index_request(self):
-        client.get(
+        response = client.get(
             "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&pol"
             "eCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015"
         )
+        self.assertEqual(response.status_code, 200)
+
+    # def test_report_update_isAccessible(self):
+    #     infra_2 = Infra_type.objects.create(typeID=102)
+    #     accessible_location = Accessible_location.objects.create(
+    #         infraID=1111,
+    #         locationX="st_1",
+    #         locationY="st_2",
+    #         typeID=infra_2,
+    #         isAccessible=True,
+    #         street1="street_1",
+    #         street2="street_2",
+    #         borough="Somewhere",
+    #         address="someaddress",
+    #     )
+    #     post = {"infraID":1111, "comment":"broken"}
+    #     c = Client()
+    #     response = c.post("/report/", post, follow = True)
+    #     # TODO: c.post not triggering if request.method == "POST"
+    #     self.assertEqual(Accessible_location.isAccessible,False)
+    # TODO: test request.redirect_chain
+    # TODO: test comment was saved
+
+    # TODO: test resolve report
+    # TODO: test isAccessible = True
+    # TODO: check redirect
+    # TODO: test report was deleted
+
+    def test_resolve_report(self):
+        # TODO
+        pass
 
 
 class ModelsTests(TestCase):
@@ -125,8 +171,6 @@ class ModelsTests(TestCase):
         self.assertEqual(
             accessible_location.__str__(), "1111 st_1 st_2 infrastructure_type2 True"
         )
-        # TODO: update with following assert after Atul's next merge
-        # self.assertEqual(accessible_location.__str__(), "1111 st_1 st_2 infrastructure_type2 True")
 
     def test_Favorite(self):
         user = User.objects.create(username="Testuser")
