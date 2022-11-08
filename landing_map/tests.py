@@ -79,11 +79,19 @@ class ViewsTests(TestCase):
         # Note: without infra_2 and accessible_location cards/addresses are empty strs
         self.assertNotEqual(cards, [])
 
+    def test_lowVisionView(self):
+        response = client.get(
+            "/lowvision/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&pol"
+            "eCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015"
+        )
+        self.assertEqual(response.status_code, 200)
+
     def test_index_request(self):
-        client.get(
+        response = client.get(
             "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&pol"
             "eCheck=true&sidewalkCheck=true&x-co=-74.0182495&y-co=40.6315015"
         )
+        self.assertEqual(response.status_code, 200)
 
 
 class ModelsTests(TestCase):
@@ -129,8 +137,6 @@ class ModelsTests(TestCase):
         self.assertEqual(
             accessible_location.__str__(), "1111 st_1 st_2 infrastructure_type2 True"
         )
-        # TODO: update with following assert after Atul's next merge
-        # self.assertEqual(accessible_location.__str__(), "1111 st_1 st_2 infrastructure_type2 True")
 
     def test_Favorite(self):
         user = User.objects.create(username="Testuser")
