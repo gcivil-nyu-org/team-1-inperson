@@ -159,24 +159,28 @@ def myFav(request):
 
 
 def report(request):
-    if request.method == "POST":
-        print("post")
-        infra = request.POST.get("infraID")
-        obj = Accessible_location.objects.get(pk=infra)
-        obj.isAccessible = False
-        obj.save()
-        inComment = request.POST.get("comment")
-        newReport = Report(user=request.user, infraID=obj, comment=inComment)
-        newReport.save()
-
-    return redirect("home")
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            print("post")
+            infra = request.POST.get("infraID")
+            obj = Accessible_location.objects.get(pk=infra)
+            obj.isAccessible = False
+            obj.save()
+            inComment = request.POST.get("comment")
+            newReport = Report(user=request.user, infraID=obj, comment=inComment)
+            newReport.save()
+        return redirect("home")
+    else:
+        return redirect("login")
 
 
 def resolve_report(request):
-    infra = request.POST.get("infraID")
-    locObj = Accessible_location.objects.get(pk=infra)
-    locObj.isAccessible = True
-    locObj.save()
-    Report.objects.get(infraID=infra).delete()
-
-    return redirect("home")
+    if request.user.is_authenticated:
+        infra = request.POST.get("infraID")
+        locObj = Accessible_location.objects.get(pk=infra)
+        locObj.isAccessible = True
+        locObj.save()
+        Report.objects.get(infraID=infra).delete()
+        return redirect("home")
+    else:
+        return redirect("login")
