@@ -36,6 +36,10 @@ def index(request):
             )
         )
 
+        locationAddress = getAddressFromMapbox(
+            filterParams.get("x-co"), filterParams.get("y-co")
+        )
+
         infraIds = []
         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
         for loc in nearbyLocations:
@@ -57,6 +61,7 @@ def index(request):
             )
         )
 
+        locationAddress = getAddressFromMapbox(-73.98657073016483, 40.68852572417966)
         infraIds = []
         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
         for loc in nearbyLocations:
@@ -73,6 +78,7 @@ def index(request):
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
         "accessible_locations": accessible_locations,
         "cardList": cardList,
+        "locationAddress": locationAddress,
     }
     return render(request, "landing_map/home.html", context)
 
