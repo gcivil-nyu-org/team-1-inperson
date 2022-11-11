@@ -224,9 +224,12 @@ def add_favorite(request):
     newFav.save()
     return redirect("home")
 
+
 def remove_favorite(request):
     x = request.POST.get("x")
     y = request.POST.get("y")
     address = request.POST.get("address")
-    Favorite.objects.get(userID = request.user, address= address, locationX = x, locationY = y).delete()
+    Favorite.objects.get(
+        userID=request.user, address=address, locationX=x, locationY=y
+    ).delete()
     return redirect("myFav")
