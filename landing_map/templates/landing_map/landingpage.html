@@ -10,9 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
 </head>
 
 <body>
+<!-- Load the `mapbox-gl-geocoder` plugin. -->
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 
 <!-- navigation bar -->
 {% include 'common/navbar.html' %}
@@ -22,10 +26,7 @@
 
         <div class="centered"><h1 style='font-size:200%; text-shadow: 2px 2px 4px #222222;'>
             Find your next accessible destination.</h1>
-
-        <button onclick="location.href = '/home';" class="btn btn-lg" type="submit" 
-            style="color: #222222; width: 450px; text-align: left;">
-            Search</button>
+            <div id="geocoder-home-page" class="geocoder"></div>
         </div>
     </div>
 
@@ -64,6 +65,12 @@
     </div>
 
     {% include 'common/copyright.html' %}
+
+<script type="text/javascript">
+    mapboxgl.accessToken = '{{mapboxAccessToken}}';
+</script>
+
+<script src="{% static 'landing_map/geocoderHomepage.js' %} "></script>
 
 </body>
 </html>

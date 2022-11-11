@@ -186,3 +186,7 @@ div.table-lowvision{
     border: 3px solid red !important;
     border-radius: 7px !important;
 }
+
+.suggestions-wrapper{
+    text-align: left;
+}

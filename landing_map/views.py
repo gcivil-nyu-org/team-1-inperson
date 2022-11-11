@@ -151,7 +151,8 @@ def lowVisionView(request):
 
 
 def landingpage(request):
-    return render(request, "landing_map/landingpage.html", {})
+    context = {"mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN")}
+    return render(request, "landing_map/landingpage.html", context)
 
 
 def myFav(request):

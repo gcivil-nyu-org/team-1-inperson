@@ -169,7 +169,7 @@ class LoginTest(TestCase):
         login_post = {"username": "realuser", "password": "something_very_s3cur3"}
         # TODO: not successfully logging in user, see print statement in views
         request = c.post("/accounts/login/", login_post, follow=True)
-        target_redirect = [("/home/home/", 302)]
+        target_redirect = [("/", 302)]
         actual_redirect = request.redirect_chain
         self.assertEqual(actual_redirect, target_redirect)
 
