@@ -198,7 +198,7 @@ def populate_favorite_cards(favList):
         address = fav.address
 
         rampsQuery = (
-            "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
+            "SELECT infraID, isAccessible, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
             "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location where typeID_id = 1 HAVING distance < "
             "{radius} ORDER BY distance".format(
                 y=y_coord,
@@ -207,7 +207,7 @@ def populate_favorite_cards(favList):
             )
         )
         signalsQuery = (
-            "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
+            "SELECT infraID, isAccessible, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
             "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location where typeID_id = 2 HAVING distance < "
             "{radius} ORDER BY distance".format(
                 y=y_coord,
@@ -215,12 +215,24 @@ def populate_favorite_cards(favList):
                 radius=0.5,
             )
         )
+        alert = ""
         ramps = Accessible_location.objects.raw(rampsQuery)
+        for ramp in ramps:
+            if not ramp.isAccessible:
+                alert = "Alert!"
+                break
         signals = Accessible_location.objects.raw(signalsQuery)
+        for signal in signals:
+            if not signal.isAccessible:
+                alert = "Alert!"
+                break
 
         fav_card_info["address"] = address
+        fav_card_info["x"] = x_coord
+        fav_card_info["y"] = y_coord
         fav_card_info["count_ramps"] = len(ramps)
         fav_card_info["count_signals"] = len(signals)
+        fav_card_info["alert"] = alert
         flist.append(fav_card_info)
     return flist
 

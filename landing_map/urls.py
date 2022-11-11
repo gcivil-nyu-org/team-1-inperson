@@ -9,4 +9,5 @@ urlpatterns = [
     path("myFav/", views.myFav, name="myFav"),
     path("lowvision/", views.lowVisionView, name="lowVision"),
     path("add_favorite", views.add_favorite, name="add_favorite"),
+    path("remove_favorite", views.remove_favorite, name = "remove_favorite"),
 ]

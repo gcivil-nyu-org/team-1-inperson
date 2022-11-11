@@ -4,6 +4,7 @@ from .models import Infra_type, Favorite, Accessible_location
 from report.models import Report
 from .forms import ReportForm
 from django.core import serializers
+from django.apps import apps
 from NYCAccessibleStreet.utils import (
     populate_cards,
     getAddressFromMapbox,
@@ -82,6 +83,10 @@ def index(request):
     # x and y for favorites
     y = filterParams.get("y-co")
     x = filterParams.get("x-co")
+    # check if current address is favorited already
+    favorited = False
+    if Favorite.objects.filter(userID=request.user, address=locationAddress):
+        favorited = True
 
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
@@ -90,6 +95,7 @@ def index(request):
         "locationAddress": locationAddress,
         "x_coord": x,
         "y_coord": y,
+        "favorited": favorited,
     }
     return render(request, "landing_map/home.html", context)
 
@@ -216,3 +222,10 @@ def add_favorite(request):
     newFav = Favorite(userID=request.user, locationX=x, locationY=y, address=address)
     newFav.save()
     return redirect("home")
+
+def remove_favorite(request):
+    x = request.POST.get("x")
+    y = request.POST.get("y")
+    address = request.POST.get("address")
+    Favorite.objects.get(userID = request.user, address= address, locationX = x, locationY = y).delete()
+    return redirect("myFav")
