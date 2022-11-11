@@ -85,8 +85,9 @@ def index(request):
     x = filterParams.get("x-co")
     # check if current address is favorited already
     favorited = False
-    if Favorite.objects.filter(userID=request.user, address=locationAddress):
-        favorited = True
+    if request.user.is_authenticated:
+        if Favorite.objects.filter(userID=request.user, address=locationAddress):
+            favorited = True
 
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
