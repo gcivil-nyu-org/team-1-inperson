@@ -55,17 +55,18 @@
     </form>
     
     <div class="row" style="margin: 3px;">
+        {% for card in favorite_card_list %}
         <!-- one card -->
         <div class="col-md-4">
             <div class="well well-lg">
                 <img src="/static/img/dummy_report.png" alt="dummy report image of map">
 
-                <h4>5 Metrotech Center, Brooklyn, NY 11201</h4>
+                <h4>{{card.address}}</h4>
                 
                 <div class="row">
                     <div class='col-md-6' style="float: left; text-align: left; margin-top: 8px;">
-                        <p class="accessible" style="margin-bottom: 2px;"> 2 accessible signals</p>
-                        <p class="accessible"> 1 accessible ramp</p>
+                        <p class="accessible" style="margin-bottom: 2px;"> {{card.count_signals}} accessible signals</p>
+                        <p class="accessible"> {{card.count_ramps}} accessible ramp</p>
                     </div>
 
                     <div class='col-md-6'>
@@ -76,7 +77,7 @@
                 </div>
             </div>
         </div>
-
+        {% endfor %}
     </div>
 
     

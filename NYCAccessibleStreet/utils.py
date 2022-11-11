@@ -188,6 +188,43 @@ def populate_cards_by_address():
     return final
 
 
+def populate_favorite_cards(favList):
+    flist = []
+    for fav in favList:
+        fav_card_info = {}
+
+        x_coord = fav.locationX
+        y_coord = fav.locationY
+        address = fav.address
+
+        rampsQuery = (
+            "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
+            "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location where typeID_id = 1 HAVING distance < "
+            "{radius} ORDER BY distance".format(
+                y=y_coord,
+                x=x_coord,
+                radius=0.5,
+            )
+        )
+        signalsQuery = (
+            "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
+            "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location where typeID_id = 2 HAVING distance < "
+            "{radius} ORDER BY distance".format(
+                y=y_coord,
+                x=x_coord,
+                radius=0.5,
+            )
+        )
+        ramps = Accessible_location.objects.raw(rampsQuery)
+        signals = Accessible_location.objects.raw(signalsQuery)
+
+        fav_card_info["address"] = address
+        fav_card_info["count_ramps"] = len(ramps)
+        fav_card_info["count_signals"] = len(signals)
+        flist.append(fav_card_info)
+    return flist
+
+
 def getAddressFromMapbox(long, lat):
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
     params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}

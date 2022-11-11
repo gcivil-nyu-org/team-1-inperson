@@ -8,4 +8,5 @@ urlpatterns = [
     path("resolve_report", views.resolve_report, name="resolve_report"),
     path("myFav/", views.myFav, name="myFav"),
     path("lowvision/", views.lowVisionView, name="lowVision"),
+    path("add_favorite", views.add_favorite, name="add_favorite"),
 ]

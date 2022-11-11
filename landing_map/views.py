@@ -4,7 +4,12 @@ from .models import Infra_type, Favorite, Accessible_location
 from report.models import Report
 from .forms import ReportForm
 from django.core import serializers
-from NYCAccessibleStreet.utils import populate_cards, getAddressFromMapbox
+from NYCAccessibleStreet.utils import (
+    populate_cards,
+    getAddressFromMapbox,
+    populate_favorite_cards,
+)
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -74,11 +79,17 @@ def index(request):
     cardList = populate_cards(filteredLocations)
     accessible_locations = serializers.serialize("json", filteredLocations)
 
+    # x and y for favorites
+    y = filterParams.get("y-co")
+    x = filterParams.get("x-co")
+
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
         "accessible_locations": accessible_locations,
         "cardList": cardList,
         "locationAddress": locationAddress,
+        "x_coord": x,
+        "y_coord": y,
     }
     return render(request, "landing_map/home.html", context)
 
@@ -162,7 +173,10 @@ def landingpage(request):
 
 
 def myFav(request):
-    return render(request, "landing_map/myFav.html", {})
+    user_favorites = Favorite.objects.filter(userID=request.user)
+    favorite_card_list = populate_favorite_cards(user_favorites)
+    context = {"favorite_card_list": favorite_card_list}
+    return render(request, "landing_map/myFav.html", context)
 
 
 def report(request):
@@ -191,3 +205,14 @@ def resolve_report(request):
         return redirect("home")
     else:
         return redirect("login")
+
+
+def add_favorite(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    x = request.POST.get("x_coord")
+    y = request.POST.get("y_coord")
+    address = request.POST.get("address")
+    newFav = Favorite(userID=request.user, locationX=x, locationY=y, address=address)
+    newFav.save()
+    return redirect("home")
