@@ -58,6 +58,16 @@
         {% for card in favorite_card_list %}
         <!-- one card -->
         <div class="col-md-4">
+            <div class='col-md-6' style = "margin-bottom: 8px">
+                <form action = "{% url 'remove_favorite' %}" method = "POST" >
+                    {% csrf_token %}
+                    <input type = "hidden" name = y value = '{{card.y}}'>
+                    <input type = "hidden" name = x value = '{{card.x}}'>
+                    <input type = "hidden" name = address value = '{{card.address}}'>
+                    <button type="submit" class="btn btn-sm" >
+                        Remove Favorite</button>
+                </form>
+            </div>
             <div class="well well-lg">
                 <img src="/static/img/dummy_report.png" alt="dummy report image of map">
 
@@ -66,6 +76,10 @@
                 <div class="row">
                     <div class='col-md-6' style="float: left; text-align: left; margin-top: 8px;">
                         <p class="not_accessible" style="margin-bottom: 2px;"> {{card.alert}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-md-6' style="float: left; text-align: left; margin-top: 8px;">
                         <p class="accessible" style="margin-bottom: 2px;"> {{card.count_signals}} accessible signals</p>
                         <p class="accessible"> {{card.count_ramps}} accessible ramp</p>
                     </div>
@@ -73,18 +87,7 @@
                     <div class='col-md-6'>
                         <button type="button" class="btn btn-default" onclick='' type="submit"> 
                             View Location </button>
-                    </div>
-                    <div class = 'col-md-6'>
-                        <form action = "{% url 'remove_favorite' %}" method = "POST" >
-                            {% csrf_token %}
-                            <input type = "hidden" name = y value = '{{card.y}}'>
-                            <input type = "hidden" name = x value = '{{card.x}}'>
-                            <input type = "hidden" name = address value = '{{card.address}}'>
-                            <button type="submit" class="btn btn-default" >
-                                Remove Favorite</button>
-                        </form>
-                    </div>
-                    
+                    </div>     
                 </div>
             </div>
         </div>

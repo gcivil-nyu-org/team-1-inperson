@@ -224,7 +224,7 @@ def populate_favorite_cards(favList):
         signals = Accessible_location.objects.raw(signalsQuery)
         for signal in signals:
             if not signal.isAccessible:
-                alert = "Alert!"
+                alert = "Nearby Report!"
                 break
 
         fav_card_info["address"] = address

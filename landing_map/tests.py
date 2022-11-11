@@ -178,10 +178,12 @@ class ModelsTests(TestCase):
             userID=user,
             locationX="st_1",
             locationY="st_2",
+            address = "Empire State Building"
         )
         one_entry = Favorite.objects.get(
             userID=user,
             locationX="st_1",
             locationY="st_2",
+            address = "Empire State Building"
         )
         self.assertEqual(favorite, one_entry)
