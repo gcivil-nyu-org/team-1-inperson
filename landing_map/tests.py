@@ -46,7 +46,7 @@ class LandingURLsTests(TestCase):
 
     def test_myFave_page(self):
         response = client.get("/myFav/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
 
 class ViewsTests(TestCase):

@@ -202,11 +202,16 @@ def landingpage(request):
 
 
 def myFav(request):
-    user_favorites = Favorite.objects.filter(userID=request.user)
-    favorite_card_list = populate_favorite_cards(user_favorites)
-    context = {"favorite_card_list": favorite_card_list,
-               "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),}
-    return render(request, "landing_map/myFav.html", context)
+    if request.user.is_authenticated:
+        user_favorites = Favorite.objects.filter(userID=request.user)
+        favorite_card_list = populate_favorite_cards(user_favorites)
+        context = {
+            "favorite_card_list": favorite_card_list,
+            "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
+        }
+        return render(request, "landing_map/myFav.html", context)
+    else:
+        return redirect("login")
 
 
 def report(request):
@@ -246,8 +251,10 @@ def add_favorite(request):
     newFav = Favorite(userID=request.user, locationX=x, locationY=y, address=address)
     newFav.save()
 
-    pageURL = "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=" \
-              "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
+    pageURL = (
+        "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+        "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
+    )
     return redirect(pageURL)
 
 
@@ -260,9 +267,14 @@ def remove_favorite(request):
     ).delete()
     return redirect("/myFav")
 
+
 def goto_favorite(request):
     x = request.POST.get("x")
     y = request.POST.get("y")
-    pageURL = "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=" \
-              "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}&favPage=true".format(x=x,y=y)
+    pageURL = (
+        "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+        "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}&favPage=true".format(
+            x=x, y=y
+        )
+    )
     return redirect(pageURL)
