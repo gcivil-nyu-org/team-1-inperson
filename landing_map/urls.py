@@ -1,4 +1,4 @@
-from django.urls import include,path
+from django.urls import include, path
 from django.contrib import admin
 from . import views
 
@@ -13,4 +13,4 @@ urlpatterns = [
     path("remove_favorite", views.remove_favorite, name="remove_favorite"),
     path("goto_favorite", views.goto_favorite, name="goto_favorite"),
 ]
-handler404 = 'landing_map.views.error_404_view'
+handler404 = "landing_map.views.error_404_view"
