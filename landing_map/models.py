@@ -19,6 +19,7 @@ class Favorite(models.Model):
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
     locationX = models.CharField(max_length=22)
     locationY = models.CharField(max_length=22)
+    address = models.CharField(max_length=100, default="")
 
 
 class Accessible_location(models.Model):

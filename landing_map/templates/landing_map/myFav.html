@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <!-- Mapbox CDN-->
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+    <script type="text/javascript">
+        mapboxgl.accessToken = '{{mapboxAccessToken}}';
+    </script>
 
     <style>
         h3{
@@ -55,28 +60,63 @@
     </form>
     
     <div class="row" style="margin: 3px;">
-        <!-- one card -->
+        {% for card in favorite_card_list %}
         <div class="col-md-4">
             <div class="well well-lg">
-                <img src="/static/img/dummy_report.png" alt="dummy report image of map">
+                <div id="map_{{card.id}}" style="height: 250px;"></div>
+                <script>
 
-                <h4>5 Metrotech Center, Brooklyn, NY 11201</h4>
+                    new mapboxgl.Marker()
+                    .setLngLat(['{{card.x}}','{{card.y}}'])
+                    .addTo(new mapboxgl.Map({
+                        container: 'map_{{card.id}}',
+                        style: 'mapbox://styles/mapbox/streets-v11',
+                        center: ['{{card.x}}','{{card.y}}'],
+                        zoom: 15,
+                        marker: true
+                    }));
+                </script>
+
+                <h4>{{card.address}}</h4>
                 
                 <div class="row">
                     <div class='col-md-6' style="float: left; text-align: left; margin-top: 8px;">
-                        <p class="accessible" style="margin-bottom: 2px;"> 2 accessible signals</p>
-                        <p class="accessible"> 1 accessible ramp</p>
+                        <p class="not_accessible" style="margin-bottom: 2px;"> {{card.alert}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-md-6' style="float: left; text-align: left; margin-top: 8px;">
+                        <p class="accessible" style="margin-bottom: 2px;"> {{card.count_signals}} accessible signals</p>
+                        <p class="accessible"> {{card.count_ramps}} accessible ramp</p>
                     </div>
 
-                    <div class='col-md-6'>
-                        <button type="button" class="btn btn-default" onclick='' type="submit"> 
-                            View Location </button>
+                    <div class='col-md-3'>
+                            <form action = "{% url 'goto_favorite' %}" method = "POST" >
+                                {% csrf_token %}
+                                <input type = "hidden" name = y value = '{{card.y}}'>
+                                <input type = "hidden" name = x value = '{{card.x}}'>
+                                <button type="submit" class="btn btn-default"> <span class="glyphicon glyphicon-eye-open"></span>
+                                    View</button>
+                            </form>
                     </div>
-                    
+
+
+                    <div class='col-md-3'>
+                            <form action = "{% url 'remove_favorite' %}" method = "POST" >
+                                {% csrf_token %}
+                                <input type = "hidden" name = y value = '{{card.y}}'>
+                                <input type = "hidden" name = x value = '{{card.x}}'>
+                                <input type = "hidden" name = address value = '{{card.address}}'>
+                                <button type="submit" class="btn btn-danger deleteButton" ><span class="glyphicon glyphicon-trash"></span>
+                                    Remove</button>
+                            </form>
+
+                    </div>
+
                 </div>
             </div>
         </div>
-
+        {% endfor %}
     </div>
 
     

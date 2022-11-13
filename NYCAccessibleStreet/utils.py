@@ -188,6 +188,60 @@ def populate_cards_by_address():
     return final
 
 
+def populate_favorite_cards(favList):
+    flist = []
+    id = 1
+    for fav in favList:
+        fav_card_info = {}
+
+        x_coord = fav.locationX
+        y_coord = fav.locationY
+        address = fav.address
+
+        rampsQuery = (
+            "SELECT infraID, isAccessible, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) "
+            "- radians({x}) ) + sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location "
+            "where typeID_id = 1 HAVING distance < "
+            "{radius} ORDER BY distance".format(
+                y=y_coord,
+                x=x_coord,
+                radius=0.5,
+            )
+        )
+        signalsQuery = (
+            "SELECT infraID, isAccessible, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) "
+            "- radians({x}) ) + sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location "
+            "where typeID_id = 2 HAVING distance < "
+            "{radius} ORDER BY distance".format(
+                y=y_coord,
+                x=x_coord,
+                radius=0.5,
+            )
+        )
+        alert = ""
+        ramps = Accessible_location.objects.raw(rampsQuery)
+        for ramp in ramps:
+            if not ramp.isAccessible:
+                alert = "Alert!"
+                break
+        signals = Accessible_location.objects.raw(signalsQuery)
+        for signal in signals:
+            if not signal.isAccessible:
+                alert = "Nearby Report!"
+                break
+
+        fav_card_info["address"] = address
+        fav_card_info["x"] = x_coord
+        fav_card_info["y"] = y_coord
+        fav_card_info["count_ramps"] = len(ramps)
+        fav_card_info["count_signals"] = len(signals)
+        fav_card_info["alert"] = alert
+        fav_card_info["id"] = id
+        flist.append(fav_card_info)
+        id += 1
+    return flist
+
+
 def getAddressFromMapbox(long, lat):
     mapbox_host = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
     params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}

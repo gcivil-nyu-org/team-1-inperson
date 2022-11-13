@@ -4,7 +4,13 @@ from .models import Infra_type, Favorite, Accessible_location
 from report.models import Report
 from .forms import ReportForm
 from django.core import serializers
-from NYCAccessibleStreet.utils import populate_cards, getAddressFromMapbox
+from django.apps import apps
+from NYCAccessibleStreet.utils import (
+    populate_cards,
+    getAddressFromMapbox,
+    populate_favorite_cards,
+)
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -36,6 +42,10 @@ def index(request):
             )
         )
 
+        locationAddress = getAddressFromMapbox(
+            filterParams.get("x-co"), filterParams.get("y-co")
+        )
+
         infraIds = []
         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
         for loc in nearbyLocations:
@@ -57,6 +67,7 @@ def index(request):
             )
         )
 
+        locationAddress = getAddressFromMapbox(-73.98657073016483, 40.68852572417966)
         infraIds = []
         nearbyLocations = Accessible_location.objects.raw(radiusQuery)
         for loc in nearbyLocations:
@@ -69,10 +80,28 @@ def index(request):
     cardList = populate_cards(filteredLocations)
     accessible_locations = serializers.serialize("json", filteredLocations)
 
+    # x and y for favorites
+    y = filterParams.get("y-co")
+    x = filterParams.get("x-co")
+    # check if current address is favorited already
+    favorited = False
+    if request.user.is_authenticated:
+        if Favorite.objects.filter(userID=request.user, address=locationAddress):
+            favorited = True
+
+    favPage = False
+    if filterParams.get("favPage"):
+        favPage = True
+
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
         "accessible_locations": accessible_locations,
         "cardList": cardList,
+        "locationAddress": locationAddress,
+        "x_coord": x,
+        "y_coord": y,
+        "favorited": favorited,
+        "hideSearchBar": favPage,
     }
     return render(request, "landing_map/home.html", context)
 
@@ -141,11 +170,28 @@ def lowVisionView(request):
         )
     cardList = populate_cards(filteredLocations)
 
+    # x and y for favorites
+    y = filterParams.get("y-co")
+    x = filterParams.get("x-co")
+    # check if current address is favorited already
+    favorited = False
+    if request.user.is_authenticated:
+        if Favorite.objects.filter(userID=request.user, address=locationAddress):
+            favorited = True
+
+    favPage = False
+    if filterParams.get("favPage"):
+        favPage = True
+
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
         "accessible_locations": filteredLocations,
         "cardList": cardList,
         "locationAddress": locationAddress,
+        "x_coord": x,
+        "y_coord": y,
+        "favorited": favorited,
+        "hideSearchBar": favPage,
     }
     return render(request, "landing_map/lowVisionView.html", context)
 
@@ -156,7 +202,16 @@ def landingpage(request):
 
 
 def myFav(request):
-    return render(request, "landing_map/myFav.html", {})
+    if request.user.is_authenticated:
+        user_favorites = Favorite.objects.filter(userID=request.user)
+        favorite_card_list = populate_favorite_cards(user_favorites)
+        context = {
+            "favorite_card_list": favorite_card_list,
+            "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
+        }
+        return render(request, "landing_map/myFav.html", context)
+    else:
+        return redirect("login")
 
 
 def report(request):
@@ -185,3 +240,41 @@ def resolve_report(request):
         return redirect("home")
     else:
         return redirect("login")
+
+
+def add_favorite(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    x = request.POST.get("x_coord")
+    y = request.POST.get("y_coord")
+    address = request.POST.get("address")
+    newFav = Favorite(userID=request.user, locationX=x, locationY=y, address=address)
+    newFav.save()
+
+    pageURL = (
+        "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+        "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
+    )
+    return redirect(pageURL)
+
+
+def remove_favorite(request):
+    x = request.POST.get("x")
+    y = request.POST.get("y")
+    address = request.POST.get("address")
+    Favorite.objects.get(
+        userID=request.user, address=address, locationX=x, locationY=y
+    ).delete()
+    return redirect("/myFav")
+
+
+def goto_favorite(request):
+    x = request.POST.get("x")
+    y = request.POST.get("y")
+    pageURL = (
+        "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+        "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}&favPage=true".format(
+            x=x, y=y
+        )
+    )
+    return redirect(pageURL)

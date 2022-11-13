@@ -43,8 +43,7 @@ function redirect_to_url(){
         }
     var paramString = jQuery.param(params)
     var pageUrl = document.URL.split('?')[0]+'?'+ paramString;
-    console.log(pageUrl)
-    sendQueryData(pageUrl, params);
+    window.location.href = pageUrl;
     }
 }
 
@@ -55,16 +54,27 @@ function clear_filters(){
     document.getElementById("currentlyInaccessibleCheck").checked = false;
 }
 
-function sendQueryData(url, params){
-        $.ajax({
-          type: "GET",
-          url: "/",
-          data: {
-              'query' : params,
-              'url' : url
-          },
-          success: function(result){
-             window.location.href = url;
-          }
-        });
+function goto_lowVisionPage(){
+    selectedLocation = Object.keys(searchedLocation).length != 0? searchedLocation : currentLocation;
+    radiusRange = document.getElementById("radiusRangeFilter").value;
+    currentlyAccessible = document.getElementById("currentlyAccessibleCheck").checked;
+    currentlyInaccessibleCheck = document.getElementById("currentlyInaccessibleCheck").checked;
+    rampsCheck = document.getElementById("rampsCheck").checked;
+    poleCheck = document.getElementById("poleCheck").checked;
+    sidewalkCheck = document.getElementById("sidewalkCheck").checked;
+
+    var params = {
+            "radiusRange": radiusRange,
+            "currentlyAccessible": currentlyAccessible,
+            "currentlyInaccessibleCheck": currentlyInaccessibleCheck,
+            "rampsCheck": rampsCheck,
+            "poleCheck": poleCheck,
+            "sidewalkCheck": sidewalkCheck,
+            "x-co": selectedLocation['longitude'],
+            "y-co": selectedLocation['latitude']
+        }
+    var paramString = jQuery.param(params)
+    pageUrlLow = '/lowvision/'+'?'+ paramString;
+
+    window.location.href = pageUrlLow;
 }

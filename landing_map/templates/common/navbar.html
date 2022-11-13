@@ -8,10 +8,10 @@
         <div class="navbar-header">
             <a class="nav-brand" href="/">NYC Accessible Streets</a>
             {% if '/home/' in request.path %}
-                <a class="nav-list" href="/lowvision"><span class="glyphicon glyphicon-eye-close"></span> Low Vision View</a>
+                <a class="nav-list" style="cursor:pointer" onclick="goto_lowVisionPage()"><span class="glyphicon glyphicon-eye-close"></span> Low Vision View</a>
             {% endif %}
             {% if '/lowvision/' in request.path %}
-                <a class="nav-list" href="/home"><span class="glyphicon glyphicon-map-marker"></span> Map View</a>
+                <a class="nav-list" style="cursor:pointer" onclick="goto_mapsPage()" ><span class="glyphicon glyphicon-map-marker"></span> Map View</a>
             {% endif %}
 
 

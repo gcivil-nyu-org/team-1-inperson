@@ -46,7 +46,7 @@ class LandingURLsTests(TestCase):
 
     def test_myFave_page(self):
         response = client.get("/myFav/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
 
 class ViewsTests(TestCase):
@@ -178,10 +178,12 @@ class ModelsTests(TestCase):
             userID=user,
             locationX="st_1",
             locationY="st_2",
+            address="Empire State Building",
         )
         one_entry = Favorite.objects.get(
             userID=user,
             locationX="st_1",
             locationY="st_2",
+            address="Empire State Building",
         )
         self.assertEqual(favorite, one_entry)
