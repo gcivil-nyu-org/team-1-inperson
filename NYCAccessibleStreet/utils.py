@@ -190,6 +190,7 @@ def populate_cards_by_address():
 
 def populate_favorite_cards(favList):
     flist = []
+    id = 1
     for fav in favList:
         fav_card_info = {}
 
@@ -233,7 +234,9 @@ def populate_favorite_cards(favList):
         fav_card_info["count_ramps"] = len(ramps)
         fav_card_info["count_signals"] = len(signals)
         fav_card_info["alert"] = alert
+        fav_card_info["id"] = id
         flist.append(fav_card_info)
+        id+=1
     return flist
 
 

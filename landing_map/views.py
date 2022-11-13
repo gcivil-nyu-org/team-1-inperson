@@ -170,11 +170,28 @@ def lowVisionView(request):
         )
     cardList = populate_cards(filteredLocations)
 
+    # x and y for favorites
+    y = filterParams.get("y-co")
+    x = filterParams.get("x-co")
+    # check if current address is favorited already
+    favorited = False
+    if request.user.is_authenticated:
+        if Favorite.objects.filter(userID=request.user, address=locationAddress):
+            favorited = True
+
+    favPage = False
+    if filterParams.get("favPage"):
+        favPage = True
+
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
         "accessible_locations": filteredLocations,
         "cardList": cardList,
         "locationAddress": locationAddress,
+        "x_coord": x,
+        "y_coord": y,
+        "favorited": favorited,
+        "hideSearchBar": favPage,
     }
     return render(request, "landing_map/lowVisionView.html", context)
 
@@ -187,7 +204,8 @@ def landingpage(request):
 def myFav(request):
     user_favorites = Favorite.objects.filter(userID=request.user)
     favorite_card_list = populate_favorite_cards(user_favorites)
-    context = {"favorite_card_list": favorite_card_list}
+    context = {"favorite_card_list": favorite_card_list,
+               "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),}
     return render(request, "landing_map/myFav.html", context)
 
 
@@ -227,7 +245,10 @@ def add_favorite(request):
     address = request.POST.get("address")
     newFav = Favorite(userID=request.user, locationX=x, locationY=y, address=address)
     newFav.save()
-    return redirect("home")
+
+    pageURL = "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=" \
+              "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
+    return redirect(pageURL)
 
 
 def remove_favorite(request):
@@ -237,7 +258,7 @@ def remove_favorite(request):
     Favorite.objects.get(
         userID=request.user, address=address, locationX=x, locationY=y
     ).delete()
-    return redirect("myFav")
+    return redirect("/myFav")
 
 def goto_favorite(request):
     x = request.POST.get("x")
