@@ -89,6 +89,10 @@ def index(request):
         if Favorite.objects.filter(userID=request.user, address=locationAddress):
             favorited = True
 
+    favPage = False
+    if filterParams.get("favPage"):
+        favPage = True
+
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
         "accessible_locations": accessible_locations,
@@ -97,6 +101,7 @@ def index(request):
         "x_coord": x,
         "y_coord": y,
         "favorited": favorited,
+        "hideSearchBar": favPage,
     }
     return render(request, "landing_map/home.html", context)
 
@@ -233,3 +238,10 @@ def remove_favorite(request):
         userID=request.user, address=address, locationX=x, locationY=y
     ).delete()
     return redirect("myFav")
+
+def goto_favorite(request):
+    x = request.POST.get("x")
+    y = request.POST.get("y")
+    pageURL = "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=" \
+              "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}&favPage=true".format(x=x,y=y)
+    return redirect(pageURL)

@@ -190,3 +190,7 @@ div.table-lowvision{
 .suggestions-wrapper{
     text-align: left;
 }
+
+.deleteButton{
+    background-color: #d9534f !important;
+}

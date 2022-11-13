@@ -26,21 +26,25 @@
 
 <div class="container-fluid">
       <div class="col-md-4">
+        {% if hideSearchBar %}
+        <div class="row"></div>
+        {% else %}
         <div class="row">
           <div class="col-md-12">
             <div id="geocoder" class="geocoder"></div>
+          </div>
         </div>
-      </div>
+        {% endif %}
 
-      <div class="row">
-        <div class="col-md-8">
-          {% include 'landing_map/filterButton.html' %}
-        </div>
+        <div class="row">
+          <div class="col-md-8">
+            {% include 'landing_map/filterButton.html' %}
+          </div>
 
-        <div class="col-md-4">
-          <p class="results">{{cardList|length}} results</p>
+          <div class="col-md-4">
+            <p class="results">{{cardList|length}} results</p>
+          </div>
         </div>
-      </div>
 
         <div class="row">
           <div class="col-md-12">
