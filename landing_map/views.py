@@ -1,19 +1,20 @@
 from django.shortcuts import render, redirect
 from decouple import config
-from .models import Infra_type, Favorite, Accessible_location
+from .models import Favorite, Accessible_location
 from report.models import Report
-from .forms import ReportForm
 from django.core import serializers
-from django.apps import apps
+from django.http import HttpResponse
 from NYCAccessibleStreet.utils import (
     populate_cards,
     getAddressFromMapbox,
     populate_favorite_cards,
 )
-from django.http import HttpResponseRedirect
 
 
 def index(request):
+    loggedIn = False
+    if request.user.is_authenticated:
+        loggedIn = True
     filterParams = request.GET
     if filterParams.get("currentlyAccessible"):
         currentlyAccessible = []
@@ -102,11 +103,15 @@ def index(request):
         "y_coord": y,
         "favorited": favorited,
         "hideSearchBar": favPage,
+        "loggedIn": loggedIn,
     }
     return render(request, "landing_map/home.html", context)
 
 
 def lowVisionView(request):
+    loggedIn = False
+    if request.user.is_authenticated:
+        loggedIn = True
     filterParams = request.GET
     if filterParams.get("currentlyAccessible"):
         currentlyAccessible = []
@@ -192,6 +197,7 @@ def lowVisionView(request):
         "y_coord": y,
         "favorited": favorited,
         "hideSearchBar": favPage,
+        "loggedIn": loggedIn,
     }
     return render(request, "landing_map/lowVisionView.html", context)
 
@@ -217,27 +223,51 @@ def myFav(request):
 def report(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            print("post")
+
+            x = request.POST.get("x_coord")
+            y = request.POST.get("y_coord")
+
             infra = request.POST.get("infraID")
             obj = Accessible_location.objects.get(pk=infra)
+            # Hopefully stops multiple reports from being saved, Probably need better solution
+            if not obj.isAccessible:
+                return HttpResponse("Report already made! Please reload")
             obj.isAccessible = False
             obj.save()
             inComment = request.POST.get("comment")
             newReport = Report(user=request.user, infraID=obj, comment=inComment)
             newReport.save()
-        return redirect("home")
+
+            pageURL = (
+                "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+                "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(
+                    x=x, y=y
+                )
+            )
+
+        return redirect(pageURL)
     else:
         return redirect("login")
 
 
 def resolve_report(request):
     if request.user.is_authenticated:
+
+        x = request.POST.get("x_coord")
+        y = request.POST.get("y_coord")
+
         infra = request.POST.get("infraID")
         locObj = Accessible_location.objects.get(pk=infra)
         locObj.isAccessible = True
         locObj.save()
         Report.objects.get(infraID=infra).delete()
-        return redirect("home")
+
+        pageURL = (
+            "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+            "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
+        )
+
+        return redirect(pageURL)
     else:
         return redirect("login")
 

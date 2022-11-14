@@ -16,4 +16,4 @@ class Report(models.Model):
     dateTimeOfResolution = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.reportID)
+        return str(self.infraID)
