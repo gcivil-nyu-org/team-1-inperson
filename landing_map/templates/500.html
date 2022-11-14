@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>404: Page Not Found</title>
+    <title>500: Server Error</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
@@ -43,7 +43,7 @@
 {% include 'common/navbar.html' %}
     <div class="ctain">
         <img src="/static/img/crosswalk.png" style="margin-top: -20px;" width="100%">
-        <div class="centered"><h1 style=font-size:250%>Sorry, that page doesn't exist..</h1>
+        <div class="centered"><h1 style=font-size:250%>Sorry, that link is invalid..</h1>
             <button onclick="location.href = '/home';" class="btn btn-lg" type="submit">Click here to return home</button>
         </div>
     </div>

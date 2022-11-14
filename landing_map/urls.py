@@ -14,3 +14,4 @@ urlpatterns = [
     path("goto_favorite", views.goto_favorite, name="goto_favorite"),
 ]
 handler404 = "landing_map.views.error_404_view"
+handler500 = "landing_map.views.error_500_view"
