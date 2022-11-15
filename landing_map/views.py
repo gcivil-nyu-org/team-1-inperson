@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from decouple import config
 from .models import Infra_type, Favorite, Accessible_location
 from report.models import Report
@@ -11,6 +12,14 @@ from NYCAccessibleStreet.utils import (
     populate_favorite_cards,
 )
 from django.http import HttpResponseRedirect
+
+
+def error_404_view(request, exception):
+    return render(request, "404.html")
+
+
+def error_500_view(request, exception=None):
+    return render(request, "404.html")
 
 
 def index(request):

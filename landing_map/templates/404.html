@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>404: Page Not Found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'landing_map/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        .container-fluid{
+            padding-left: 0;
+            padding-right: 0;
+            margin-bottom: -10px;
+        }
+        a.nav-brand {
+            color: #FFFFFF !important;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-decoration: none !important;
+            height: 75px;
+            line-height: 75px;
+            padding-left: 15px;
+        }
+
+        a.nav-list{
+            color: #FFFFFF !important;
+            font-size:1em;
+            text-decoration: none;
+            height: 75px !important;
+            line-height: 40px !important;
+            padding-left: 15px !important;
+            padding-right: 30px !important;
+        }
+        button{
+            color: white;
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+{% include 'common/navbar.html' %}
+    <div class="ctain">
+        <img src="/static/img/crosswalk.png" style="margin-top: -20px;" width="100%">
+        <div class="centered"><h1 style=font-size:250%>Sorry, that page doesn't exist..</h1>
+            <button onclick="location.href = '/';" class="btn btn-lg" type="submit">Click here to return home</button>
+        </div>
+    </div>
+
+
+</body>
+</html>
