@@ -9,10 +9,9 @@ from NYCAccessibleStreet.utils import (
     populate_cards,
     getAddressFromMapbox,
     populate_favorite_cards,
-    get_recent_reports
+    get_recent_reports,
 )
 from django.http import HttpResponseRedirect
-
 
 
 def index(request):
@@ -202,7 +201,7 @@ def landingpage(request):
 
     recent_report_list = get_recent_reports(6)
     # print(recent_report_list)
-    
+
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
         "recent_report_list": recent_report_list,

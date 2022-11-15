@@ -3,6 +3,7 @@ from landing_map.models import Accessible_location, Infra_type
 from report.models import Report
 import requests
 
+
 class reportObject:
     def __init__(self, infraID, createdAt, updatedAt, desc):
         self.infraID = infraID
@@ -17,10 +18,11 @@ class reportObject:
 def get_locations():
     return Accessible_location.objects.all()
 
+
 def get_recent_reports(num):
 
     recent_report_list = []
-    report_query = Report.objects.order_by('-createdAt')[:num]
+    report_query = Report.objects.order_by("-createdAt")[:num]
 
     for q in report_query:
         # temp = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
@@ -28,7 +30,12 @@ def get_recent_reports(num):
         # print(temp)
         # address = temp.address
         # infraType = str(temp.typeID)
-        r = reportObject(infraID = q.infraID.infraID, createdAt = q.createdAt, updatedAt=q.updatedAt, desc = q.comment)
+        r = reportObject(
+            infraID=q.infraID.infraID,
+            createdAt=q.createdAt,
+            updatedAt=q.updatedAt,
+            desc=q.comment,
+        )
         recent_report_list.append(r)
     # print(recent_report_list)
 
