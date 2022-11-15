@@ -115,7 +115,7 @@ def index(request):
         "y_coord": y,
         "favorited": favorited,
         "hideSearchBar": favPage,
-        "loggedIn" : loggedIn,
+        "loggedIn": loggedIn,
     }
     return render(request, "landing_map/home.html", context)
 
@@ -209,7 +209,7 @@ def lowVisionView(request):
         "y_coord": y,
         "favorited": favorited,
         "hideSearchBar": favPage,
-        "loggedIn" : loggedIn,
+        "loggedIn": loggedIn,
     }
     return render(request, "landing_map/lowVisionView.html", context)
 
@@ -257,13 +257,13 @@ def report(request):
             inComment = request.POST.get("comment")
             newReport = Report(user=request.user, infraID=obj, comment=inComment)
             newReport.save()
-        
+
             pageURL = (
-                 "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-                 "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(
-                     x=x, y=y
-                 )
-             )
+                "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+                "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(
+                    x=x, y=y
+                )
+            )
 
         return redirect(pageURL)
     else:
@@ -281,9 +281,9 @@ def resolve_report(request):
         locObj.save()
         Report.objects.get(infraID=infra).delete()
         pageURL = (
-             "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-             "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
-         )
+            "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+            "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
+        )
 
         return redirect(pageURL)
     else:
