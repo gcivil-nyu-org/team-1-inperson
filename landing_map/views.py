@@ -9,8 +9,10 @@ from NYCAccessibleStreet.utils import (
     populate_cards,
     getAddressFromMapbox,
     populate_favorite_cards,
+    get_recent_reports
 )
 from django.http import HttpResponseRedirect
+
 
 
 def index(request):
@@ -197,7 +199,15 @@ def lowVisionView(request):
 
 
 def landingpage(request):
-    context = {"mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN")}
+
+    recent_report_list = get_recent_reports(6)
+    # print(recent_report_list)
+    
+    context = {
+        "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
+        "recent_report_list": recent_report_list,
+    }
+
     return render(request, "landing_map/landingpage.html", context)
 
 
@@ -233,6 +243,7 @@ def report(request):
 def resolve_report(request):
     if request.user.is_authenticated:
         infra = request.POST.get("infraID")
+        print("INFRA: ", infra)
         locObj = Accessible_location.objects.get(pk=infra)
         locObj.isAccessible = True
         locObj.save()

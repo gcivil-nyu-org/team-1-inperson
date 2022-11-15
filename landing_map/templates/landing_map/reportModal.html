@@ -11,9 +11,10 @@
           <form action = "{% url 'report' %}" method = "POST" >
             {% csrf_token %}
             <div class="form-group">
+              <p class="not_accessible">Mark {{card.type}} as inaccessible</p>
               <label for="message-text" class="col-form-label">Description:</label>
               <input type = "hidden" name = infraID value = '{{card.card_id}}'>
-           <textarea name = "comment" class="form-control" id="message-text" style="height: 180px;"></textarea>
+           <textarea name = "comment" class="form-control" id="message-text" style="height: 180px;" required="required"></textarea>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" style=" background-color:#18435A; color:white;">

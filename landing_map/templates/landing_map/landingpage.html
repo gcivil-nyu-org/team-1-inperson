@@ -35,29 +35,31 @@
         
         <div class="row" style="margin: 3px;">
             <!-- one card -->
+            {% for report in recent_report_list %}
             <div class="col-md-4">
                 <div class="well well-lg">
                     <img src="/static/img/dummy_report.png" alt="dummy report image of map" 
                         style="padding-bottom:15px; width:100%; height:auto;">
 
-                    <h4>5 Metrotech Center, Brooklyn, NY 11201</h4>
+                    <h4>{{report.address}}</h4>
                     
                     <div class="row">
                         <div class='col-md-4'>
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#pin_{{card.card_id}}_details"
                             style=" background-color:#884515; color:white; padding-left:15px; padding-right:15px;">
-                                Inaccessible Ramp
+                                Inaccessible {{report.infraType}}
                             </button>
 
-                            {% include 'landing_map/detailModal.html' %}
+                            {% include 'landing_map/report_detail.html' %}
                         </div>
             
                         <div class='col-md-6' style="float: right; text-align: right; margin-top: 8px;">
-                            <p><span class="glyphicon glyphicon-calendar"></span> 7:20AM Oct 20th</p>
+                            <p><span class="glyphicon glyphicon-calendar"></span> {{report.createdAt}}</p>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
 
         </div>
 
