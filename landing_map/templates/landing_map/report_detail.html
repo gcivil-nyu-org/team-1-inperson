@@ -1,0 +1,67 @@
+<div id="pin_{{card.card_id}}_details" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <!-- modal header content -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{report.address}}</h4>
+            </div>
+
+            <!-- modal body content -->
+            <div class="modal-body row">
+                <div class="col-md-6">
+                    <img src="/static/img/map_dummy.png" alt="dummy image for map" width="280" height="280">
+                </div>
+                
+                <div class="col-md-6 ml-auto view-report" style='height:300px; overflow-y: scroll'>
+                    <h5>Issue: </h5>
+                    <p class="not_accessible">Inaccessible {{report.infraType}}</p>
+
+                    <h5>time reported: </h5>
+                    <p>{{report.createdAt}}</p>
+
+                    <h5>Updates: </h5>
+
+                    <!-- all updates -->
+                    <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px;">
+                        <div style="padding: 10px;">
+                            <p style="font-size:smaller; margin-bottom: 1px;"> 
+                                <b style="color:#18435A;">username · </b>Nov. 13, 2022, 4:05 p.m.</p>
+                            <p style="margin-bottom: 0px;">{{card.comment}}</p>
+                        </div>
+                    </div>
+
+                    <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px;">
+                        <div style="padding: 10px;">
+                            <p style="font-size:smaller; margin-bottom: 1px;"> 
+                                <b style="color:#18435A;">username · </b>Nov. 13, 2022, 4:05 p.m.</p>
+                            <p style="margin-bottom: 0px;">{{card.comment}}</p>
+                        </div>
+                    </div>
+
+                    <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px;">
+                        <div style="padding: 10px;">
+                            <p style="font-size:smaller; margin-bottom: 1px;"> 
+                                <b style="color:#18435A;">username · </b>Nov. 13, 2022, 4:05 p.m.</p>
+                            <p style="margin-bottom: 0px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                        </div>
+                    </div>
+
+                    <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px;">
+                        <div style="padding: 10px;">
+                            <p style="font-size:smaller; margin-bottom: 1px;"> 
+                                <b style="color:#18435A;">username · </b>Nov. 13, 2022, 4:05 p.m.</p>
+                            <p style="margin-bottom: 0px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                        </div>
+                    </div>
+
+                </div>  
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+

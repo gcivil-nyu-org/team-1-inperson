@@ -4,8 +4,42 @@ from report.models import Report
 import requests
 
 
+class reportObject:
+    def __init__(self, infraID, createdAt, updatedAt, desc):
+        self.infraID = infraID
+        temp = Accessible_location.objects.filter(infraID=infraID)[0]
+        self.createdAt = createdAt
+        self.address = temp.address
+        self.infraType = str(temp.typeID)
+        self.updatedAt = updatedAt
+        self.desc = desc
+
+
 def get_locations():
     return Accessible_location.objects.all()
+
+
+def get_recent_reports(num):
+
+    recent_report_list = []
+    report_query = Report.objects.order_by("-createdAt")[:num]
+
+    for q in report_query:
+        # temp = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
+        # print(type(q.infraID))
+        # print(temp)
+        # address = temp.address
+        # infraType = str(temp.typeID)
+        r = reportObject(
+            infraID=q.infraID.infraID,
+            createdAt=q.createdAt,
+            updatedAt=q.updatedAt,
+            desc=q.comment,
+        )
+        recent_report_list.append(r)
+    # print(recent_report_list)
+
+    return recent_report_list
 
 
 def populate_cards(locList):
