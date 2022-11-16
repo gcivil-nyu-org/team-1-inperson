@@ -131,6 +131,28 @@ class ViewsTests(TestCase):
     # # TODO: test isAccessible = True
     # # TODO: check redirect
     # # TODO: test report was deleted
+    #
+    # def test_add_favorite_authenticated(self):
+    #     # TODO
+    #     user = User.objects.create(username="Testuser")
+    #     post = {"x_coord":-73.99244,
+    #             "y_coord":40.72843,
+    #             "address":"an address"}
+    #     c = Client()
+    #     c.force_login(user)
+    #     self.assertEqual()
+    #
+    # def test_add_favorite_unauthenticated(self):
+    #     # TODO
+    #     pass
+    #
+    # def test_remove_favorite(self):
+    #     #TODO
+    #     pass
+    #
+    # def test_go_to_favorites(self):
+    #     #TODO
+    #     pass
 
 
 class ModelsTests(TestCase):
