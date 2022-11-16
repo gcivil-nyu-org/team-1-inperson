@@ -55,7 +55,6 @@ class LandingURLsTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-
 class ViewsTests(TestCase):
     def test_views_index(self):
         response = client.get("/")
