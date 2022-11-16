@@ -104,6 +104,9 @@ class ViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     # def test_report_update_isAccessible(self):
+    #     user = User.objects.create(username="Testuser")
+    #     c = Client()
+    #     c.force_login(user)
     #     infra_2 = Infra_type.objects.create(typeID=102)
     #     accessible_location = Accessible_location.objects.create(
     #         infraID=1111,
@@ -117,21 +120,17 @@ class ViewsTests(TestCase):
     #         address="someaddress",
     #     )
     #     post = {"infraID":1111, "comment":"broken"}
-    #     c = Client()
-    #     response = c.post("/report/", post, follow = True)
+    #
+    #     response = c.post("/report/", post, follow=True)
     #     # TODO: c.post not triggering if request.method == "POST"
-    #     self.assertEqual(Accessible_location.isAccessible,False)
-    # TODO: test request.redirect_chain
-    # TODO: test comment was saved
-
-    # TODO: test resolve report
-    # TODO: test isAccessible = True
-    # TODO: check redirect
-    # TODO: test report was deleted
-
-    def test_resolve_report(self):
-        # TODO
-        pass
+    #     self.assertEqual(Accessible_location.isAccessible, False)
+    # # TODO: test request.redirect_chain
+    # # TODO: test comment was saved
+    #
+    # # TODO: test resolve report
+    # # TODO: test isAccessible = True
+    # # TODO: check redirect
+    # # TODO: test report was deleted
 
 
 class ModelsTests(TestCase):
