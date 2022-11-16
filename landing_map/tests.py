@@ -48,6 +48,12 @@ class LandingURLsTests(TestCase):
         response = client.get("/myFav/")
         self.assertEqual(response.status_code, 302)
 
+    def test_myFave_page_authenticated(self):
+        user = User.objects.create(username="Testuser")
+        client.force_login(user)
+        response = client.get("/myFav/")
+        self.assertEqual(response.status_code, 200)
+
 
 class ViewsTests(TestCase):
     def test_views_index(self):
@@ -98,6 +104,9 @@ class ViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     # def test_report_update_isAccessible(self):
+    #     user = User.objects.create(username="Testuser")
+    #     c = Client()
+    #     c.force_login(user)
     #     infra_2 = Infra_type.objects.create(typeID=102)
     #     accessible_location = Accessible_location.objects.create(
     #         infraID=1111,
@@ -111,21 +120,39 @@ class ViewsTests(TestCase):
     #         address="someaddress",
     #     )
     #     post = {"infraID":1111, "comment":"broken"}
-    #     c = Client()
-    #     response = c.post("/report/", post, follow = True)
+    #
+    #     response = c.post("/report/", post, follow=True)
     #     # TODO: c.post not triggering if request.method == "POST"
-    #     self.assertEqual(Accessible_location.isAccessible,False)
-    # TODO: test request.redirect_chain
-    # TODO: test comment was saved
-
-    # TODO: test resolve report
-    # TODO: test isAccessible = True
-    # TODO: check redirect
-    # TODO: test report was deleted
-
-    def test_resolve_report(self):
-        # TODO
-        pass
+    #     self.assertEqual(Accessible_location.isAccessible, False)
+    # # TODO: test request.redirect_chain
+    # # TODO: test comment was saved
+    #
+    # # TODO: test resolve report
+    # # TODO: test isAccessible = True
+    # # TODO: check redirect
+    # # TODO: test report was deleted
+    #
+    # def test_add_favorite_authenticated(self):
+    #     # TODO
+    #     user = User.objects.create(username="Testuser")
+    #     post = {"x_coord":-73.99244,
+    #             "y_coord":40.72843,
+    #             "address":"an address"}
+    #     c = Client()
+    #     c.force_login(user)
+    #     self.assertEqual()
+    #
+    # def test_add_favorite_unauthenticated(self):
+    #     # TODO
+    #     pass
+    #
+    # def test_remove_favorite(self):
+    #     #TODO
+    #     pass
+    #
+    # def test_go_to_favorites(self):
+    #     #TODO
+    #     pass
 
 
 class ModelsTests(TestCase):
