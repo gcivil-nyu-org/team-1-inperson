@@ -48,6 +48,13 @@ class LandingURLsTests(TestCase):
         response = client.get("/myFav/")
         self.assertEqual(response.status_code, 302)
 
+    def test_myFave_page_authenticated(self):
+        user = User.objects.create(username="Testuser")
+        client.force_login(user)
+        response = client.get("/myFav/")
+        self.assertEqual(response.status_code, 200)
+
+
 
 class ViewsTests(TestCase):
     def test_views_index(self):
