@@ -12,7 +12,18 @@
             <!-- modal body content -->
             <div class="modal-body row">
                 <div class="col-md-6">
-                    <img src="/static/img/map_dummy.png" alt="dummy image for map" width="280" height="280">
+                    <div id="map_{{card.card_id}}}" style="width:280px; height:280px"></div>
+                        <script>
+                            new mapboxgl.Marker()
+                            .setLngLat(['{{report.locationX}}','{{report.locationY}}'])
+                            .addTo(new mapboxgl.Map({
+                                container: 'map_{{card.card_id}}}',
+                                style: 'mapbox://styles/mapbox/streets-v11',
+                                center: ['{{report.locationX}}','{{report.locationY}}'],
+                                zoom: 15,
+                                marker: true
+                            }));
+                        </script>
                 </div>
                 
                 <div class="col-md-6 ml-auto view-report" style='height:300px; overflow-y: scroll'>

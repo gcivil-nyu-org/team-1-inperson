@@ -13,6 +13,8 @@ class reportObject:
         self.infraType = str(temp.typeID)
         self.updatedAt = updatedAt
         self.desc = desc
+        self.locationX = temp.locationX
+        self.locationY = temp.locationY
 
 
 def get_locations():
@@ -25,7 +27,7 @@ def get_recent_reports(num):
     report_query = Report.objects.order_by("-createdAt")[:num]
 
     for q in report_query:
-        # temp = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
+        # loc = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
         # print(type(q.infraID))
         # print(temp)
         # address = temp.address

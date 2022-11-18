@@ -17,7 +17,9 @@
 <!-- Load the `mapbox-gl-geocoder` plugin. -->
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
-
+<script type="text/javascript">
+    mapboxgl.accessToken = '{{mapboxAccessToken}}';
+</script>
 <!-- navigation bar -->
 {% include 'common/navbar.html' %}
 
@@ -31,15 +33,25 @@
     </div>
 
     <div class="reports container-fluid">
-        <h3 style="padding-top: 10px; padding-bottom: 10px;" >&nbsp;&nbsp;recent reports</h3>
+        <h3 style="padding-top: 30px; padding-bottom: 20px;" >&nbsp;&nbsp;Recent Reports</h3>
         
         <div class="row" style="margin: 3px;">
             <!-- one card -->
             {% for report in recent_report_list %}
             <div class="col-md-4">
                 <div class="well well-lg">
-                    <img src="/static/img/dummy_report.png" alt="dummy report image of map" 
-                        style="padding-bottom:15px; width:100%; height:auto;">
+                    <div id="map_{{report.createdAt}}" style="height: 250px;"></div>
+                        <script>
+                            new mapboxgl.Marker()
+                            .setLngLat(['{{report.locationX}}','{{report.locationY}}'])
+                            .addTo(new mapboxgl.Map({
+                                container: 'map_{{report.createdAt}}',
+                                style: 'mapbox://styles/mapbox/streets-v11',
+                                center: ['{{report.locationX}}','{{report.locationY}}'],
+                                zoom: 15,
+                                marker: true
+                            }));
+                        </script>
 
                     <h4>{{report.address}}</h4>
                     
@@ -67,10 +79,6 @@
     </div>
 
     {% include 'common/copyright.html' %}
-
-<script type="text/javascript">
-    mapboxgl.accessToken = '{{mapboxAccessToken}}';
-</script>
 
 <script src="{% static 'landing_map/geocoderHomepage.js' %} "></script>
 
