@@ -46,9 +46,10 @@ def register_page(request):
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[to_email],
             )
-            return HttpResponse(
-                "Please check your email address to complete registration"
-            )
+            # return HttpResponse(
+            #     "Please check your email address to complete registration"
+            # )
+            return render(request, "checkEmail.html", context)
             # messages.success(request, "Account Succesfully Created!")
             # return redirect("/accounts/login")
         else:
