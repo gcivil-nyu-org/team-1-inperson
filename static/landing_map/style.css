@@ -195,6 +195,16 @@ div.table-lowvision{
     background-color: #d9534f !important;
 }
 
+textarea {
+    resize: none;
+}
+
+#count_message {
+  background-color: smoke;
+  margin-top: -20px;
+  margin-right: 5px;
+}
+
 .shareButton {
     cursor:pointer;
     padding: 8px;
