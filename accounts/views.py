@@ -78,8 +78,9 @@ def help_page(request):
     context = {"helpform": form}
     return render(request, "help.html", context)
 
+
 def profile_page(request):
-    return render(request,"profile.html")
+    return render(request, "profile.html")
 
 
 def activate(request, uidb64, token):
