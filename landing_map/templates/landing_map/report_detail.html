@@ -1,4 +1,5 @@
-<div id="pin_{{card.card_id}}_details" class="modal fade" role="dialog">
+{% load static %}
+<div id="pin_{{report.infraID}}_details" class="modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <!-- Modal content-->
         <div class="modal-content">
@@ -12,18 +13,7 @@
             <!-- modal body content -->
             <div class="modal-body row">
                 <div class="col-md-6">
-                    <div id="map_{{card.card_id}}}" style="width:280px; height:280px"></div>
-                        <script>
-                            new mapboxgl.Marker()
-                            .setLngLat(['{{report.locationX}}','{{report.locationY}}'])
-                            .addTo(new mapboxgl.Map({
-                                container: 'map_{{card.card_id}}}',
-                                style: 'mapbox://styles/mapbox/streets-v11',
-                                center: ['{{report.locationX}}','{{report.locationY}}'],
-                                zoom: 15,
-                                marker: true
-                            }));
-                        </script>
+                    <div id="map_{{report.infraID}}" style="width:280px; height:280px"></div>
                 </div>
                 
                 <div class="col-md-6 ml-auto view-report" style='height:300px; overflow-y: scroll'>

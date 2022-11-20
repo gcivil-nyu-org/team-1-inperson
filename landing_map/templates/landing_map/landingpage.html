@@ -57,8 +57,8 @@
                     
                     <div class="row">
                         <div class='col-md-4'>
-                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#pin_{{card.card_id}}_details"
-                            style=" background-color:#884515; color:white; padding-left:15px; padding-right:15px;">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#pin_{{report.infraID}}_details"
+                            style=" background-color:#884515; color:white; padding-left:15px; padding-right:15px;"  onclick="loadLandingPageReportMap({{report.locationX}}, {{report.locationY}}, {{report.infraID}})">
                                 Inaccessible {{report.infraType}}
                             </button>
 
@@ -81,6 +81,7 @@
     {% include 'common/copyright.html' %}
 
 <script src="{% static 'landing_map/geocoderHomepage.js' %} "></script>
+<script src="{% static 'landing_map/reportsMap.js' %} "></script>
 
 </body>
 </html>
