@@ -8,7 +8,18 @@
 
     <!-- Pin cards -->
     <div class="well well-lg" id = {{card.card_id}} onclick = "zoom_map({{card.card_id}})">
-        <h4>{{card.text}}</h4>
+        <div class="row">
+            <div class="col-md-11">
+                <h4>{{card.text}}</h4>
+            </div>
+            <div class="col-md-1">
+                <div class="copyButton" onmouseout="mouseOutCopyTooltip(`copyTooltip_{{card.card_id}}`)" onclick = "copyAddress(`{{card.text}}`, `copyTooltip_{{card.card_id}}`)">
+                  <span class="copytooltiptext" id="copyTooltip_{{card.card_id}}">Copy Address</span>
+                  <span class="glyphicon glyphicon-copy"></span>
+                </div>
+            </div>
+        </div>
+
         {% if card.type == "Ramp" %}
             {% if card.isAccessible %}
                 <p class="accessible">Accessible ramp</p>

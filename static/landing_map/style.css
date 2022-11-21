@@ -194,3 +194,68 @@ div.table-lowvision{
 .deleteButton{
     background-color: #d9534f !important;
 }
+
+.shareButton {
+    cursor:pointer;
+    padding: 8px;
+}
+
+.shareButton .sharetooltiptext {
+  font-size: 12px;
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 105%;
+  left: 50%;
+  margin-left: -50px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.shareButton .sharetooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.shareButton:hover .sharetooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.copyButton {
+  cursor:pointer;
+  padding: 8px;
+}
+
+.copyButton .copytooltiptext {
+  font-size: 10px;
+  width: 80px;
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px;
+  position: absolute;
+  z-index: 1;
+  bottom: 80%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.copyButton:hover .copytooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
