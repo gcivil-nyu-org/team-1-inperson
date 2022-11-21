@@ -79,33 +79,34 @@ def help_page(request):
     if request.method == "POST":
         form = InputForm(request.POST)
         if form.is_valid():
-            user_email=form.cleaned_data.get("email")
-            subject=form.cleaned_data.get("subject")
+            user_email = form.cleaned_data.get("email")
+            subject = form.cleaned_data.get("subject")
             user_message = form.cleaned_data.get("message")
-            #message to our email
-            contact_message = user_email + " Sent the following message:\n" + user_message
+            # message to our email
+            contact_message = (
+                user_email + " Sent the following message:\n" + user_message
+            )
             send_mail(
                 subject=subject,
                 message=contact_message,
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[settings.EMAIL_HOST_USER],
             )
-            #message to user email
+            # message to user email
             mail_message = render_to_string(
                 "message_sent.html",
                 {
                     "user": request.user,
-                    "message":user_message,
+                    "message": user_message,
                 },
             )
             send_mail(
-                subject = "Thank you for contacting the team!",
-                message = mail_message,
-                from_email = settings.EMAIL_HOST_USER,
-                recipient_list = [user_email],
+                subject="Thank you for contacting the team!",
+                message=mail_message,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[user_email],
             )
-            return HttpResponse("Email sent")
-
+            messages.info(request, "We have recieved your message!")
 
     return render(request, "help.html", context)
 
@@ -123,4 +124,3 @@ def activate(request, uidb64, token):
         return redirect("login")
     else:
         return HttpResponse("Activation link is invalid!")
-
