@@ -76,7 +76,13 @@
                     <span class="glyphicon glyphicon-star-empty"></span>
                       add address to favorites</button>
                   {% endif %}
-              </form>
+                </form>
+
+                <div class="shareButton" onclick="shareLink()" onmouseout="mouseOutShareTooltip()">
+                  <span class="sharetooltiptext" id="shareTooltip">Share Favorite</span>
+                  <span class="glyphicon glyphicon-share"></span>
+                </div>
+
               </div>
             </div>
         </div>

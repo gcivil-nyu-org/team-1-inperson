@@ -174,3 +174,26 @@ function plotMap(){
     map.addControl(new mapboxgl.FullscreenControl());
     map.addControl(new mapboxgl.NavigationControl());
 }
+
+function shareLink(){
+    var sharePageUrl = document.URL
+    navigator.clipboard.writeText(sharePageUrl);
+    var shareTooltip = document.getElementById("shareTooltip");
+    shareTooltip.innerHTML = "Copied shareable link";
+}
+
+function mouseOutShareTooltip() {
+  var shareTooltip = document.getElementById("shareTooltip");
+  shareTooltip.innerHTML = "Share Favorite";
+}
+
+function copyAddress(text, id){
+    navigator.clipboard.writeText(text);
+    var copyTooltip = document.getElementById(id);
+    copyTooltip.innerHTML = "Copied";
+}
+
+function mouseOutCopyTooltip(id) {
+  var copyTooltip = document.getElementById(id);
+  copyTooltip.innerHTML = "Copy Address";
+}
