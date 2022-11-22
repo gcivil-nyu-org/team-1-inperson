@@ -22,6 +22,9 @@
     .cent{
         text-align: center;
     }
+    .info{
+        color: red;
+    }
 </style>
 
 <body class="container-fluid">
@@ -36,32 +39,15 @@
     </ul>
   </div>
 </nav>
-<h1>Hello {{user.first_name}}</h1>
-<h3>Current User Information</h3>
-<h5>First Name: {{user.first_name}}</h5>
-<h5>Last Name: {{user.last_name}}</h5>
-<h5>Username: {{user.username}}</h5>
-<h5>Password: {{user.password}}</h5>
-<h5>Change First Name</h5>
-<form action="" method="post">
-   {% csrf_token %}
-   {{ fnform }}
-   <input type="submit" value="Submit">
-</form>
-<h5>Change Last Name</h5>
-<form action="" method="post">
-   {% csrf_token %}
-   {{ lnform }}
-   <input type="submit" value="Submit">
-<h5>Change Password</h5>
-</form><form action="" method="post">
-   {% csrf_token %}
-   {{ pwform }}
-   <input type="submit" value="Submit">
-</form>
 {% load crispy_forms_tags %}
     <div class="padding">
-        <div class="pad"><h1><div class="cent">Hello {{user.first_name}}</div></h1>
+        <div class="pad"><div class="cent">
+            <h1>Hello {{user.first_name}}!</h1>
+            <h3>Your current user info is as follows</h3>
+            <h5>First Name: <span class="info">{{user.first_name}}</span></h5>
+            <h5>Last Name: <span class="info">{{user.last_name}}</span></h5>
+            <h5>Username: <span class="info">{{user.username}}</span></h5>
+        </div>
             <br><br>
         <h2>Change First Name</h2>
         <form method="POST" action="">
@@ -72,7 +58,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="margin-bottom:30px">
-                <button style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
+                <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
             </div>
         </form>
             <h2>Change Last Name</h2>
@@ -84,7 +70,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="margin-bottom:30px">
-                <button style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
+                <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
             </div>
         </form>
             <h2>Change Password</h2>
@@ -96,7 +82,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="margin-bottom:30px">
-                <button style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
+                <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
             </div>
         </form>
     </div>
