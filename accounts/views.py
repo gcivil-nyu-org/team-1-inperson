@@ -79,24 +79,34 @@ def help_page(request):
     return render(request, "help.html", context)
 
 
+# def profile_page(request):
+#     form=EditInfoForm()
+#     context={"updateform":form}
+#     if request.method=="POST":
+#         form=EditInfoForm(request.POST,instance=request.user.first_name)
+#         if form.is_valid():
+#             user=form.save(commit=False)
+#             user.save()
+#         else:
+#             messages.error(request,form.errors)
+#     return render(request,"profile.html",context)
+
+
 def profile_page(request):
-    form=EditInfoForm()
-    context={"updateform":form}
-    if request.method=="POST":
-        print("request.user attributes are ",request.user.first_name, type(request.user.first_name))
-        form=EditInfoForm(request.POST,instance=request.user.first_name)
+    form = EditInfoForm()
+    context = {"updateform": form}
+    if request.method == "POST":
+        form = EditInfoForm(request.POST)
+        user = request.user
         if form.is_valid():
-            user=form.save(commit=False)
+            temp = form.cleaned_data.get("new_first_name")
+            print("first name is ", temp, type(temp))
+            user.first_name = temp
             user.save()
         else:
-            messages.error(request,form.errors)
-    return render(request,"profile.html",context)
-    # context={}
-    # if request.POST:
-    #     form=EditInfoForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         context.update({'instance':instance})
+            messages.error(request, form.errors)
+    return render(request, "profile.html", context)
+
 
 def activate(request, uidb64, token):
     try:

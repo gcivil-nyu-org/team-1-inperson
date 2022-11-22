@@ -29,5 +29,5 @@ class InputForm(ModelForm):
 
 class EditInfoForm(ModelForm):
     class Meta:
-        model=EditInfo
-        fields="__all__"
+        model = EditInfo
+        fields = "__all__"

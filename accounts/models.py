@@ -12,7 +12,8 @@ class Contact(models.Model):
     def __str__(self):
         return self.email
 
+
 class EditInfo(models.Model):
-    new_first_name=models.CharField(max_length=200)
+    new_first_name = models.CharField(max_length=200)
     # new_last_name = models.CharField(max_length=200)
     # new_password = models.CharField(max_length=200)
