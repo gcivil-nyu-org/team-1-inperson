@@ -42,43 +42,16 @@
 {% load crispy_forms_tags %}
     <div class="padding">
         <div class="pad"><div class="cent">
-            <h1>Hello {{user.first_name}}!</h1>
-            <h3>Your current user info is as follows</h3>
-            <h5>First Name: <span class="info">{{user.first_name}}</span></h5>
-            <h5>Last Name: <span class="info">{{user.last_name}}</span></h5>
-            <h5>Username: <span class="info">{{user.username}}</span></h5>
+            <h1>General Account Settings</h1>
+            <h3>Hello {{user.first_name}}!</h3>
         </div>
             <br><br>
-        <h2>Change First Name</h2>
+        <h2>Change User Information</h2>
         <form method="POST" action="">
             {% csrf_token %}
             <div class="col-md-12">
                 <div class="form-group">
-                    {{fnform.new_first_name|as_crispy_field}}
-                </div>
-            </div>
-            <div class="col-md-12" style="margin-bottom:30px">
-                <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
-            </div>
-        </form>
-            <h2>Change Last Name</h2>
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="col-md-12">
-                <div class="form-group">
-                    {{lnform.new_last_name|as_crispy_field}}
-                </div>
-            </div>
-            <div class="col-md-12" style="margin-bottom:30px">
-                <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
-            </div>
-        </form>
-            <h2>Change Password</h2>
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="col-md-12">
-                <div class="form-group">
-                    {{pwform.new_password|as_crispy_field}}
+                    {{updateform.new_first_name|as_crispy_field}}
                 </div>
             </div>
             <div class="col-md-12" style="margin-bottom:30px">

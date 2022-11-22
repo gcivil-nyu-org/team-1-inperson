@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import Contact, FNameChange, LNameChange, PassWordChange
+from .models import Contact, EditInfo
 
 
 class CreateUserForm(UserCreationForm):
@@ -27,19 +27,7 @@ class InputForm(ModelForm):
         fields = "__all__"
 
 
-class FirstNameForm(ModelForm):
+class EditInfoForm(ModelForm):
     class Meta:
-        model = FNameChange
-        fields = "__all__"
-
-
-class LastNameForm(ModelForm):
-    class Meta:
-        model = LNameChange
-        fields = "__all__"
-
-
-class PasswordForm(ModelForm):
-    class Meta:
-        model = PassWordChange
-        fields = "__all__"
+        model=EditInfo
+        fields="__all__"

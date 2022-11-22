@@ -11,7 +11,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
-from .forms import InputForm, FirstNameForm, LastNameForm, PasswordForm
+from .forms import InputForm, EditInfoForm
 
 
 def register_page(request):
@@ -80,12 +80,23 @@ def help_page(request):
 
 
 def profile_page(request):
-    form1 = FirstNameForm()
-    form2 = LastNameForm()
-    form3 = PasswordForm()
-    context = {"fnform": form1, "lnform": form2, "pwform": form3}
-    return render(request, "profile.html", context)
-
+    form=EditInfoForm()
+    context={"updateform":form}
+    if request.method=="POST":
+        print("request.user attributes are ",request.user.first_name, type(request.user.first_name))
+        form=EditInfoForm(request.POST,instance=request.user.first_name)
+        if form.is_valid():
+            user=form.save(commit=False)
+            user.save()
+        else:
+            messages.error(request,form.errors)
+    return render(request,"profile.html",context)
+    # context={}
+    # if request.POST:
+    #     form=EditInfoForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         context.update({'instance':instance})
 
 def activate(request, uidb64, token):
     try:
