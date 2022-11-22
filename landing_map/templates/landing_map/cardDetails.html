@@ -27,6 +27,7 @@
         {% if card.type != "Raised_Crosswalk" %}
             {% if not card.isAccessible%}
                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#pin_{{card.card_id}}_details"
+                        onclick="loadReportMap({{card.x}}, {{card.y}}, {{card.card_id}})"
                 style=" background-color:#884515; color:white">
                     view issue
                 </button>

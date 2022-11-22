@@ -13,6 +13,8 @@ class reportObject:
         self.infraType = str(temp.typeID)
         self.updatedAt = updatedAt
         self.desc = desc
+        self.locationX = temp.locationX
+        self.locationY = temp.locationY
 
 
 def get_locations():
@@ -25,7 +27,7 @@ def get_recent_reports(num):
     report_query = Report.objects.order_by("-createdAt")[:num]
 
     for q in report_query:
-        # temp = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
+        # loc = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
         # print(type(q.infraID))
         # print(temp)
         # address = temp.address
@@ -67,7 +69,10 @@ def populate_cards(locList):
         # response = requests.get(url=url, params=params).json()
         # address = response["features"][0]["place_name"]
 
-        address = Accessible_location.objects.filter(infraID=q.infraID)[0].address
+        location = Accessible_location.objects.filter(infraID=q.infraID)[0]
+        address = location.address
+        x = location.locationX
+        y = location.locationY
         # print(len(address))
         # address = ' '.join(address.split(" ")[1:])
 
@@ -91,6 +96,8 @@ def populate_cards(locList):
         card_info["comment"] = comment
         card_info["time_reported"] = created
         card_info["last_update"] = updated
+        card_info["x"] = x
+        card_info["y"] = y
         # if str(q.typeID) == "Ramp":
         if q.isAccessible:
             card_info["isAccessible"] = True
