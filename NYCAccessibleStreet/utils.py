@@ -14,8 +14,11 @@ class reportObject:
         self.infraType = str(temp.typeID)
         self.updatedAt = updatedAt
         self.desc = desc
+        self.locationX = temp.locationX
+        self.locationY = temp.locationY
     def __str__(self):
         return f'Infra ID: {self.infraID}, Description: {self.desc}'
+
 
 
 
@@ -88,7 +91,10 @@ def populate_cards(locList):
         # response = requests.get(url=url, params=params).json()
         # address = response["features"][0]["place_name"]
 
-        address = Accessible_location.objects.filter(infraID=q.infraID)[0].address
+        location = Accessible_location.objects.filter(infraID=q.infraID)[0]
+        address = location.address
+        x = location.locationX
+        y = location.locationY
         # print(len(address))
         # address = ' '.join(address.split(" ")[1:])
 
@@ -116,6 +122,8 @@ def populate_cards(locList):
         card_info["comment"] = comment
         card_info["time_reported"] = created
         card_info["last_update"] = updated
+        card_info["x"] = x
+        card_info["y"] = y
         # if str(q.typeID) == "Ramp":
         if q.isAccessible:
             card_info["isAccessible"] = True

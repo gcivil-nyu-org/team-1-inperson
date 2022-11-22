@@ -217,7 +217,6 @@ def lowVisionView(request):
 def landingpage(request):
 
     recent_report_list = get_recent_reports(6)
-    # print(recent_report_list)
 
     context = {
         "mapboxAccessToken": config("MAPBOX_PUBLIC_TOKEN"),
