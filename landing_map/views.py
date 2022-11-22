@@ -76,7 +76,7 @@ def index(request):
             "{radius} ORDER BY distance".format(
                 y=40.68852572417966,
                 x=-73.98657073016483,
-                radius=1.0,
+                radius=0.5,
             )
         )
 
@@ -171,7 +171,7 @@ def lowVisionView(request):
             "{radius} ORDER BY distance".format(
                 y=40.68852572417966,
                 x=-73.98657073016483,
-                radius=2.75,
+                radius=0.5,
             )
         )
         locationAddress = getAddressFromMapbox(-73.98657073016483, 40.68852572417966)
@@ -258,7 +258,7 @@ def report(request):
             newReport.save()
 
             pageURL = (
-                "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
                 "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(
                     x=x, y=y
                 )
@@ -280,7 +280,7 @@ def resolve_report(request):
         locObj.save()
         Report.objects.get(infraID=infra).delete()
         pageURL = (
-            "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
             "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
         )
 
@@ -330,7 +330,7 @@ def add_favorite(request):
     newFav.save()
 
     pageURL = (
-        "/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+        "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
         "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
     )
     return redirect(pageURL)

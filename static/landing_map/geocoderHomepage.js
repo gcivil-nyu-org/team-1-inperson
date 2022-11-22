@@ -1,5 +1,5 @@
 function redirect_to_map(x,y){
-    pageURL = `/home/?radiusRange=2.75&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=${x}&y-co=${y}`
+    pageURL = `/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=${x}&y-co=${y}`
     window.location.href = pageURL;
 }
 
