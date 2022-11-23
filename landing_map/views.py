@@ -45,13 +45,16 @@ def index(request):
         if filterParams.get("sidewalkCheck") == "true":
             infraTypes.append("3")
 
+        #custom radius
+        filterRadius = filterParams.get("radiusRange")
+
         radiusQuery = (
             "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
             "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location HAVING distance < "
             "{radius} ORDER BY distance".format(
                 y=filterParams.get("y-co"),
                 x=filterParams.get("x-co"),
-                radius=filterParams.get("radiusRange"),
+                radius=filterRadius,
             )
         )
 
@@ -79,6 +82,7 @@ def index(request):
                 radius=0.5,
             )
         )
+        filterRadius = .5
 
         locationAddress = getAddressFromMapbox(-73.98657073016483, 40.68852572417966)
         infraIds = []
@@ -116,6 +120,7 @@ def index(request):
         "favorited": favorited,
         "hideSearchBar": favPage,
         "loggedIn": loggedIn,
+        "radius" : filterRadius,
     }
     return render(request, "landing_map/home.html", context)
 
@@ -142,13 +147,14 @@ def lowVisionView(request):
         if filterParams.get("sidewalkCheck") == "true":
             infraTypes.append("3")
 
+        filterRadius = filterParams.get("radiusRange")
         radiusQuery = (
             "SELECT infraID, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) - radians({x}) ) "
             "+ sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location HAVING distance < "
             "{radius} ORDER BY distance".format(
                 y=filterParams.get("y-co"),
                 x=filterParams.get("x-co"),
-                radius=filterParams.get("radiusRange"),
+                radius=filterRadius,
             )
         )
         locationAddress = getAddressFromMapbox(
@@ -174,6 +180,7 @@ def lowVisionView(request):
                 radius=0.5,
             )
         )
+        filterRadius = .5
         locationAddress = getAddressFromMapbox(-73.98657073016483, 40.68852572417966)
 
         infraIds = []
@@ -210,6 +217,7 @@ def lowVisionView(request):
         "favorited": favorited,
         "hideSearchBar": favPage,
         "loggedIn": loggedIn,
+        "radius" : filterRadius,
     }
     return render(request, "landing_map/lowVisionView.html", context)
 
@@ -242,8 +250,6 @@ def myFav(request):
 def report(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            x = request.POST.get("x_coord")
-            y = request.POST.get("y_coord")
 
             infra = request.POST.get("infraID")
             obj = Accessible_location.objects.get(pk=infra)
@@ -256,34 +262,21 @@ def report(request):
             newReport = Report(user=request.user, infraID=obj, comment=inComment)
             newReport.save()
 
-            pageURL = (
-                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-                "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(
-                    x=x, y=y
-                )
-            )
-
-        return redirect(pageURL)
+        return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect("login")
 
 
 def resolve_report(request):
     if request.user.is_authenticated:
-        x = request.POST.get("x_coord")
-        y = request.POST.get("y_coord")
         infra = request.POST.get("infraID")
         print("INFRA: ", infra)
         locObj = Accessible_location.objects.get(pk=infra)
         locObj.isAccessible = True
         locObj.save()
         Report.objects.get(infraID=infra).delete()
-        pageURL = (
-            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-            "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
-        )
 
-        return redirect(pageURL)
+        return redirect(request.META.get('HTTP_REFERER'))
     else:
         return redirect("login")
 
@@ -297,11 +290,7 @@ def add_favorite(request):
     newFav = Favorite(userID=request.user, locationX=x, locationY=y, address=address)
     newFav.save()
 
-    pageURL = (
-        "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-        "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
-    )
-    return redirect(pageURL)
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def remove_favorite(request):
