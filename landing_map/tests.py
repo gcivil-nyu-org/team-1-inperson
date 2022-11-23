@@ -103,56 +103,245 @@ class ViewsTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-    # def test_report_update_isAccessible(self):
-    #     user = User.objects.create(username="Testuser")
-    #     c = Client()
-    #     c.force_login(user)
-    #     infra_2 = Infra_type.objects.create(typeID=102)
-    #     accessible_location = Accessible_location.objects.create(
-    #         infraID=1111,
-    #         locationX="st_1",
-    #         locationY="st_2",
-    #         typeID=infra_2,
-    #         isAccessible=True,
-    #         street1="street_1",
-    #         street2="street_2",
-    #         borough="Somewhere",
-    #         address="someaddress",
-    #     )
-    #     post = {"infraID":1111, "comment":"broken"}
-    #
-    #     response = c.post("/report/", post, follow=True)
-    #     # TODO: c.post not triggering if request.method == "POST"
-    #     self.assertEqual(Accessible_location.isAccessible, False)
-    # # TODO: test request.redirect_chain
-    # # TODO: test comment was saved
-    #
-    # # TODO: test resolve report
-    # # TODO: test isAccessible = True
-    # # TODO: check redirect
-    # # TODO: test report was deleted
-    #
-    # def test_add_favorite_authenticated(self):
-    #     # TODO
-    #     user = User.objects.create(username="Testuser")
-    #     post = {"x_coord":-73.99244,
-    #             "y_coord":40.72843,
-    #             "address":"an address"}
-    #     c = Client()
-    #     c.force_login(user)
-    #     self.assertEqual()
-    #
-    # def test_add_favorite_unauthenticated(self):
-    #     # TODO
+    def test_report_update_isAccessible(self):
+        user = User.objects.create(username="Testuser")
+        c = Client()
+        c.force_login(user)
+        infra_2 = Infra_type.objects.create(typeID=102)
+        Accessible_location.objects.create(
+            infraID=1111,
+            locationX="st_1",
+            locationY="st_2",
+            typeID=infra_2,
+            isAccessible=True,
+            street1="street_1",
+            street2="street_2",
+            borough="Somewhere",
+            address="someaddress",
+        )
+        post = {
+            "infraID": 1111,
+            "comment": "broken",
+            "x_coord": -73.99244,
+            "y_coord": 40.72843,
+        }
+        c.post(
+            "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
+            post,
+            follow=True,
+        )
+        location = Accessible_location.objects.get(infraID=1111)
+        self.assertEqual(location.isAccessible, False)
+
+    def test_report_redirct(self):
+        user = User.objects.create(username="Testuser")
+        c = Client()
+        c.force_login(user)
+        infra_2 = Infra_type.objects.create(typeID=102)
+        Accessible_location.objects.create(
+            infraID=1111,
+            locationX="st_1",
+            locationY="st_2",
+            typeID=infra_2,
+            isAccessible=True,
+            street1="street_1",
+            street2="street_2",
+            borough="Somewhere",
+            address="someaddress",
+        )
+        post = {
+            "infraID": 1111,
+            "comment": "broken",
+            "x_coord": -73.99244,
+            "y_coord": 40.72843,
+        }
+        response = c.post(
+            "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
+            post,
+            follow=True,
+        )
+        target = [
+            (
+                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+                "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843",
+                302,
+            )
+        ]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    # TODO: test comment was saved
+    # def test_report_comment_saved(self):
     #     pass
-    #
-    # def test_remove_favorite(self):
-    #     #TODO
+
+    def test_report_unauthenticated_user(self):
+        c = Client()
+        post = {
+            "infraID": 1111,
+            "comment": "broken",
+            "x_coord": -73.99244,
+            "y_coord": 40.72843,
+        }
+        response = c.post(
+            "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
+            post,
+            follow=True,
+        )
+        target = [("/accounts/login/", 302)]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    # TODO: test resolve report
+    def test_resolve_report_unauthenticated(self):
+        c = Client()
+        post = {
+            "infraID": 1111,
+            "x_coord": -73.99244,
+            "y_coord": 40.72843,
+        }
+        response = c.post(
+            "/resolve_report?x_coord=-73.99244&y_coord=40.72843&infraID=1111",
+            post,
+            follow=True,
+        )
+        target = [("/accounts/login/", 302)]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    # TODO: test isAccessible = True
+    # def test_resolve_report_update_isAccessible(self):
     #     pass
-    #
-    # def test_go_to_favorites(self):
-    #     #TODO
+    # TODO: check redirect
+    def test_resolve_report_redirect(self):
+        user = User.objects.create(username="Testuser")
+        c = Client()
+        c.force_login(user)
+
+        # first create a report
+        infra_2 = Infra_type.objects.create(typeID=102)
+        Accessible_location.objects.create(
+            infraID=1111,
+            locationX="st_1",
+            locationY="st_2",
+            typeID=infra_2,
+            isAccessible=True,
+            street1="street_1",
+            street2="street_2",
+            borough="Somewhere",
+            address="someaddress",
+        )
+        c.post(
+            "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
+            {
+                "infraID": 1111,
+                "comment": "broken",
+                "x_coord": -73.99244,
+                "y_coord": 40.72843,
+            },
+            follow=True,
+        )
+
+        # next remove the report
+        post = {
+            "infraID": 1111,
+            "x_coord": -73.99244,
+            "y_coord": 40.72843,
+        }
+        response = c.post(
+            "/resolve_report?x_coord=-73.99244&y_coord=40.72843&infraID=1111",
+            post,
+            follow=True,
+        )
+        target = [
+            (
+                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+                "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843",
+                302,
+            )
+        ]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    # TODO: test report was deleted
+    # def test_resolve_report_deleted
     #     pass
+
+    def test_add_favorite_authenticated(self):
+        # TODO
+        post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
+        c = Client()
+        user = User.objects.create(username="Testuser")
+        c.force_login(user)
+        response = c.post(
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
+            post,
+            follow=True,
+        )
+        target = [
+            (
+                "/home/?radiusRange=0.5&"
+                "currentlyAccessible=true&"
+                "currentlyInaccessibleCheck=true&"
+                "rampsCheck=true&poleCheck=true&"
+                "sidewalkCheck=true&"
+                "x-co=-73.99244&"
+                "y-co=40.72843",
+                302,
+            )
+        ]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    def test_add_favorite_unauthenticated(self):
+        post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
+        c = Client()
+        response = c.post(
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
+            post,
+            follow=True,
+        )
+        target = [("/accounts/login/", 302)]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    def test_remove_favorite(self):
+        c = Client()
+        user = User.objects.create(username="Testuser")
+        c.force_login(user)
+        c.post(
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
+            {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"},
+            follow=True,
+        )
+        post = {"x": -73.99244, "y": 40.72843, "address": "address"}
+        response = c.post(
+            "/remove_favorite?x=-73.99244&y=40.72843&address=address", post, follow=True
+        )
+        target = [("/myFav", 302), ("/myFav/", 301)]
+        # Not sure why it redirects twice?
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    def test_goto_favorite(self):
+        c = Client()
+        user = User.objects.create(username="Testuser")
+        c.force_login(user)
+        c.post(
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
+            {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"},
+            follow=True,
+        )
+        post = {"x": -73.99244, "y": 40.72843}
+        response = c.post("/goto_favorite?x=-73.99244&y=40.72843&", post, follow=True)
+        target = [
+            (
+                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+                "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843&favPage=true",
+                302,
+            )
+        ]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
 
 
 class ModelsTests(TestCase):
