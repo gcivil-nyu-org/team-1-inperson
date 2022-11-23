@@ -170,37 +170,57 @@ class ViewsTests(TestCase):
         actual = response.redirect_chain
         self.assertEqual(target, actual)
 
-    # # TODO: test comment was saved
+    # TODO: test comment was saved
+    # def test_report_comment_saved(self):
+    #     pass
+
+    def test_report_unauthenticated_user(self):
+        c = Client()
+        post = {
+            "infraID": 1111,
+            "comment": "broken",
+            "x_coord": -73.99244,
+            "y_coord": 40.72843,
+        }
+        response = c.post(
+            "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
+            post,
+            follow=True,
+        )
+        target = [("/accounts/login/", 302)]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
     # # TODO: test resolve report
     # # TODO: test isAccessible = True
     # # TODO: check redirect
     # # TODO: test report was deleted
     #
-    # def test_add_favorite_authenticated(self):
-    #     # TODO
-    # post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
-    # c = Client()
-    # user = User.objects.create(username="Testuser")
-    # c.force_login(user)
-    # response = c.post(
-    #     "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
-    #     post,
-    #     follow=True,
-    # )
-    # target = [
-    #     (
-    #         "/home/?radiusRange=0.5&"
-    #         "currentlyAccessible=true&"
-    #         "currentlyInaccessibleCheck=true&"
-    #         "rampsCheck=true&poleCheck=true&"
-    #         "sidewalkCheck=true&"
-    #         "x-co=-73.99244&"
-    #         "y-co=40.72843",
-    #         302,
-    #     )
-    # ]
-    # actual = response.redirect_chain
-    # self.assertEqual(target, actual)
+    def test_add_favorite_authenticated(self):
+        # TODO
+        post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
+        c = Client()
+        user = User.objects.create(username="Testuser")
+        c.force_login(user)
+        response = c.post(
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
+            post,
+            follow=True,
+        )
+        target = [
+            (
+                "/home/?radiusRange=0.5&"
+                "currentlyAccessible=true&"
+                "currentlyInaccessibleCheck=true&"
+                "rampsCheck=true&poleCheck=true&"
+                "sidewalkCheck=true&"
+                "x-co=-73.99244&"
+                "y-co=40.72843",
+                302,
+            )
+        ]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
 
     def test_add_favorite_unauthenticated(self):
         post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
