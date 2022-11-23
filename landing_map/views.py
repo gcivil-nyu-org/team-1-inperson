@@ -242,7 +242,6 @@ def myFav(request):
 def report(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-
             x = request.POST.get("x_coord")
             y = request.POST.get("y_coord")
 
