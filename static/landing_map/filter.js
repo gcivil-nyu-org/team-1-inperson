@@ -15,6 +15,7 @@ if(filterParams['rampsCheck']){
 }
 
 function redirect_to_url(){
+    $('.loading').fadeIn();
     selectedLocation = Object.keys(searchedLocation).length != 0? searchedLocation : currentLocation;
     radiusRange = document.getElementById("radiusRangeFilter").value;
     currentlyAccessible = document.getElementById("currentlyAccessibleCheck").checked;
@@ -55,6 +56,7 @@ function clear_filters(){
 }
 
 function goto_lowVisionPage(){
+    $('.loading').fadeIn();
     selectedLocation = Object.keys(searchedLocation).length != 0? searchedLocation : currentLocation;
     radiusRange = document.getElementById("radiusRangeFilter").value;
     currentlyAccessible = document.getElementById("currentlyAccessibleCheck").checked;

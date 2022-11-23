@@ -1,3 +1,10 @@
+document.onreadystatechange = function () {
+    const state = document.readyState
+    if (state === 'complete') {
+        $('.loading').fadeOut();
+    }
+}
+
 currentLocation = {};
 searchedLocation = {};
 var mapLocation =  [-73.98, 40.694];
