@@ -45,7 +45,7 @@ def index(request):
         if filterParams.get("sidewalkCheck") == "true":
             infraTypes.append("3")
 
-        #custom radius
+        # custom radius
         filterRadius = filterParams.get("radiusRange")
 
         radiusQuery = (
@@ -82,7 +82,7 @@ def index(request):
                 radius=0.5,
             )
         )
-        filterRadius = .5
+        filterRadius = 0.5
 
         locationAddress = getAddressFromMapbox(-73.98657073016483, 40.68852572417966)
         infraIds = []
@@ -120,7 +120,7 @@ def index(request):
         "favorited": favorited,
         "hideSearchBar": favPage,
         "loggedIn": loggedIn,
-        "radius" : filterRadius,
+        "radius": filterRadius,
     }
     return render(request, "landing_map/home.html", context)
 
@@ -180,7 +180,7 @@ def lowVisionView(request):
                 radius=0.5,
             )
         )
-        filterRadius = .5
+        filterRadius = 0.5
         locationAddress = getAddressFromMapbox(-73.98657073016483, 40.68852572417966)
 
         infraIds = []
@@ -217,7 +217,7 @@ def lowVisionView(request):
         "favorited": favorited,
         "hideSearchBar": favPage,
         "loggedIn": loggedIn,
-        "radius" : filterRadius,
+        "radius": filterRadius,
     }
     return render(request, "landing_map/lowVisionView.html", context)
 
@@ -262,7 +262,7 @@ def report(request):
             newReport = Report(user=request.user, infraID=obj, comment=inComment)
             newReport.save()
 
-        return redirect(request.META.get('HTTP_REFERER'))
+        return redirect(request.META.get("HTTP_REFERER"))
     else:
         return redirect("login")
 
@@ -276,7 +276,7 @@ def resolve_report(request):
         locObj.save()
         Report.objects.get(infraID=infra).delete()
 
-        return redirect(request.META.get('HTTP_REFERER'))
+        return redirect(request.META.get("HTTP_REFERER"))
     else:
         return redirect("login")
 
@@ -290,7 +290,7 @@ def add_favorite(request):
     newFav = Favorite(userID=request.user, locationX=x, locationY=y, address=address)
     newFav.save()
 
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get("HTTP_REFERER"))
 
 
 def remove_favorite(request):
