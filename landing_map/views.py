@@ -306,7 +306,6 @@ def add_favorite(request):
 
 
 def remove_favorite(request):
-    print("remove_favorite")
     x = request.POST.get("x")
     y = request.POST.get("y")
     address = request.POST.get("address")

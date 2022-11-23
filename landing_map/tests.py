@@ -139,7 +139,7 @@ class ViewsTests(TestCase):
         user = User.objects.create(username="Testuser")
         c.force_login(user)
         response = c.post(
-            "/add_favorite?x_coord=-73.99244&" "y_coord=40.72843/&" "address=address",
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
             post,
             follow=True,
         )
@@ -162,7 +162,7 @@ class ViewsTests(TestCase):
         post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
         c = Client()
         response = c.post(
-            "/add_favorite?x_coord=-73.99244&" "y_coord=40.72843/&" "address=address",
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
             post,
             follow=True,
         )
@@ -170,11 +170,24 @@ class ViewsTests(TestCase):
         actual = response.redirect_chain
         self.assertEqual(target, actual)
 
-    #
-    # def test_remove_favorite(self):
-    #     #TODO
-    #     pass
-    #
+    def test_remove_favorite(self):
+        c = Client()
+        user = User.objects.create(username="Testuser")
+        c.force_login(user)
+        c.post(
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
+            {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"},
+            follow=True,
+        )
+        post = {"x": -73.99244, "y": 40.72843, "address": "address"}
+        response = c.post(
+            "/remove_favorite?x=-73.99244&y=40.72843&address=address", post, follow=True
+        )
+        target = [("/myFav", 302), ("/myFav/", 301)]
+        # Not sure why it redirects twice?
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
     # def test_go_to_favorites(self):
     #     # TODO
     #     pass
