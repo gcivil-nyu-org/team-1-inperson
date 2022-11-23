@@ -13,7 +13,14 @@ class Contact(models.Model):
         return self.email
 
 
-class EditInfo(models.Model):
+class EditFName(models.Model):
     new_first_name = models.CharField(max_length=200)
-    # new_last_name = models.CharField(max_length=200)
-    # new_password = models.CharField(max_length=200)
+
+
+class EditLName(models.Model):
+    new_last_name = models.CharField(max_length=200)
+
+
+class EditPassword(models.Model):
+    new_password = models.CharField(max_length=200)
+    confirm_password = models.CharField(max_length=200)

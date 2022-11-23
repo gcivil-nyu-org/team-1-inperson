@@ -16,8 +16,8 @@
 </head>
 <style>
     .pad{
-        padding-right: 25%;
-        padding-left: 25%;
+        padding-right: 15%;
+        padding-left: 15%;
     }
     .cent{
         text-align: center;
@@ -43,19 +43,69 @@
     <div class="padding">
         <div class="pad"><div class="cent">
             <h1>General Account Settings</h1>
-            <h3>Hello {{user.first_name}}!</h3>
+            <br><br><br>
+            <h5>Username:   <span class="info">{{user.username}}</span></h5>
         </div>
             <br><br>
         <h2>Change User Information</h2>
+            <br><br>
         <form method="POST" action="">
             {% csrf_token %}
-            <div class="col-md-12">
-                <div class="form-group">
-                    {{updateform.new_first_name|as_crispy_field}}
+            <div class="row">
+                <div class="col-sm-2">
+                    <h5>First Name: </h5>
+                </div>
+                <div class="col-sm-2">
+                    <h5><span class="info">{{user.first_name}}</span></h5>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{fnform.new_first_name|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col-sm-2" style="margin-bottom:30px">
+                    <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Change</button>
                 </div>
             </div>
-            <div class="col-md-12" style="margin-bottom:30px">
-                <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Submit</button>
+        </form>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-2">
+                    <h5>Last Name: </h5>
+                </div>
+                <div class="col-sm-2">
+                    <h5><span class="info">{{user.last_name}}</span></h5>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{lnform.new_last_name|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col-sm-2" style="margin-bottom:30px">
+                    <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Change</button>
+                </div>
+            </div>
+        </form>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-2">
+                    <h5>Password: </h5>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        {{pwform.new_password|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        {{pwform.confirm_password|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col-sm-2" style="margin-bottom:30px">
+                    <button onclick="location.href = '/accounts/profile';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Change</button>
+                </div>
             </div>
         </form>
     </div>

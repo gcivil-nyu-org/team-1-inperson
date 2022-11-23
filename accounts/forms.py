@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import Contact, EditInfo
+from .models import Contact, EditFName, EditLName, EditPassword
 
 
 class CreateUserForm(UserCreationForm):
@@ -27,7 +27,19 @@ class InputForm(ModelForm):
         fields = "__all__"
 
 
-class EditInfoForm(ModelForm):
+class EditFirstnameForm(ModelForm):
     class Meta:
-        model = EditInfo
+        model = EditFName
+        fields = "__all__"
+
+
+class EditLastnameForm(ModelForm):
+    class Meta:
+        model = EditLName
+        fields = "__all__"
+
+
+class EditPasswordForm(ModelForm):
+    class Meta:
+        model = EditPassword
         fields = "__all__"

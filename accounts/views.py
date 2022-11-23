@@ -11,7 +11,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
-from .forms import InputForm, EditInfoForm
+from .forms import InputForm, EditFirstnameForm, EditLastnameForm, EditPasswordForm
 
 
 def register_page(request):
@@ -79,32 +79,22 @@ def help_page(request):
     return render(request, "help.html", context)
 
 
-# def profile_page(request):
-#     form=EditInfoForm()
-#     context={"updateform":form}
-#     if request.method=="POST":
-#         form=EditInfoForm(request.POST,instance=request.user.first_name)
-#         if form.is_valid():
-#             user=form.save(commit=False)
-#             user.save()
-#         else:
-#             messages.error(request,form.errors)
-#     return render(request,"profile.html",context)
-
-
 def profile_page(request):
-    form = EditInfoForm()
-    context = {"updateform": form}
+    form1 = EditFirstnameForm()
+    form2 = EditLastnameForm()
+    form3 = EditPasswordForm()
+    context = {"fnform": form1, "lnform": form2, "pwform": form3}
     if request.method == "POST":
-        form = EditInfoForm(request.POST)
+        copy = request.POST
+        form1 = EditFirstnameForm(request.POST)
+        form2 = EditLastnameForm(copy)
         user = request.user
-        if form.is_valid():
-            temp = form.cleaned_data.get("new_first_name")
-            print("first name is ", temp, type(temp))
-            user.first_name = temp
+        if form1.is_valid():
+            user.first_name = form1.cleaned_data.get("new_first_name")
             user.save()
-        else:
-            messages.error(request, form.errors)
+        if form2.is_valid():
+            user.last_name = form2.cleaned_data.get("new_last_name")
+            user.save()
     return render(request, "profile.html", context)
 
 
