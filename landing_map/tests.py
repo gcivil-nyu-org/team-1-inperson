@@ -150,9 +150,9 @@ class ViewsTests(TestCase):
     #     #TODO
     #     pass
     #
-    # def test_go_to_favorites(self):
-    #     #TODO
-    #     pass
+    def test_go_to_favorites(self):
+        # TODO
+        pass
 
 
 class ModelsTests(TestCase):
