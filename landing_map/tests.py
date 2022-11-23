@@ -191,11 +191,81 @@ class ViewsTests(TestCase):
         actual = response.redirect_chain
         self.assertEqual(target, actual)
 
-    # # TODO: test resolve report
-    # # TODO: test isAccessible = True
-    # # TODO: check redirect
-    # # TODO: test report was deleted
-    #
+    # TODO: test resolve report
+    def test_resolve_report_unauthenticated(self):
+        c = Client()
+        post = {
+            "infraID": 1111,
+            "x_coord": -73.99244,
+            "y_coord": 40.72843,
+        }
+        response = c.post(
+            "/resolve_report?x_coord=-73.99244&y_coord=40.72843&infraID=1111",
+            post,
+            follow=True,
+        )
+        target = [("/accounts/login/", 302)]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    # TODO: test isAccessible = True
+    # def test_resolve_report_update_isAccessible(self):
+    #     pass
+    # TODO: check redirect
+    def test_resolve_report_redirect(self):
+        user = User.objects.create(username="Testuser")
+        c = Client()
+        c.force_login(user)
+
+        # first create a report
+        infra_2 = Infra_type.objects.create(typeID=102)
+        Accessible_location.objects.create(
+            infraID=1111,
+            locationX="st_1",
+            locationY="st_2",
+            typeID=infra_2,
+            isAccessible=True,
+            street1="street_1",
+            street2="street_2",
+            borough="Somewhere",
+            address="someaddress",
+        )
+        c.post(
+            "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
+            {
+                "infraID": 1111,
+                "comment": "broken",
+                "x_coord": -73.99244,
+                "y_coord": 40.72843,
+            },
+            follow=True,
+        )
+
+        # next remove the report
+        post = {
+            "infraID": 1111,
+            "x_coord": -73.99244,
+            "y_coord": 40.72843,
+        }
+        response = c.post(
+            "/resolve_report?x_coord=-73.99244&y_coord=40.72843&infraID=1111",
+            post,
+            follow=True,
+        )
+        target = [
+            (
+                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+                "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843",
+                302,
+            )
+        ]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    # TODO: test report was deleted
+    # def test_resolve_report_deleted
+    #     pass
+
     def test_add_favorite_authenticated(self):
         # TODO
         post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
