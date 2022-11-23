@@ -316,7 +316,6 @@ def remove_favorite(request):
 
 
 def goto_favorite(request):
-    print("goto_favorite")
     x = request.POST.get("x")
     y = request.POST.get("y")
     pageURL = (

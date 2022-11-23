@@ -188,9 +188,26 @@ class ViewsTests(TestCase):
         actual = response.redirect_chain
         self.assertEqual(target, actual)
 
-    # def test_go_to_favorites(self):
-    #     # TODO
-    #     pass
+    def test_goto_favorite(self):
+        c = Client()
+        user = User.objects.create(username="Testuser")
+        c.force_login(user)
+        c.post(
+            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
+            {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"},
+            follow=True,
+        )
+        post = {"x": -73.99244, "y": 40.72843}
+        response = c.post("/goto_favorite?x=-73.99244&y=40.72843&", post, follow=True)
+        target = [
+            (
+                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+                "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843&favPage=true",
+                302,
+            )
+        ]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
 
 
 class ModelsTests(TestCase):
