@@ -134,25 +134,49 @@ class ViewsTests(TestCase):
     #
     # def test_add_favorite_authenticated(self):
     #     # TODO
-    #     user = User.objects.create(username="Testuser")
-    #     post = {"x_coord":-73.99244,
-    #             "y_coord":40.72843,
-    #             "address":"an address"}
-    #     c = Client()
-    #     c.force_login(user)
-    #     self.assertEqual()
-    #
-    # def test_add_favorite_unauthenticated(self):
-    #     # TODO
-    #     pass
+        post = {"x_coord":-73.99244,
+                "y_coord":40.72843,
+                "address":"address"}
+        c = Client()
+        user = User.objects.create(username="Testuser")
+        c.force_login(user)
+        response = c.post("/add_favorite?x_coord=-73.99244&"
+                          "y_coord=40.72843/&"
+                          "address=address",
+                          post,
+                          follow=True)
+        target = [('/home/?radiusRange=0.5&'
+                   'currentlyAccessible=true&'
+                   'currentlyInaccessibleCheck=true&'
+                   'rampsCheck=true&poleCheck=true&'
+                   'sidewalkCheck=true&'
+                   'x-co=-73.99244&'
+                   'y-co=40.72843',
+                   302)]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
+
+    def test_add_favorite_unauthenticated(self):
+        post = {"x_coord":-73.99244,
+                "y_coord":40.72843,
+                "address":"address"}
+        c = Client()
+        response = c.post("/add_favorite?x_coord=-73.99244&"
+                          "y_coord=40.72843/&"
+                          "address=address",
+                          post,
+                          follow=True)
+        target = [('/accounts/login/', 302)]
+        actual = response.redirect_chain
+        self.assertEqual(target, actual)
     #
     # def test_remove_favorite(self):
     #     #TODO
     #     pass
     #
-    def test_go_to_favorites(self):
-        # TODO
-        pass
+    # def test_go_to_favorites(self):
+    #     # TODO
+    #     pass
 
 
 class ModelsTests(TestCase):
