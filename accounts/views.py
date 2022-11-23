@@ -85,9 +85,9 @@ def profile_page(request):
     form3 = EditPasswordForm()
     context = {"fnform": form1, "lnform": form2, "pwform": form3}
     if request.method == "POST":
-        copy = request.POST
         form1 = EditFirstnameForm(request.POST)
-        form2 = EditLastnameForm(copy)
+        form2 = EditLastnameForm(request.POST)
+        form3 = EditPasswordForm(request.POST)
         user = request.user
         if form1.is_valid():
             user.first_name = form1.cleaned_data.get("new_first_name")
@@ -95,6 +95,12 @@ def profile_page(request):
         if form2.is_valid():
             user.last_name = form2.cleaned_data.get("new_last_name")
             user.save()
+        if form3.is_valid():
+            p1 = form3.cleaned_data.get("new_password")
+            p2 = form3.cleaned_data.get("confirm_password")
+            if p1 == p2:
+                user.set_password(p1)
+                user.save()
     return render(request, "profile.html", context)
 
 
