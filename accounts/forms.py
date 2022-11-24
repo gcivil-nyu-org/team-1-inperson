@@ -43,3 +43,5 @@ class EditPasswordForm(ModelForm):
     class Meta:
         model = EditPassword
         fields = "__all__"
+    new_password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password=forms.CharField(widget=forms.PasswordInput)
