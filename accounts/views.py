@@ -11,7 +11,13 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
-from .forms import InputForm, EditFirstnameForm, EditLastnameForm, EditPasswordForm,DeleteAccountForm
+from .forms import (
+    InputForm,
+    EditFirstnameForm,
+    EditLastnameForm,
+    EditPasswordForm,
+    DeleteAccountForm,
+)
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import logout
 
@@ -80,17 +86,18 @@ def help_page(request):
     context = {"helpform": form}
     return render(request, "help.html", context)
 
+
 def delete_account_page(request):
-    form=DeleteAccountForm()
-    context={"daform":form}
-    if request.method=="POST":
-        form=DeleteAccountForm(request.POST)
-        user=request.user
+    form = DeleteAccountForm()
+    context = {"daform": form}
+    if request.method == "POST":
+        form = DeleteAccountForm(request.POST)
+        user = request.user
         if form.is_valid():
-            pw=user.password
-            entered=form.cleaned_data.get("password_confirmation")
-            if check_password(entered,pw):
-                user.is_active=False
+            pw = user.password
+            entered = form.cleaned_data.get("password_confirmation")
+            if check_password(entered, pw):
+                user.is_active = False
                 user.save()
                 logout(request)
             else:
@@ -98,14 +105,13 @@ def delete_account_page(request):
                     request, messages.ERROR, "Password is incorrect. Try again"
                 )
         else:
-            messages.add_message(
-                request, messages.ERROR, "Please enter your password"
-            )
-    return render(request,"deleteacc.html",context)
+            messages.add_message(request, messages.ERROR, "Please enter your password")
+    return render(request, "deleteacc.html", context)
+
 
 def deleted_message(request):
-    context={}
-    return render(request,"deleted.html",context)
+    context = {}
+    return render(request, "deleted.html", context)
 
 
 def profile_page(request):

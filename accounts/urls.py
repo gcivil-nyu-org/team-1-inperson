@@ -9,8 +9,8 @@ urlpatterns = [
     path("login/", views.login_page, name="login"),
     path("help/", views.help_page, name="help"),
     path("profile/", views.profile_page, name="profile"),
-    path("deleteacc/",views.delete_account_page,name="deleteacc"),
-    path("deleted/",views.deleted_message,name="deleted"),
+    path("deleteacc/", views.delete_account_page, name="deleteacc"),
+    path("deleted/", views.deleted_message, name="deleted"),
     path(
         r"activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/",
         activate,

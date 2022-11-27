@@ -25,5 +25,6 @@ class EditPassword(models.Model):
     new_password = models.CharField(max_length=50)
     confirm_password = models.CharField(max_length=50)
 
+
 class DeleteAccount(models.Model):
-    password_confirmation=models.CharField(max_length=50)
+    password_confirmation = models.CharField(max_length=50)
