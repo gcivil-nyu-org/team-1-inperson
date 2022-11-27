@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import Contact, EditFName, EditLName, EditPassword
+from .models import Contact, EditFName, EditLName, EditPassword,DeleteAccount
 
 
 class CreateUserForm(UserCreationForm):
@@ -45,3 +45,9 @@ class EditPasswordForm(ModelForm):
         fields = "__all__"
     new_password = forms.CharField(widget=forms.PasswordInput)
     confirm_password=forms.CharField(widget=forms.PasswordInput)
+
+class DeleteAccountForm(ModelForm):
+    class Meta:
+        model=DeleteAccount
+        fields="__all__"
+    password_confirmation=forms.CharField(widget=forms.PasswordInput)

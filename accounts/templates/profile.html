@@ -23,19 +23,12 @@
         text-align: center;
     }
     .info{
+        color: green;
+    }
+    .warning{
         color: red;
     }
 </style>
-<script>
-    function censorpword() {
-      var x = document.getElementById("myInput");
-      if (x.type === "password") {
-        x.type = "text";
-      } else {
-        x.type = "password";
-      }
-    }
-</script>
 
 <body class="container-fluid">
 <nav class="navbar navbar-expand-lg navbar-light bg-custom navrounding">
@@ -56,6 +49,16 @@
             <br><br><br>
             <h5>Username: <span class="info">{{user.username}}</span></h5>
             <h5>Email: <span class="info">{{user.email}}</span></h5>
+            <br><br>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <div class="warning">
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    </div>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
             <br><br>
         <h2>Change User Information</h2>
@@ -119,6 +122,13 @@
                 </div>
             </div>
         </form>
+            <div class="row">
+                <div class="col-sm-2" style="margin-bottom:30px">
+                    <div class="cent">
+                    <button onclick="location.href = '/accounts/deleteacc';" style="background-color:#18435A; color:white;" class="btn btn-default btn-md" type="submit">Delete My Account</button>
+                    </div>
+                </div>
+            </div>
     </div>
     </div>
 

@@ -11,7 +11,9 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
-from .forms import InputForm, EditFirstnameForm, EditLastnameForm, EditPasswordForm
+from .forms import InputForm, EditFirstnameForm, EditLastnameForm, EditPasswordForm,DeleteAccountForm
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import logout
 
 
 def register_page(request):
@@ -78,6 +80,34 @@ def help_page(request):
     context = {"helpform": form}
     return render(request, "help.html", context)
 
+def delete_account_page(request):
+    form=DeleteAccountForm()
+    context={"daform":form}
+    if request.method=="POST":
+        form=DeleteAccountForm(request.POST)
+        user=request.user
+        if form.is_valid():
+            pw=user.password
+            entered=form.cleaned_data.get("password_confirmation")
+            if entered=="":
+                messages.add_message(
+                    request, messages.ERROR, "Please enter your password"
+                )
+            else:
+                if check_password(entered,pw):
+                    user.is_active=False
+                    user.save()
+                    logout(request)
+                else:
+                    messages.add_message(
+                        request, messages.ERROR, "Password is incorrect. Try again"
+                    )
+    return render(request,"deleteacc.html",context)
+
+def deleted_message(request):
+    context={}
+    return render(request,"deleted.html",context)
+
 
 def profile_page(request):
     form1 = EditFirstnameForm()
@@ -101,6 +131,10 @@ def profile_page(request):
             if p1 == p2:
                 user.set_password(p1)
                 user.save()
+            else:
+                messages.add_message(
+                    request, messages.ERROR, "Passwords do not match. Try again"
+                )
     return render(request, "profile.html", context)
 
 
