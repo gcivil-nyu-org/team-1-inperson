@@ -116,7 +116,6 @@ def index(request):
         "favorited": favorited,
         "hideSearchBar": favPage,
         "loggedIn": loggedIn,
-       
     }
     return render(request, "landing_map/home.html", context)
 

@@ -3,8 +3,10 @@ from django.test import Client
 from decouple import config
 from .views import populate_cards, index, landingpage
 from .models import Infra_type, Accessible_location, Favorite
-from django.http import HttpResponse, HttpRequest
+from report.models import Report
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.urls import reverse
 import requests
 
 
@@ -125,10 +127,14 @@ class ViewsTests(TestCase):
             "x_coord": -73.99244,
             "y_coord": 40.72843,
         }
+        redirect_url = (
+            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+            "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843&favPage=true&"
+        )
         c.post(
             "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
             post,
-            follow=True,
+            HTTP_REFERER=redirect_url,
         )
         location = Accessible_location.objects.get(infraID=1111)
         self.assertEqual(location.isAccessible, False)
@@ -155,19 +161,17 @@ class ViewsTests(TestCase):
             "x_coord": -73.99244,
             "y_coord": 40.72843,
         }
+        redirect_url = (
+            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+            "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843&favPage=true&"
+        )
         response = c.post(
             "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
             post,
-            follow=True,
+            HTTP_REFERER=redirect_url,
         )
-        target = [
-            (
-                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
-                "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843",
-                302,
-            )
-        ]
-        actual = response.redirect_chain
+        target = type(HttpResponseRedirect(redirect_url))
+        actual = type(response)
         self.assertEqual(target, actual)
 
     # TODO: test comment was saved
@@ -191,7 +195,6 @@ class ViewsTests(TestCase):
         actual = response.redirect_chain
         self.assertEqual(target, actual)
 
-    # TODO: test resolve report
     def test_resolve_report_unauthenticated(self):
         c = Client()
         post = {
@@ -211,7 +214,7 @@ class ViewsTests(TestCase):
     # TODO: test isAccessible = True
     # def test_resolve_report_update_isAccessible(self):
     #     pass
-    # TODO: check redirect
+
     def test_resolve_report_redirect(self):
         user = User.objects.create(username="Testuser")
         c = Client()
@@ -219,27 +222,18 @@ class ViewsTests(TestCase):
 
         # first create a report
         infra_2 = Infra_type.objects.create(typeID=102)
-        Accessible_location.objects.create(
+        location = Accessible_location.objects.create(
             infraID=1111,
-            locationX="st_1",
-            locationY="st_2",
+            locationX=-73.99244,
+            locationY=40.72843,
             typeID=infra_2,
-            isAccessible=True,
+            isAccessible=False,
             street1="street_1",
             street2="street_2",
             borough="Somewhere",
             address="someaddress",
         )
-        c.post(
-            "/report?infraID=1111&comment=broken&x_coord=-73.99244&y_coord=40.72843",
-            {
-                "infraID": 1111,
-                "comment": "broken",
-                "x_coord": -73.99244,
-                "y_coord": 40.72843,
-            },
-            follow=True,
-        )
+        Report.objects.create(user=user, infraID=location, comment="broken")
 
         # next remove the report
         post = {
@@ -247,19 +241,17 @@ class ViewsTests(TestCase):
             "x_coord": -73.99244,
             "y_coord": 40.72843,
         }
+        redirect_url = (
+            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+            "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843&favPage=true&"
+        )
         response = c.post(
             "/resolve_report?x_coord=-73.99244&y_coord=40.72843&infraID=1111",
             post,
-            follow=True,
+            HTTP_REFERER=redirect_url,
         )
-        target = [
-            (
-                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
-                "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843",
-                302,
-            )
-        ]
-        actual = response.redirect_chain
+        target = type(HttpResponseRedirect(redirect_url))
+        actual = type(response)
         self.assertEqual(target, actual)
 
     # TODO: test report was deleted
@@ -267,29 +259,21 @@ class ViewsTests(TestCase):
     #     pass
 
     def test_add_favorite_authenticated(self):
-        # TODO
-        post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
         c = Client()
         user = User.objects.create(username="Testuser")
         c.force_login(user)
+        post = {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"}
+        redirect_url = (
+            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+            "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843&favPage=true&"
+        )
         response = c.post(
             "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
             post,
-            follow=True,
+            HTTP_REFERER=redirect_url,
         )
-        target = [
-            (
-                "/home/?radiusRange=0.5&"
-                "currentlyAccessible=true&"
-                "currentlyInaccessibleCheck=true&"
-                "rampsCheck=true&poleCheck=true&"
-                "sidewalkCheck=true&"
-                "x-co=-73.99244&"
-                "y-co=40.72843",
-                302,
-            )
-        ]
-        actual = response.redirect_chain
+        target = type(HttpResponseRedirect(redirect_url))
+        actual = type(response)
         self.assertEqual(target, actual)
 
     def test_add_favorite_unauthenticated(self):
@@ -308,17 +292,16 @@ class ViewsTests(TestCase):
         c = Client()
         user = User.objects.create(username="Testuser")
         c.force_login(user)
-        c.post(
-            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
-            {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"},
-            follow=True,
+        Favorite.objects.create(
+            userID=user, locationX=-73.99244, locationY=40.72843, address="address"
         )
+
         post = {"x": -73.99244, "y": 40.72843, "address": "address"}
         response = c.post(
             "/remove_favorite?x=-73.99244&y=40.72843&address=address", post, follow=True
         )
-        target = [("/myFav", 302), ("/myFav/", 301)]
         # Not sure why it redirects twice?
+        target = [("/myFav", 302), ("/myFav/", 301)]
         actual = response.redirect_chain
         self.assertEqual(target, actual)
 
@@ -326,22 +309,21 @@ class ViewsTests(TestCase):
         c = Client()
         user = User.objects.create(username="Testuser")
         c.force_login(user)
-        c.post(
-            "/add_favorite?x_coord=-73.99244&y_coord=40.72843/&address=address",
-            {"x_coord": -73.99244, "y_coord": 40.72843, "address": "address"},
-            follow=True,
+        Favorite.objects.create(
+            userID=user, locationX=-73.99244, locationY=40.72843, address="address"
         )
+
         post = {"x": -73.99244, "y": 40.72843}
-        response = c.post("/goto_favorite?x=-73.99244&y=40.72843&", post, follow=True)
-        target = [
-            (
-                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
-                "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843&favPage=true",
-                302,
-            )
-        ]
-        actual = response.redirect_chain
-        self.assertEqual(target, actual)
+        redirect_url = (
+            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&"
+            "rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=-73.99244&y-co=40.72843&favPage=true&"
+        )
+        response = c.post(
+            "/goto_favorite?x=-73.99244&y=40.72843", post, HTTP_REFERER=redirect_url
+        )
+
+        target = HttpResponseRedirect(redirect_url)
+        self.assertEqual(type(response), type(target))
 
 
 class ModelsTests(TestCase):
