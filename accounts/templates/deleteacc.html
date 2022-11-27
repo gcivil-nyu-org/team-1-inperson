@@ -34,6 +34,7 @@
   </div>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
+      <li><a class = "nav-list" href="/accounts/profile"> My Profile</a></li>
       <li><a class = "nav-list" href="/accounts/help"><i class="fas fa-question"></i> Help</a></li>
       <li><a class = "nav-list" href="/accounts/logout"><i class="fas fa-user"></i> Log Out</a></li>
     </ul>
@@ -42,8 +43,10 @@
 {% load crispy_forms_tags %}
     <div class="padding">
         <div class="pad"><div class="cent">
-            <h1>Are you sure you want to delete your account?</h1>
+            <br>
+            <h1>Are you sure you want to proceed?</h1>
             <br><br><br>
+            <h4>Enter your password to delete your account</h4>
             <h5>Your account can be recovered later</h5>
             <br><br>
             {% if messages %}

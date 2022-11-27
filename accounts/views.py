@@ -89,19 +89,18 @@ def delete_account_page(request):
         if form.is_valid():
             pw=user.password
             entered=form.cleaned_data.get("password_confirmation")
-            if entered=="":
-                messages.add_message(
-                    request, messages.ERROR, "Please enter your password"
-                )
+            if check_password(entered,pw):
+                user.is_active=False
+                user.save()
+                logout(request)
             else:
-                if check_password(entered,pw):
-                    user.is_active=False
-                    user.save()
-                    logout(request)
-                else:
-                    messages.add_message(
-                        request, messages.ERROR, "Password is incorrect. Try again"
-                    )
+                messages.add_message(
+                    request, messages.ERROR, "Password is incorrect. Try again"
+                )
+        else:
+            messages.add_message(
+                request, messages.ERROR, "Please enter your password"
+            )
     return render(request,"deleteacc.html",context)
 
 def deleted_message(request):
