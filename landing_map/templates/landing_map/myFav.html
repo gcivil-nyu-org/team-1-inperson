@@ -92,8 +92,16 @@
                 </div>
                 <div class="row">
                     <div class='col-md-5' style="float: left; text-align: left; margin-top: 8px;">
-                        <p class="not_accessible" style="margin-bottom: 2px;"> {{card.count_signals}} reported signal(s)</p>
-                        <p class="not_accessible"> {{card.count_ramps}} reported ramp(s)</p>
+                        {% if card.count_signals == 0 %}
+                            <p class="accessible" style="margin-bottom: 2px;"> {{card.count_signals}} reported signal(s)</p>
+                        {% else %}
+                            <p class="not_accessible" style="margin-bottom: 2px;"> {{card.count_signals}} reported signal(s)</p>
+                        {% endif %}
+                        {% if card.count_ramps == 0 %}
+                            <p class="accessible"> {{card.count_ramps}} reported ramp(s)</p>
+                        {% else %}
+                            <p class="not_accessible"> {{card.count_ramps}} reported ramp(s)</p>
+                        {% endif %}
                     </div>
 
                     <div class='col-md-3'>

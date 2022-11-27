@@ -246,7 +246,7 @@ def populate_favorite_cards(favList):
             "{radius} ORDER BY distance".format(
                 y=y_coord,
                 x=x_coord,
-                radius=0.5,
+                radius=0.25,
             )
         )
         signalsQuery = (
@@ -256,7 +256,7 @@ def populate_favorite_cards(favList):
             "{radius} ORDER BY distance".format(
                 y=y_coord,
                 x=x_coord,
-                radius=0.5,
+                radius=0.25,
             )
         )
         alert = ""

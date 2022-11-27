@@ -299,7 +299,7 @@ def goto_favorite(request):
     x = request.POST.get("x")
     y = request.POST.get("y")
     pageURL = (
-        "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+        "/home/?radiusRange=0.25&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
         "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}&favPage=true".format(
             x=x, y=y
         )
