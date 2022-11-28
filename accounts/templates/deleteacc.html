@@ -28,7 +28,7 @@
 </style>
 <script>
     function noblanks(){
-        var f=document.forms["deleteform"].elements;
+        var f=document.forms["daform"].elements;
         var cansubmit=true;
         for (var i=0;i<f.length;i++){
             if (f[i].value.length==0){
@@ -36,7 +36,7 @@
             }
         }
         if (cansubmit){
-            document.getElementById('submitbutton').disabled=false
+            document.getElementById('submi').disabled=false
         }
     }
 </script>
@@ -93,23 +93,7 @@
                 </div>
             </div>
         </form>
-        <form name="deleteform" method="POST" action="">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-sm-2">
-                </div>
-                <div class="col-sm-2">
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <input type="text" onKeyup="noblanks()" />
-                    </div>
-                </div>
-                <div class="col-sm-2" style="margin-bottom:30px">
-                    <button class="btn btn-default btn-md" disabled=true id="submitbutton" onclick="location.href = '/accounts/deleted';" style="background-color:red; color:white; margin-top:0px" type="submit">Delete My Account</button>
-                </div>
-            </div>
-        </form>
+
     </div>
     </div>
 
