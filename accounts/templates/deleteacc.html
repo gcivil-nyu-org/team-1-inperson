@@ -27,17 +27,16 @@
     }
 </style>
 <script>
-    function checkform()
-    {
-        var f = document.forms["daform"].elements;
-        var cansubmit = true;
-
-        for (var i = 0; i < f.length; i++) {
-            if (f[i].value.length == 0) cansubmit = false;
+    function noblanks(){
+        var f=document.forms["deleteform"].elements;
+        var cansubmit=true;
+        for (var i=0;i<f.length;i++){
+            if (f[i].value.length==0){
+                cansubmit=false;
+            }
         }
-
-        if (cansubmit) {
-            document.getElementById('submitbutton').disabled = false;
+        if (cansubmit){
+            document.getElementById('submitbutton').disabled=false
         }
     }
 </script>
@@ -78,7 +77,10 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col-sm-2">
+                </div>
+                <div class="col-sm-2">
                     <div class="form-group">
+                        <h5>Password:</h5>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -87,7 +89,24 @@
                     </div>
                 </div>
                 <div class="col-sm-2" style="margin-bottom:30px">
-                    <button id="submitbutton" onclick="location.href = '/accounts/deleted';" style="background-color:red; color:white;" class="btn btn-default btn-md" type="submit">Delete My Account</button>
+                    <button onclick="location.href = '/accounts/deleted';" style="background-color:red; color:white; margin-top:0px" class="btn btn-default btn-md" type="submit">Delete My Account</button>
+                </div>
+            </div>
+        </form>
+        <form name="deleteform" method="POST" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="text" onKeyup="noblanks()" />
+                    </div>
+                </div>
+                <div class="col-sm-2" style="margin-bottom:30px">
+                    <button class="btn btn-default btn-md" disabled=true id="submitbutton" onclick="location.href = '/accounts/deleted';" style="background-color:red; color:white; margin-top:0px" type="submit">Delete My Account</button>
                 </div>
             </div>
         </form>

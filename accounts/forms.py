@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from .models import Contact, EditFName, EditLName, EditPassword, DeleteAccount
+from crispy_forms.helper import FormHelper
 
 
 class CreateUserForm(UserCreationForm):
@@ -28,12 +29,22 @@ class InputForm(ModelForm):
 
 
 class EditFirstnameForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EditFirstnameForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
     class Meta:
         model = EditFName
         fields = "__all__"
 
 
 class EditLastnameForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EditLastnameForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
     class Meta:
         model = EditLName
         fields = "__all__"
@@ -50,8 +61,10 @@ class EditPasswordForm(ModelForm):
 
 class DeleteAccountForm(ModelForm):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['password_confirmation'].required = True
+        super(DeleteAccountForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
     class Meta:
         model = DeleteAccount
         fields = "__all__"
