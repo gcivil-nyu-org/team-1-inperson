@@ -49,6 +49,9 @@ class EditPasswordForm(ModelForm):
 
 
 class DeleteAccountForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password_confirmation'].required = True
     class Meta:
         model = DeleteAccount
         fields = "__all__"

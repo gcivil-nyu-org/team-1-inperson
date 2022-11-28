@@ -93,6 +93,11 @@ def delete_account_page(request):
     if request.method == "POST":
         form = DeleteAccountForm(request.POST)
         user = request.user
+        # check=form.cleaned_data.get("password_confirmation")
+        # if check is None:
+        #     messages.add_message(
+        #         request, messages.ERROR, "Nothing entered"
+        #     )
         if form.is_valid():
             pw = user.password
             entered = form.cleaned_data.get("password_confirmation")
@@ -100,6 +105,9 @@ def delete_account_page(request):
                 user.is_active = False
                 user.save()
                 logout(request)
+                messages.add_message(
+                    request, messages.ERROR, "Account successfully deleted"
+                )
             else:
                 messages.add_message(
                     request, messages.ERROR, "Password is incorrect. Try again"
