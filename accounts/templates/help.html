@@ -42,15 +42,21 @@
             padding-left: 5%;
             padding-right: 5%;
         }
-
+        .navbar{
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            z-index: 10000;
+            border-radius: 0;
+        }
     </style>
 </head>
 
 <body class="container-fluid">
 {% include 'common/navbar.html' %}
     <div class="ctain">
-        <img src="/static/img/crosswalk.png" style="margin-top: -20px;" width="100%">
-        <div class="centered"><h1 style=font-size:300%>Help</h1></div>
+        <img src="/static/img/crosswalk.png" style="margin-top: 5%;" width="100%">
+        <div class="centered" style="margin-top: 5%;"><h1 style=font-size:300%>Help</h1></div>
     </div>
 
     <div class="padding">

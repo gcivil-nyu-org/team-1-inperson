@@ -11,6 +11,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+    <style>
+        .navbar{
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            z-index: 10000;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,9 +32,9 @@
 {% include 'common/navbar.html' %}
 
     <div class="ctain">
-        <img src="/static/img/crosswalk.png" style="margin-top: -20px;"  width="100%">
+        <img src="/static/img/crosswalk.png" style="margin-top: 5%;"  width="100%">
 
-        <div class="centered"><h1 style='font-size:200%; text-shadow: 2px 2px 4px #222222;'>
+        <div class="centered"style="margin-top: 5%;"><h1 style='font-size:200%; text-shadow: 2px 2px 4px #222222;'>
             Find your next accessible destination.</h1>
             <div id="geocoder-home-page" class="geocoder"></div>
         </div>
