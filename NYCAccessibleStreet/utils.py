@@ -26,7 +26,8 @@ def get_locations():
 def get_recent_reports(num):
 
     recent_report_list = []
-    report_query = Report.objects.order_by("-createdAt")[:]
+    infra_set = set()
+    report_query = Report.objects.order_by("-createdAt")[:num]
 
     for q in report_query:
         # temp = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
@@ -52,10 +53,12 @@ def get_recent_reports(num):
             desc=comment_list,
             username=q.user.username,
         )
-        recent_report_list.append(r)
-        print(r.desc)
-    for rr in recent_report_list:
-        print(rr)
+        if r.infraID not in infra_set:
+            recent_report_list.append(r)
+            infra_set.add(r.infraID)
+        # print(r.desc)
+    # for rr in recent_report_list:
+    #     print(rr)
 
     return recent_report_list
 
