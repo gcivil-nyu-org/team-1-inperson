@@ -5,14 +5,18 @@ import requests
 
 
 class reportObject:
-    def __init__(self, infraID, createdAt, updatedAt, desc):
+    def __init__(self, infraID, createdAt, updatedAt, desc, username):
         self.infraID = infraID
         temp = Accessible_location.objects.filter(infraID=infraID)[0]
+        self.username = username
         self.createdAt = createdAt
         self.address = temp.address
         self.infraType = str(temp.typeID)
         self.updatedAt = updatedAt
         self.desc = desc
+    def __str__(self):
+        return f'Infra ID: {self.infraID}, Description: {self.desc}'
+
 
 
 def get_locations():
@@ -22,22 +26,36 @@ def get_locations():
 def get_recent_reports(num):
 
     recent_report_list = []
-    report_query = Report.objects.order_by("-createdAt")[:num]
+    report_query = Report.objects.order_by("-createdAt")[:]
 
     for q in report_query:
         # temp = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
+        report_q = Report.objects.filter(infraID=q.infraID.infraID)
+        print(report_q)
+        comment_list = []
+        # user_list = []
+
+        for qObject in report_q:
+            comment_list.append((qObject.comment, qObject.user.username, qObject.updatedAt))
+            # user_list.append(qObject.user.username)
         # print(type(q.infraID))
         # print(temp)
+        # print(comment_list)
+        # print(user_list)
         # address = temp.address
         # infraType = str(temp.typeID)
+        # print(q.user.username)
         r = reportObject(
             infraID=q.infraID.infraID,
             createdAt=q.createdAt,
             updatedAt=q.updatedAt,
-            desc=q.comment,
+            desc=comment_list,
+            username=q.user.username,
         )
         recent_report_list.append(r)
-    # print(recent_report_list)
+        print(r.desc)
+    for rr in recent_report_list:
+        print(rr)
 
     return recent_report_list
 
@@ -75,12 +93,16 @@ def populate_cards(locList):
         #     card_info[address] = {}
 
         # get report for each q
-        try:
-            report = Report.objects.get(infraID=q.infraID)
+        report = Report.objects.filter(infraID=q.infraID)
+        # print(report)
+        # print(len(report))
+        if len(report) != 0:
+            # print(report)
+            report = report[0]
             comment = report.comment
             created = report.createdAt
             updated = report.updatedAt
-        except Report.DoesNotExist:
+        else:
             comment = ""
             created = ""
             updated = ""

@@ -25,29 +25,18 @@
                     <h5>Updates: </h5>
 
                     <!-- all updates -->
+                    {% for username, comment, updatedAt in report.desc %}
+
+                    <!-- all updates -->
                     <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px;">
                         <div style="padding: 10px;">
                             <p style="font-size:smaller; margin-bottom: 1px;"> 
-                                <b style="color:#18435A;">username · </b>Nov. 13, 2022, 4:05 p.m.</p>
-                            <p style="margin-bottom: 0px;">{{card.comment}}</p>
+                                <b style="color:#18435A;">{{comment}} </b>{{updatedAt}}</p>
+                            <p style="margin-bottom: 0px;">{{username}}</p>
                         </div>
                     </div>
 
-                    <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px;">
-                        <div style="padding: 10px;">
-                            <p style="font-size:smaller; margin-bottom: 1px;"> 
-                                <b style="color:#18435A;">username · </b>Nov. 13, 2022, 4:05 p.m.</p>
-                            <p style="margin-bottom: 0px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-                        </div>
-                    </div>
-
-                    <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px;">
-                        <div style="padding: 10px;">
-                            <p style="font-size:smaller; margin-bottom: 1px;"> 
-                                <b style="color:#18435A;">username · </b>Nov. 13, 2022, 4:05 p.m.</p>
-                            <p style="margin-bottom: 0px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-                        </div>
-                    </div>
+                    {% endfor %}
 
                 </div>  
                 
@@ -71,16 +60,18 @@
                 </form>
 
                 <!-- post update -->
-                <form class="form-inline">
+                <form class="form-inline" action = "{% url 'report_update' %}" method = "POST">
+                    {% csrf_token %}
                     <div class="form-group mx-sm-3 mb-2">
                       <input type = "hidden" name = infraID value = '{{card.card_id}}'>
-                      <input type="comment" class="form-control" id="post-update" style="width:210px" 
-                        placeholder="add an update...">
+                      <input type = "hidden" name = x_coord value = '{{x_coord}}'>
+                      <input type = "hidden" name = y_coord value = '{{y_coord}}'>
+                      <input type = "comment" name = "comment" class="form-control" id="message-text" style="width:210px" 
+                        placeholder="Add an update" required="required" maxlength="200">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2" style="background-color:#18435A; color:white;">
                         Post</button>
                 </form>
-
             </div>
         </div>
     </div>
