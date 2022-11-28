@@ -16,6 +16,7 @@ class reportObject:
         self.desc = desc
         self.locationX = temp.locationX
         self.locationY = temp.locationY
+
     def __str__(self):
         return f'Infra ID: {self.infraID}, Description: {self.desc}'
 
@@ -35,7 +36,7 @@ def get_recent_reports(num):
     for q in report_query:
         # temp = Accessible_location.objects.filter(infraID=q.infraID.infraID)[0]
         report_q = Report.objects.filter(infraID=q.infraID.infraID)
-        print(report_q)
+        # print(report_q)
         comment_list = []
         # user_list = []
 
