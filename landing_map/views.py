@@ -273,6 +273,38 @@ def resolve_report(request):
         return redirect("login")
 
 
+def report_update(request):
+    # print(request)
+    if request.user.is_authenticated:
+        x = request.POST.get("x_coord")
+        y = request.POST.get("y_coord")
+        # desc = request.POST.get("comment")
+        infra = request.POST.get("infraID")
+        reportObj = Report.objects.filter(infraID=infra)[0]
+        obj = Accessible_location.objects.get(pk=infra)
+        # Hopefully stops multiple reports from being saved, Probably need better solution
+        # obj.isAccessible = False
+        # obj.save()
+        post_update = request.POST.get("comment")
+        # print(post_update)
+        newReport = Report(user=request.user, infraID=obj, comment=post_update)
+        print("NEW REPORT: ", newReport.createdAt)
+        print("EXIST REPORT: ", reportObj.createdAt)
+        newReport.createdAt = reportObj.createdAt
+        print("CHANGED REPORT: ", newReport.createdAt)
+        newReport.save()
+        # print("INSIDE FUNC")
+        # print(reportObj)
+        pageURL = (
+            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+            "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
+        )
+
+        return redirect(request.META.get("HTTP_REFERER"))
+    else:
+        return redirect("login")
+
+
 def add_favorite(request):
     if not request.user.is_authenticated:
         return redirect("login")

@@ -162,6 +162,11 @@ p.not_accessible{
     margin-bottom: 5px;
 }
 
+.modal-dialog {
+  top: 10vh;
+  right: 5vw;
+}
+
 .modal-footer .verify{
     float: left;
 }
@@ -258,4 +263,14 @@ div.table-lowvision{
 .copyButton:hover .copytooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+textarea {
+    resize: none;
+}
+
+#count_message {
+  background-color: smoke;
+  margin-top: -20px;
+  margin-right: 5px;
 }
