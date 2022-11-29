@@ -276,8 +276,8 @@ def resolve_report(request):
 def report_update(request):
     # print(request)
     if request.user.is_authenticated:
-        x = request.POST.get("x_coord")
-        y = request.POST.get("y_coord")
+        # x = request.POST.get("x_coord")
+        # y = request.POST.get("y_coord")
         # desc = request.POST.get("comment")
         infra = request.POST.get("infraID")
         reportObj = Report.objects.filter(infraID=infra)[0]
@@ -295,10 +295,6 @@ def report_update(request):
         newReport.save()
         # print("INSIDE FUNC")
         # print(reportObj)
-        pageURL = (
-            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-            "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
-        )
 
         return redirect(request.META.get("HTTP_REFERER"))
     else:
