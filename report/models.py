@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 # Create your models here.
@@ -10,7 +11,7 @@ class Report(models.Model):
         "landing_map.Accessible_location", on_delete=models.CASCADE
     )
     updatedAt = models.DateTimeField(auto_now=True)
-    createdAt = models.DateTimeField(auto_now_add=True)
+    createdAt = models.DateTimeField(default=timezone.now)
     comment = models.CharField(max_length=100, default="")
     isResolved = models.BooleanField(default=False)
     dateTimeOfResolution = models.DateTimeField(null=True, blank=True)

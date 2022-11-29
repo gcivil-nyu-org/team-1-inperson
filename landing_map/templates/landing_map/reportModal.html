@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="modal fade" id="report_issue_form_{{card.card_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -8,13 +10,14 @@
         </div>
 
         <div class="modal-body">
-          <form action = "{% url 'report' %}" method = "POST" >
+          <form action = "{% url 'report' %}" method = "POST" accept-charset="UTF-8">
             {% csrf_token %}
             <div class="form-group">
               <p class="not_accessible">Mark {{card.type}} as inaccessible</p>
               <label for="message-text" class="col-form-label">Description:</label>
               <input type = "hidden" name = infraID value = '{{card.card_id}}'>
-           <textarea name = "comment" class="form-control" id="message-text" style="height: 180px;" required="required"></textarea>
+           <textarea name = "comment" class="form-control" id="message-text" style="height: 180px;" required="required" maxlength="200"></textarea>
+<!--           <span class="pull-right label label-default" id="count_message"></span>-->
               <input type = "hidden" name = x_coord value = '{{x_coord}}'>
               <input type = "hidden" name = y_coord value = '{{y_coord}}'>
               <div class="modal-footer">
@@ -28,3 +31,5 @@
       </div>
     </div>
 </div>
+
+<script src="{% static 'landing_map/limit_char.js' %} "></script>
