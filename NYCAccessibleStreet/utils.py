@@ -18,8 +18,7 @@ class reportObject:
         self.locationY = temp.locationY
 
     def __str__(self):
-        return f'Infra ID: {self.infraID}, Description: {self.desc}'
-
+        return f"Infra ID: {self.infraID}, Description: {self.desc}"
 
 
 def get_locations():
@@ -41,7 +40,9 @@ def get_recent_reports(num):
         # user_list = []
 
         for qObject in report_q:
-            comment_list.append((qObject.comment, qObject.user.username, qObject.updatedAt))
+            comment_list.append(
+                (qObject.comment, qObject.user.username, qObject.updatedAt)
+            )
             # user_list.append(qObject.user.username)
         # print(type(q.infraID))
         # print(temp)
