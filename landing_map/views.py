@@ -242,8 +242,6 @@ def myFav(request):
 def report(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            x = request.POST.get("x_coord")
-            y = request.POST.get("y_coord")
 
             infra = request.POST.get("infraID")
             obj = Accessible_location.objects.get(pk=infra)
@@ -256,34 +254,21 @@ def report(request):
             newReport = Report(user=request.user, infraID=obj, comment=inComment)
             newReport.save()
 
-            pageURL = (
-                "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-                "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(
-                    x=x, y=y
-                )
-            )
-
-        return redirect(pageURL)
+        return redirect(request.META.get("HTTP_REFERER"))
     else:
         return redirect("login")
 
 
 def resolve_report(request):
     if request.user.is_authenticated:
-        x = request.POST.get("x_coord")
-        y = request.POST.get("y_coord")
         infra = request.POST.get("infraID")
         print("INFRA: ", infra)
         locObj = Accessible_location.objects.get(pk=infra)
         locObj.isAccessible = True
         locObj.save()
         Report.objects.get(infraID=infra).delete()
-        pageURL = (
-            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-            "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
-        )
 
-        return redirect(pageURL)
+        return redirect(request.META.get("HTTP_REFERER"))
     else:
         return redirect("login")
 
@@ -328,11 +313,7 @@ def add_favorite(request):
     newFav = Favorite(userID=request.user, locationX=x, locationY=y, address=address)
     newFav.save()
 
-    pageURL = (
-        "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-        "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
-    )
-    return redirect(pageURL)
+    return redirect(request.META.get("HTTP_REFERER"))
 
 
 def remove_favorite(request):
@@ -349,7 +330,7 @@ def goto_favorite(request):
     x = request.POST.get("x")
     y = request.POST.get("y")
     pageURL = (
-        "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
+        "/home/?radiusRange=0.25&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
         "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}&favPage=true".format(
             x=x, y=y
         )
