@@ -1,4 +1,12 @@
+document.onreadystatechange = function () {
+    const state = document.readyState
+    if (state === 'complete') {
+        $('.loading').fadeOut();
+    }
+}
+
 function redirect_to_map(x,y){
+    $('.loading').fadeIn();
     pageURL = `/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck=true&poleCheck=true&sidewalkCheck=true&x-co=${x}&y-co=${y}`
     window.location.href = pageURL;
 }
