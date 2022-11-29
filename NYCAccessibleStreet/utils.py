@@ -242,21 +242,21 @@ def populate_favorite_cards(favList):
         rampsQuery = (
             "SELECT infraID, isAccessible, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) "
             "- radians({x}) ) + sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location "
-            "where typeID_id = 1 HAVING distance < "
+            "where typeID_id = 1 and isAccessible = 0 HAVING distance < "
             "{radius} ORDER BY distance".format(
                 y=y_coord,
                 x=x_coord,
-                radius=0.5,
+                radius=0.25,
             )
         )
         signalsQuery = (
             "SELECT infraID, isAccessible, ( 3959 * acos( cos( radians({y}) ) * cos( radians(locationY) ) * cos( radians(locationX) "
             "- radians({x}) ) + sin( radians({y}) ) * sin(radians(locationY)) ) ) AS distance FROM landing_map_accessible_location "
-            "where typeID_id = 2 HAVING distance < "
+            "where typeID_id = 2 and isAccessible = 0 HAVING distance < "
             "{radius} ORDER BY distance".format(
                 y=y_coord,
                 x=x_coord,
-                radius=0.5,
+                radius=0.25,
             )
         )
         alert = ""
