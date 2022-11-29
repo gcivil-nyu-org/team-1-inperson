@@ -49,6 +49,7 @@ a.nav-list:hover{
     top: 35%;
     left: 52% !important;
     transform: translate(-50%, -50%);
+    z-index: 100;
 }
 
 .noborder{
@@ -198,6 +199,8 @@ div.table-lowvision{
 .shareButton {
     cursor:pointer;
     padding: 8px;
+    font-size: 20px;
+    margin-right: 10px;
 }
 
 .shareButton .sharetooltiptext {
@@ -236,6 +239,8 @@ div.table-lowvision{
 .copyButton {
   cursor:pointer;
   padding: 8px;
+  padding-right:0px;
+  font-size: 20px;
 }
 
 .copyButton .copytooltiptext {
