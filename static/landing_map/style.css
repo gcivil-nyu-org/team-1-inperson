@@ -162,6 +162,11 @@ p.not_accessible{
     margin-bottom: 5px;
 }
 
+.modal-dialog {
+  top: 10vh;
+  right: 5vw;
+}
+
 .modal-footer .verify{
     float: left;
 }

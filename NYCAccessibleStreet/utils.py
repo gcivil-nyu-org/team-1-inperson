@@ -22,7 +22,6 @@ class reportObject:
 
 
 
-
 def get_locations():
     return Accessible_location.objects.all()
 
@@ -30,6 +29,7 @@ def get_locations():
 def get_recent_reports(num):
 
     recent_report_list = []
+    # report_query = Report.objects.order_by("-createdAt")[:num]
     infra_set = set()
     report_query = Report.objects.order_by("-createdAt")[:num]
 
@@ -58,11 +58,15 @@ def get_recent_reports(num):
             username=q.user.username,
         )
         if r.infraID not in infra_set:
+            # print("INSIDE IF")
             recent_report_list.append(r)
+            # print(len(recent_report_list))
             infra_set.add(r.infraID)
         # print(r.desc)
+        # print(infra_set)
     # for rr in recent_report_list:
     #     print(rr)
+    # print(len(recent_report_list))
 
     return recent_report_list
 
