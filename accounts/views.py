@@ -87,6 +87,8 @@ def help_page(request):
     return render(request, "help.html", context)
 
 
+
+
 def delete_account_page(request):
     form = DeleteAccountForm()
     context = {"daform": form}
@@ -118,6 +120,18 @@ def deleted_message(request):
     return render(request, "deleted.html", context)
 
 
+def ispasswordbad(candidate,username,firstname,lastname,email):
+    commonpasswords = ['password', 'guest', 'qwerty']
+    if candidate==username or candidate==firstname or candidate==lastname or candidate==email:
+        return "Password is too similar to your account credentials. Try again"
+    if candidate.isnumeric():
+        return "Password can't be all numbers. Try again"
+    if len(candidate)<8:
+        return "Password must be more than 8 characters. Try again"
+    if candidate in commonpasswords:
+        return "Password is too common. Try again"
+    else:
+        return False
 def profile_page(request):
     form1 = EditFirstnameForm()
     form2 = EditLastnameForm()
@@ -138,8 +152,17 @@ def profile_page(request):
             p1 = form3.cleaned_data.get("new_password")
             p2 = form3.cleaned_data.get("confirm_password")
             if p1 == p2:
-                user.set_password(p1)
-                user.save()
+                result = ispasswordbad(p1, user.username, user.first_name, user.last_name,user.email)
+                if result:
+                    messages.add_message(
+                        request, messages.ERROR, result
+                    )
+                else:
+                    user.set_password(p1)
+                    user.save()
+                    messages.add_message(
+                        request, messages.ERROR, "Password changed successfully, please log back using your new password"
+                    )
             else:
                 messages.add_message(
                     request, messages.ERROR, "Passwords do not match. Try again"
