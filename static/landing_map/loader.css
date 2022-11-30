@@ -3,13 +3,13 @@
     width: 100%;
     height: 100vh;
     background: #18435A;
-    z-index: 9998;
+    z-index: 99998;
 }
 
 .sk-cube-grid {
   width: 60px;
   height: 60px;
-  z-index: 9999;
+  z-index: 99999;
   position: absolute;
   left: 50%;
   top: 45%;
