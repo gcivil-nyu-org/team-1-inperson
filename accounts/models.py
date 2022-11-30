@@ -11,3 +11,20 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class EditFName(models.Model):
+    new_first_name = models.CharField(max_length=25)
+
+
+class EditLName(models.Model):
+    new_last_name = models.CharField(max_length=25)
+
+
+class EditPassword(models.Model):
+    new_password = models.CharField(max_length=50)
+    confirm_password = models.CharField(max_length=50)
+
+
+class DeleteAccount(models.Model):
+    password_confirmation = models.CharField(max_length=50)

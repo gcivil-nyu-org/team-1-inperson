@@ -11,7 +11,15 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
-from .forms import InputForm
+from .forms import (
+    InputForm,
+    EditFirstnameForm,
+    EditLastnameForm,
+    EditPasswordForm,
+    DeleteAccountForm,
+)
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import logout
 
 
 def register_page(request):
@@ -110,6 +118,96 @@ def help_page(request):
             messages.info(request, "We have recieved your message!")
 
     return render(request, "help.html", context)
+
+
+def delete_account_page(request):
+    form = DeleteAccountForm()
+    context = {"daform": form}
+    if request.method == "POST":
+        form = DeleteAccountForm(request.POST)
+        user = request.user
+        if form.is_valid():
+            pw = user.password
+            entered = form.cleaned_data.get("password_confirmation")
+            if check_password(entered, pw):
+                user.is_active = False
+                user.save()
+                logout(request)
+                messages.add_message(
+                    request, messages.ERROR, "Account successfully deleted"
+                )
+                return redirect("deleted")
+            else:
+                messages.add_message(
+                    request, messages.ERROR, "Password is incorrect. Try again"
+                )
+        else:
+            messages.add_message(request, messages.ERROR, "Please enter your password")
+    return render(request, "deleteacc.html", context)
+
+
+def deleted_message(request):
+    context = {}
+    return render(request, "deleted.html", context)
+
+
+def ispasswordbad(candidate, username, firstname, lastname, email):
+    commonpasswords = ["password", "guest", "qwerty"]
+    if (
+        candidate == username
+        or candidate == firstname
+        or candidate == lastname
+        or candidate == email
+    ):
+        return "Password is too similar to your account credentials. Try again"
+    if candidate.isnumeric():
+        return "Password can't be all numbers. Try again"
+    if len(candidate) < 8:
+        return "Password must be more than 8 characters. Try again"
+    if candidate in commonpasswords:
+        return "Password is too common. Try again"
+    else:
+        return False
+
+
+def profile_page(request):
+    form1 = EditFirstnameForm()
+    form2 = EditLastnameForm()
+    form3 = EditPasswordForm()
+    context = {"fnform": form1, "lnform": form2, "pwform": form3}
+    if request.method == "POST":
+        form1 = EditFirstnameForm(request.POST)
+        form2 = EditLastnameForm(request.POST)
+        form3 = EditPasswordForm(request.POST)
+        user = request.user
+        if form1.is_valid():
+            user.first_name = form1.cleaned_data.get("new_first_name")
+            user.save()
+        if form2.is_valid():
+            user.last_name = form2.cleaned_data.get("new_last_name")
+            user.save()
+        if form3.is_valid():
+            p1 = form3.cleaned_data.get("new_password")
+            p2 = form3.cleaned_data.get("confirm_password")
+            if p1 == p2:
+                result = ispasswordbad(
+                    p1, user.username, user.first_name, user.last_name, user.email
+                )
+                if result:
+                    messages.add_message(request, messages.ERROR, result)
+                else:
+                    user.set_password(p1)
+                    user.save()
+                    messages.add_message(
+                        request,
+                        messages.ERROR,
+                        "Password changed successfully, please log back using your new password",
+                    )
+            else:
+                messages.add_message(
+                    request, messages.ERROR, "Passwords do not match. Try again"
+                )
+    return render(request, "profile.html", context)
 
 
 def activate(request, uidb64, token):

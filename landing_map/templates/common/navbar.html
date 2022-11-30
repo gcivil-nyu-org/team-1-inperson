@@ -28,7 +28,7 @@
         </div>
         {% if user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
-            <li><a class = "nav-list nofade" href="#"> Hi {{user.first_name}}!</a></li>
+            <li><a class = "nav-list" href="/accounts/profile">My Profile</a></li>
             <li><a class = "nav-list" href="/myFav"><span class="glyphicon glyphicon-heart"></span> My Favorites</a></li>
             <li><a class = "nav-list" href="/accounts/help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
             <li><a class = "nav-list right-margin" href="/accounts/logout"><span class="glyphicon glyphicon-arrow-left"></span> Log Out</a></li>
