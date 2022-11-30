@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{user.first_name}}'s Profile</title>
+  <title>Delete Account</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -36,7 +36,25 @@
             }
         }
         if (cansubmit){
-            document.getElementById('submi').disabled=false
+            document.getElementById("password_confirmation").disabled=false
+        }
+    }
+    function graybeforeactive(){
+        var button=document.getElementById("password_confirmation")
+        var cansubmit=button.disabled;
+        if(cansubmit){
+            button.opacity=1;
+        }
+        else{
+            button.opacity=0.5;
+        }
+    }
+    function censor(){
+        var letters=document.getElementById("password")
+        if(letters.type==="password"){
+            letters.type="text"
+        }else{
+            letters.type="password"
         }
     }
 </script>
@@ -73,27 +91,24 @@
                 </ul>
             {% endif %}
         </div>
-        <form method="POST" action="">
+        <form name="daform" id="daform" method="POST" action="">
             {% csrf_token %}
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-3" style="margin-bottom:30px">
                 </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <h5>Password:</h5>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        {{daform.password_confirmation|as_crispy_field}}
-                    </div>
+                <div class="col-sm-4" style="margin-bottom:30px">
+                    <input id="password" type="password" name="password_confirmation" size=35 onKeyup="noblanks()" />
+                    <br><br>
+                    <input type="checkbox" onclick="censor()">Show Password
                 </div>
                 <div class="col-sm-2" style="margin-bottom:30px">
-                    <button onclick="location.href = '/accounts/deleted';" style="background-color:red; color:white; margin-top:0px" class="btn btn-default btn-md" type="submit">Delete My Account</button>
+                    <input id="password_confirmation" type="submit" style="background-color:red; color:white; border-radius: 5px; padding: 2px 32px;" disabled="disabled" value="Delete" />
+                    <br>
+                </div>
+                <div class="col-sm-3" style="margin-bottom:30px">
                 </div>
             </div>
         </form>
-
     </div>
     </div>
 

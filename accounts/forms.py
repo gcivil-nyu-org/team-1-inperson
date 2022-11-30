@@ -38,6 +38,8 @@ class EditFirstnameForm(ModelForm):
         model = EditFName
         fields = "__all__"
 
+    new_first_name = forms.CharField(initial="first name")
+
 
 class EditLastnameForm(ModelForm):
     def __init__(self, *args, **kwargs):
