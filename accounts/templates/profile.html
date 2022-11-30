@@ -46,11 +46,10 @@
 {% load crispy_forms_tags %}
     <div class="padding">
         <div class="pad"><div class="cent">
-            <h1>General Account Settings</h1>
-            <br><br><br>
+            <h1 style="padding-top: 5%">General Account Settings</h1>
+            <br>
             <h5>Username: <span class="info">{{user.username}}</span></h5>
             <h5>Email: <span class="info">{{user.email}}</span></h5>
-            <br><br>
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
