@@ -31,12 +31,14 @@
         var f=document.forms["daform"].elements;
         var cansubmit=true;
         for (var i=0;i<f.length;i++){
-            if (f[i].value.length==0){
+            if (f[i].value.length===0){
                 cansubmit=false;
             }
         }
-        if (cansubmit){
-            document.getElementById("password_confirmation").disabled=false
+        if (cansubmit) {
+            document.getElementById("password_confirmation").disabled = false;
+        }else{
+            document.getElementById("password_confirmation").disabled=true;
         }
     }
     function graybeforeactive(){
