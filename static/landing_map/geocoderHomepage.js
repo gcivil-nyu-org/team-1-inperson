@@ -13,11 +13,14 @@ function redirect_to_map(x,y){
 
 //geocoder
 const geocoder = new MapboxGeocoder({
-accessToken: mapboxgl.accessToken,
-proximity: {
-    longitude: -73.98,
-    latitude: 40.694
-  }
+    accessToken: mapboxgl.accessToken,
+    proximity: {
+        longitude: -73.98,
+        latitude: 40.694
+      },
+
+    bbox: [-74.103684, 40.527645, -73.619187, 40.940556],
+    countries: 'US',
 });
 
 geocoder.addTo('#geocoder-home-page');
