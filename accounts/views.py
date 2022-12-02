@@ -119,6 +119,27 @@ def help_page(request):
 
     return render(request, "help.html", context)
 
+def reactivate_account(request):
+    context={}
+    if request.method=="POST":
+        username=request.POST.get("username")
+        password=request.POST.get("password")
+        try:
+            user = User.objects.get(username=username)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+        print("credentials: ", username, password,user)
+        if user is None:
+            messages.info(request, "User does not exist")
+        elif check_password(password,user.password)==False:
+            messages.info(request, "Incorrect password")
+        elif user.is_active==True:
+            messages.info(request, "User is already active")
+        else:
+            user.is_active=True
+            user.save()
+            messages.info(request, "Your account has been reactivated")
+    return render(request,"reactivate.html",context)
 
 def delete_account_page(request):
     form = DeleteAccountForm()
