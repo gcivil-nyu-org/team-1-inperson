@@ -138,7 +138,8 @@ def reactivate_account(request):
         else:
             user.is_active=True
             user.save()
-            messages.info(request, "Your account has been reactivated")
+            messages.info(request, "Your account has been reactivated. Login to continue")
+            return redirect("/accounts/login")
     return render(request,"reactivate.html",context)
 
 def delete_account_page(request):
