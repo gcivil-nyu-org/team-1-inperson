@@ -16,8 +16,8 @@
 </head>
 <style>
     .pad{
-        padding-right: 15%;
-        padding-left: 15%;
+        padding-right: 30%;
+        padding-left: 30%;
     }
     .cent{
         text-align: center;
@@ -26,40 +26,6 @@
         color: red;
     }
 </style>
-<script>
-    function noblanks(){
-        var f=document.forms["daform"].elements;
-        var cansubmit=true;
-        for (var i=0;i<f.length;i++){
-            if (f[i].value.length===0){
-                cansubmit=false;
-            }
-        }
-        if (cansubmit) {
-            document.getElementById("password_confirmation").disabled = false;
-        }else{
-            document.getElementById("password_confirmation").disabled=true;
-        }
-    }
-    function graybeforeactive(){
-        var button=document.getElementById("password_confirmation")
-        var cansubmit=button.disabled;
-        if(cansubmit){
-            button.opacity=1;
-        }
-        else{
-            button.opacity=0.5;
-        }
-    }
-    function censor(){
-        var letters=document.getElementById("password")
-        if(letters.type==="password"){
-            letters.type="text"
-        }else{
-            letters.type="password"
-        }
-    }
-</script>
 
 <body class="container-fluid">
 <nav class="navbar navbar-expand-lg navbar-light bg-custom navrounding">
@@ -76,9 +42,9 @@
 </nav>
 {% load crispy_forms_tags %}
     <div class="padding">
-        <div class="pad"><div class="cent">
-            <br>
-            <h1>Enter your old username and password to reactivate your account</h1>
+        <div class="cent">
+            <br><br>
+            <h2>Enter your old username and password below to reactivate your account</h2>
             <br><br>
             {% if messages %}
                 <ul class="messages">
@@ -90,26 +56,20 @@
                 </ul>
             {% endif %}
         </div>
+        <div class="pad">
         <form method="POST" action="">
               {% csrf_token %}
-
               <p class="login-label">Username</p>
               <div class="input-group mb-3">
-                <input type="text" name="username" placeholder="Username..." class="form-control">
+                <input type="text" name="username"  class="form-control">
               </div>
-
               <p class="login-label">Password</p>
               <div class="input-group mb-2">
-                <!-- <div class="input-group-append">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
-                </div> -->
-                  <input type="password" name="password" placeholder="Password..." class="form-control" >
+                  <input type="password" name="password"  class="form-control" >
               </div>
-
                 <div class="d-flex justify-content-center mt-3 login_container">
                   <input class="btn login_btn" type="submit" value="Reactivate">
                 </div>
-
         </form>
     </div>
     </div>
