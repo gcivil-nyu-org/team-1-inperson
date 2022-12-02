@@ -166,7 +166,9 @@ function plotMap(){
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         flyTo: false,
-        marker: false
+        marker: false,
+        bbox: [-74.103684, 40.527645, -73.619187, 40.940556],
+        countries: 'US',
     });
 
     geocoder.on('result', (e) => {
