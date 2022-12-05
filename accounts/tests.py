@@ -4,7 +4,7 @@ from django.core import mail
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from .forms import CreateUserForm
-from .views import activate
+from .views import activate, ispasswordbad
 from .models import Contact
 from django.contrib.messages import get_messages
 import re
@@ -264,3 +264,41 @@ class Models_Tests(TestCase):
         )
         actual_email = contact.__str__()
         self.assertEqual(actual_email, target_email)
+
+
+class Test_ispasswordbad(TestCase):
+    def test_first_same_as_password(self):
+        password = "firstname"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_last_same_as_password(self):
+        password = "lastname"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_email_same_as_password(self):
+        password = "email"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_password_all_numbers(self):
+        password = "11111111"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_password_too_short(self):
+        password = "pass"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_password_common(self):
+        passwords = ["password", "guest", "qwerty"]
+        for p in passwords:
+            is_bad = ispasswordbad(p, "username", "firstname", "lastname", "email")
+            self.assertTrue(str == type(is_bad))
+
+    def test_password_accepted(self):
+        password = "9asdfo8012hf"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertFalse(is_bad)
