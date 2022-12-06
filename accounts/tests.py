@@ -36,6 +36,10 @@ class URLTests(TestCase):
         response = client.get("/accounts/password_reset/done/")
         self.assertEqual(response.status_code, 200)
 
+    def test_deleted_message(self):
+        response = client.get("/accounts/deleted/")
+        self.assertEqual(response.status_code, 200)
+
 
 class RegisterTest(TestCase):
     def test_user_added_to_database(self):
@@ -266,7 +270,7 @@ class Models_Tests(TestCase):
         self.assertEqual(actual_email, target_email)
 
 
-class Test_ispasswordbad(TestCase):
+class Testispasswordbad(TestCase):
     def test_first_same_as_password(self):
         password = "firstname"
         is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
@@ -302,3 +306,21 @@ class Test_ispasswordbad(TestCase):
         password = "9asdfo8012hf"
         is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
         self.assertFalse(is_bad)
+
+
+class HelpPageTests(TestCase):
+    def test_message_sent(self):
+        post = {
+            "email": "email@mail.domain",
+            "subject": "the subject",
+            "message": "the message",
+        }
+        c = Client()
+        c.post(
+            "/accounts/help/?email=email@mail.domain&subject=the subject"
+            "&message=the_message",
+            post,
+        )
+        email = mail.outbox[0].body
+        target = "email@mail.domain Sent the following message:\nthe message"
+        self.assertEquals(email, target)
