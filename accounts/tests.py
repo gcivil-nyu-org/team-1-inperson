@@ -4,7 +4,7 @@ from django.core import mail
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from .forms import CreateUserForm
-from .views import activate
+from .views import activate, ispasswordbad
 from .models import Contact
 from django.contrib.messages import get_messages
 import re
@@ -34,6 +34,10 @@ class URLTests(TestCase):
 
     def test_password_reset_done(self):
         response = client.get("/accounts/password_reset/done/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_deleted_message(self):
+        response = client.get("/accounts/deleted/")
         self.assertEqual(response.status_code, 200)
 
 
@@ -264,3 +268,147 @@ class Models_Tests(TestCase):
         )
         actual_email = contact.__str__()
         self.assertEqual(actual_email, target_email)
+
+
+class Testispasswordbad(TestCase):
+    def test_first_same_as_password(self):
+        password = "firstname"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_last_same_as_password(self):
+        password = "lastname"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_email_same_as_password(self):
+        password = "email"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_password_all_numbers(self):
+        password = "11111111"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_password_too_short(self):
+        password = "pass"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertTrue(str == type(is_bad))
+
+    def test_password_common(self):
+        passwords = ["password", "guest", "qwerty"]
+        for p in passwords:
+            is_bad = ispasswordbad(p, "username", "firstname", "lastname", "email")
+            self.assertTrue(str == type(is_bad))
+
+    def test_password_accepted(self):
+        password = "9asdfo8012hf"
+        is_bad = ispasswordbad(password, "username", "firstname", "lastname", "email")
+        self.assertFalse(is_bad)
+
+
+class HelpPageTests(TestCase):
+    def test_message_sent(self):
+        post = {
+            "email": "email@mail.domain",
+            "subject": "the subject",
+            "message": "the message",
+        }
+        c = Client()
+        c.post(
+            "/accounts/help/?email=email@mail.domain&subject=the subject"
+            "&message=the_message",
+            post,
+        )
+        email = mail.outbox[0].body
+        target = "email@mail.domain Sent the following message:\nthe message"
+        self.assertEquals(email, target)
+
+
+class DeleteAccountTests(TestCase):
+    def test_password_not_entered(self):
+        c = Client()
+        post = {"password_confirmation": ""}
+        response = c.post("/accounts/deleteacc/?", post)
+        message = [str(m) for m in response.context["messages"]]
+        target = "Please enter your password"
+        self.assertEqual(message[0], target)
+
+    def test_account_deleted(self):
+        c = Client()
+        password = "something_very_s3cur3"
+        user_details = {
+            "username": "realuser",
+            "email": "someone@domain.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password1": password,
+            "password2": password,
+        }
+        form = CreateUserForm(user_details)
+        form.save()
+        request = c.post("/accounts/login/")
+        user = authenticate(request, username="realuser", password=password)
+        c.force_login(user)
+        post = {"password_confirmation": password}
+        response = c.post("/accounts/deleteacc/?", post, follow=True)
+        actual = response.redirect_chain
+        target = [("/accounts/deleted/", 302)]
+        self.assertEqual(target, actual)
+
+    def test_password_incorrect(self):
+        c = Client()
+        password = "something_very_s3cur3"
+        wrong_password = "something_else"
+        user_details = {
+            "username": "realuser",
+            "email": "someone@domain.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password1": password,
+            "password2": password,
+        }
+        form = CreateUserForm(user_details)
+        form.save()
+        request = c.post("/accounts/login/")
+        user = authenticate(request, username="realuser", password=password)
+        c.force_login(user)
+        post = {"password_confirmation": wrong_password}
+        response = c.post(f"/accounts/deleteacc/?{wrong_password}", post, follow=True)
+        message = [str(m) for m in response.context["messages"]]
+        target = "Password is incorrect. Try again"
+        self.assertEqual(message[0], target)
+
+
+# class ProfilePageTests(TestCase):
+#     def test_change_first(self):
+#         c = Client()
+#         password = "something_very_s3cur3"
+#         user_details = {
+#             "username": "realuser",
+#             "email": "someone@domain.com",
+#             "first_name": "Test",
+#             "last_name": "User",
+#             "password1": password,
+#             "password2": password,
+#         }
+#         form = CreateUserForm(user_details)
+#         form.save()
+#         request = c.post("/accounts/login/")
+#         user = authenticate(request, username="realuser", password=password)
+#         c.force_login(user)
+#
+#         post = {'fnform':'new_first',
+#                 'lnform':'User',
+#                 'pwform':password}
+#         request = c.post(f"/accounts/profile?fnform=new_first&lnform=User&pwform={password}", post, follow=True)
+#         print(user.first_name)
+# self.assertEqual()
+
+# def test_change_last(self):
+#     pass
+# def test_repeat_password(self):
+#     pass
+# def change_password(self):
+#     pass

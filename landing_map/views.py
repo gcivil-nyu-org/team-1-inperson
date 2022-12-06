@@ -262,7 +262,6 @@ def report(request):
 def resolve_report(request):
     if request.user.is_authenticated:
         infra = request.POST.get("infraID")
-        print("INFRA: ", infra)
         locObj = Accessible_location.objects.get(pk=infra)
         locObj.isAccessible = True
         locObj.save()
