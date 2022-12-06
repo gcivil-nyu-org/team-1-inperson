@@ -1,0 +1,20 @@
+  <nav class="navbar navbar-expand-lg navbar-light bg-custom navrounding">
+    <div class="navbar-header">
+      <a class="nav-brand" href="/">NYC Accessible Streets</a>
+      <a class="nav-list" href = "/home"><span class="fas fa-globe"></span> Map</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+        <li><a class = "nav-list" href="/accounts/profile">My Profile</a></li>
+        <li><a class = "nav-list" href="/myFav"><span class="fas fa-heart"></span> My Favorites</a></li>
+        <li><a class = "nav-list" href="/accounts/help"><span class="fas fa-question"></span> Help</a></li>
+        <li><a class = "nav-list right-margin" href="/accounts/logout"><span class="fas fa-arrow-right"></span> Log Out</a></li>
+        {% else %}
+        <li><a class = "nav-list" href="/accounts/help"><i class="fas fa-question"></i> Help</a></li>
+        <li><a class = "nav-list" href="/accounts/signup"><i class="fas fa-user"></i> Sign Up</a></li>
+        <li><a class = "nav-list" href="/accounts/login"><i class="fas fa-arrow-right"></i> Login</a></li>
+      </ul>
+      {% endif %}
+    </div>
+  </nav>

@@ -15,7 +15,7 @@
         <div class="navbar-header">
             <a class="nav-brand" href="/">NYC Accessible Streets</a>
             {% if '/home/' not in request.path and '/lowvision/' not in request.path %}
-                <a class="nav-list" style="cursor:pointer; text-decoration: none;" href = "/home"><span class="glyphicon glyphicon-globe"></span> Map</a>
+               <a class="nav-list" href = "/home"><span class="glyphicon glyphicon-globe"></span> Map</a>
             {% endif %}
             {% if '/home/' in request.path %}
                 <a class="nav-list" style="cursor:pointer" href = "#" onclick="goto_lowVisionPage()"><span class="glyphicon glyphicon-eye-close"></span> Low Vision View</a>
