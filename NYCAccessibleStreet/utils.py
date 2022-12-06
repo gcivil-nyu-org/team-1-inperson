@@ -109,7 +109,7 @@ def populate_cards(locList):
         #     card_info[address] = {}
 
         # get report for each q
-        report_q = Report.objects.filter(infraID=q.infraID).order_by('-updatedAt')
+        report_q = Report.objects.filter(infraID=q.infraID).order_by("-updatedAt")
         for qObject in report_q:
             comment_list.append(
                 (qObject.comment, qObject.user.username, qObject.updatedAt)
