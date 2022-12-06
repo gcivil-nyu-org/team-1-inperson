@@ -91,6 +91,7 @@ def populate_cards(locList):
     final = []
     for q in locList:
         card_info = {}
+        comment_list = []
         # print(q)
         # params = {"access_token": config("MAPBOX_PUBLIC_TOKEN"), "types": "address"}
         # url = mapbox_host + str(q.locationX) + "," + str(q.locationY) + ".json"
@@ -108,13 +109,17 @@ def populate_cards(locList):
         #     card_info[address] = {}
 
         # get report for each q
-        report = Report.objects.filter(infraID=q.infraID)
+        report_q = Report.objects.filter(infraID=q.infraID).order_by("-updatedAt")
+        for qObject in report_q:
+            comment_list.append(
+                (qObject.comment, qObject.user.username, qObject.updatedAt)
+            )
         # print(report)
         # print(len(report))
-        if len(report) != 0:
+        if len(report_q) != 0:
             # print(report)
-            report = report[0]
-            comment = report.comment
+            report = report_q[0]
+            comment = comment_list
             created = report.createdAt
             updated = report.updatedAt
         else:

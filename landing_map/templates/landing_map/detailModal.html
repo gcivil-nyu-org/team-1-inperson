@@ -26,10 +26,10 @@
                     <h5>Updates: </h5>
 
                     <!-- all updates -->
-                    {% for username, comment, updatedAt in report.desc %}
+                    {% for username, comment, updatedAt in card.comment %}
 
                     <!-- all updates -->
-                    <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px;">
+                    <div style="background-color:#ECECEC; border-radius: 5px; margin-bottom: 5px; overflow-wrap: break-word;">
                         <div style="padding: 10px;">
                             <p style="font-size:smaller; margin-bottom: 1px;"> 
                                 <b style="color:#18435A;">{{comment}} </b>{{updatedAt}}</p>
@@ -43,12 +43,6 @@
                 
             </div>
             <div class="modal-footer">
-
-                <!-- thumbs up button -->
-                <button type="button" class="btn btn-default verify"> 
-                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                    7
-                </button>
 
                 <!-- resolve report -->
                 <form action = "{% url 'resolve_report' %}" method = "POST" class="verify">
