@@ -324,3 +324,58 @@ class HelpPageTests(TestCase):
         email = mail.outbox[0].body
         target = "email@mail.domain Sent the following message:\nthe message"
         self.assertEquals(email, target)
+
+
+class DeleteAccountTests(TestCase):
+    def test_password_not_entered(self):
+        c = Client()
+        post = {"password_confirmation": ""}
+        response = c.post("/accounts/deleteacc/?", post)
+        message = [str(m) for m in response.context["messages"]]
+        target = "Please enter your password"
+        self.assertEqual(message[0], target)
+
+    def test_account_deleted(self):
+        c = Client()
+        password = "something_very_s3cur3"
+        user_details = {
+            "username": "realuser",
+            "email": "someone@domain.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password1": password,
+            "password2": password,
+        }
+        form = CreateUserForm(user_details)
+        form.save()
+        request = c.post("/accounts/login/")
+        user = authenticate(request, username="realuser", password=password)
+        c.force_login(user)
+        post = {"password_confirmation": password}
+        response = c.post("/accounts/deleteacc/?", post, follow=True)
+        actual = response.redirect_chain
+        target = [("/accounts/deleted/", 302)]
+        self.assertEqual(target, actual)
+
+    def test_password_incorrect(self):
+        c = Client()
+        password = "something_very_s3cur3"
+        wrong_password = "something_else"
+        user_details = {
+            "username": "realuser",
+            "email": "someone@domain.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password1": password,
+            "password2": password,
+        }
+        form = CreateUserForm(user_details)
+        form.save()
+        request = c.post("/accounts/login/")
+        user = authenticate(request, username="realuser", password=password)
+        c.force_login(user)
+        post = {"password_confirmation": wrong_password}
+        response = c.post(f"/accounts/deleteacc/?{wrong_password}", post, follow=True)
+        message = [str(m) for m in response.context["messages"]]
+        target = "Password is incorrect. Try again"
+        self.assertEqual(message[0], target)
