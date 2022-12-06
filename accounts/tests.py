@@ -380,6 +380,7 @@ class DeleteAccountTests(TestCase):
         target = "Password is incorrect. Try again"
         self.assertEqual(message[0], target)
 
+
 # class ProfilePageTests(TestCase):
 #     def test_change_first(self):
 #         c = Client()
@@ -403,11 +404,11 @@ class DeleteAccountTests(TestCase):
 #                 'pwform':password}
 #         request = c.post(f"/accounts/profile?fnform=new_first&lnform=User&pwform={password}", post, follow=True)
 #         print(user.first_name)
-        # self.assertEqual()
+# self.assertEqual()
 
-    # def test_change_last(self):
-    #     pass
-    # def test_repeat_password(self):
-    #     pass
-    # def change_password(self):
-    #     pass
+# def test_change_last(self):
+#     pass
+# def test_repeat_password(self):
+#     pass
+# def change_password(self):
+#     pass
