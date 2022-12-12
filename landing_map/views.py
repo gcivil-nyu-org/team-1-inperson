@@ -244,7 +244,7 @@ def report(request):
         if request.method == "POST":
 
             infra = request.POST.get("infraID")
-            obj = Accessible_location.objects.get(pk=infra)
+            obj = Accessible_location.objects.filter(pk=infra)[0]
             # Hopefully stops multiple reports from being saved, Probably need better solution
             if not obj.isAccessible:
                 return HttpResponse("Report already made! Please reload")
@@ -262,12 +262,13 @@ def report(request):
 def resolve_report(request):
     if request.user.is_authenticated:
         infra = request.POST.get("infraID")
-        print("INFRA: ", infra)
-        locObj = Accessible_location.objects.get(pk=infra)
-        locObj.isAccessible = True
-        locObj.save()
-        Report.objects.get(infraID=infra).delete()
-
+        locObjs = Accessible_location.objects.filter(pk=infra)
+        for locObj in locObjs:
+            locObj.isAccessible = True
+            locObj.save()
+        ReportObjs = Report.objects.filter(infraID=infra)
+        for reportObj in ReportObjs:
+            reportObj.delete()
         return redirect(request.META.get("HTTP_REFERER"))
     else:
         return redirect("login")
@@ -276,31 +277,27 @@ def resolve_report(request):
 def report_update(request):
     # print(request)
     if request.user.is_authenticated:
-        x = request.POST.get("x_coord")
-        y = request.POST.get("y_coord")
+        # x = request.POST.get("x_coord")
+        # y = request.POST.get("y_coord")
         # desc = request.POST.get("comment")
         infra = request.POST.get("infraID")
         reportObj = Report.objects.filter(infraID=infra)[0]
-        obj = Accessible_location.objects.get(pk=infra)
+        obj = Accessible_location.objects.filter(pk=infra)[0]
         # Hopefully stops multiple reports from being saved, Probably need better solution
         # obj.isAccessible = False
         # obj.save()
         post_update = request.POST.get("comment")
         # print(post_update)
         newReport = Report(user=request.user, infraID=obj, comment=post_update)
-        print("NEW REPORT: ", newReport.createdAt)
-        print("EXIST REPORT: ", reportObj.createdAt)
+        # print("NEW REPORT: ", newReport.createdAt)
+        # print("EXIST REPORT: ", reportObj.createdAt)
         newReport.createdAt = reportObj.createdAt
-        print("CHANGED REPORT: ", newReport.createdAt)
+        # print("CHANGED REPORT: ", newReport.createdAt)
         newReport.save()
         # print("INSIDE FUNC")
         # print(reportObj)
-        pageURL = (
-            "/home/?radiusRange=0.5&currentlyAccessible=true&currentlyInaccessibleCheck=true&rampsCheck="
-            "true&poleCheck=true&sidewalkCheck=true&x-co={x}&y-co={y}".format(x=x, y=y)
-        )
 
-        return redirect(pageURL)
+        return redirect(request.META.get("HTTP_REFERER"))
     else:
         return redirect("login")
 
