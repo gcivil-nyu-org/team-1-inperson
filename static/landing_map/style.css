@@ -219,8 +219,8 @@ div.table-lowvision{
   position: absolute;
   z-index: 1;
   bottom: 105%;
-  left: 50%;
-  margin-left: -50px;
+  left: -10%;
+  margin-left: 135px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -231,9 +231,6 @@ div.table-lowvision{
   top: 100%;
   left: 50%;
   margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
 }
 
 .shareButton:hover .sharetooltiptext {

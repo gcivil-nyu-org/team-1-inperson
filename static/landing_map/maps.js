@@ -192,7 +192,7 @@ function shareLink(){
 
 function mouseOutShareTooltip() {
   var shareTooltip = document.getElementById("shareTooltip");
-  shareTooltip.innerHTML = "Share Favorite";
+  shareTooltip.innerHTML = "Share Address";
 }
 
 function copyAddress(text, id){
